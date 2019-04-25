@@ -23,7 +23,6 @@ let KirinObject = function(sel) {
 		console.error(e);
 		return;
 	}
-
 	return {
 		getNodeArr: () => nodeArr,
 		initStyle: (style = {}, defaultStyle) => {
@@ -39,20 +38,14 @@ let KirinObject = function(sel) {
 		},
 		getStyle: () => style,
 		addEvent: function(evtName, pCallback) {
-			callback = function(e) {
-				pCallback(e);
-			};
 			for (let node of nodeArr) {
-				// TODO: 그냥 pCallBack 넣으면 안되나?
-				node.addEventListener(evtName, callback);
+				node.addEventListener(evtName, pCallback);
 			}
 		},
 		removeEvent: function(evtName, callback) {
-			// TODO: 왜 이렇게 하는건지?
 			for (let node of nodeArr) {
-				node.addEventListener(evtName, callback);
+				node.removeEventListener(evtName, callback);
 			}
-			callback = null;
 		}
 	};
 };

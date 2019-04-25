@@ -10474,10 +10474,6 @@ var KirinObject = function KirinObject(sel) {
       return style;
     },
     addEvent: function addEvent(evtName, pCallback) {
-      callback = function callback(e) {
-        pCallback(e);
-      };
-
       var _iteratorNormalCompletion3 = true;
       var _didIteratorError3 = false;
       var _iteratorError3 = undefined;
@@ -10485,8 +10481,7 @@ var KirinObject = function KirinObject(sel) {
       try {
         for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
           var node = _step3.value;
-          // TODO: 그냥 pCallBack 넣으면 안되나?
-          node.addEventListener(evtName, callback);
+          node.addEventListener(evtName, pCallback);
         }
       } catch (err) {
         _didIteratorError3 = true;
@@ -10504,7 +10499,6 @@ var KirinObject = function KirinObject(sel) {
       }
     },
     removeEvent: function removeEvent(evtName, callback) {
-      // TODO: 왜 이렇게 하는건지?
       var _iteratorNormalCompletion4 = true;
       var _didIteratorError4 = false;
       var _iteratorError4 = undefined;
@@ -10512,7 +10506,7 @@ var KirinObject = function KirinObject(sel) {
       try {
         for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var node = _step4.value;
-          node.addEventListener(evtName, callback);
+          node.removeEventListener(evtName, callback);
         }
       } catch (err) {
         _didIteratorError4 = true;
@@ -10528,8 +10522,6 @@ var KirinObject = function KirinObject(sel) {
           }
         }
       }
-
-      callback = null;
     }
   };
 };
