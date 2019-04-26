@@ -10234,217 +10234,161 @@ try {
 
 /***/ }),
 
-/***/ "./src/js/button.js":
-/*!**************************!*\
-  !*** ./src/js/button.js ***!
-  \**************************/
+/***/ "./src/js/animation.js":
+/*!*****************************!*\
+  !*** ./src/js/animation.js ***!
+  \*****************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _object__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./object */ "./src/js/object.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+
+var Animation = function Animation(node) {
+  var initAttr = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["returnComputedStyle"])(node);
+  var queue = [];
+  node.style.overflow = 'hidden';
+
+  var doAnimation =
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee() {
+      var _queue$, _queue$$speed, speed, _queue$$callback, callback, name, attribtue, from, to;
+
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!(queue.length === 0)) {
+                _context.next = 2;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 2:
+              _queue$ = queue[0], _queue$$speed = _queue$.speed, speed = _queue$$speed === void 0 ? 1000 : _queue$$speed, _queue$$callback = _queue$.callback, callback = _queue$$callback === void 0 ? null : _queue$$callback, name = _queue$.name;
+              from = node.style[attribtue];
+              _context.t0 = name;
+              _context.next = _context.t0 === 'slideUp' ? 7 : _context.t0 === 'slideDown' ? 9 : 11;
+              break;
+
+            case 7:
+              attribtue = 'height'; // to = '0px';
+
+              return _context.abrupt("break", 12);
+
+            case 9:
+              attribtue = 'height'; // to = initAttr['height'];
+
+              return _context.abrupt("break", 12);
+
+            case 11:
+              return _context.abrupt("return");
+
+            case 12:
+              // console.log(speed, callback, name);
+              // console.log(to);
+              console.log(initAttr[attribtue].substr(0, initAttr[attribtue].length - 2)); // let to = initAttr[attribtue].substr(-2) - from.substr(-2);
+              // console.log(from, to);
+              // const interval = setInterval(() => {
+              //     if(node.style[attribtue] )
+              // 	node.style[attribtue] = to;
+              // }, speed);
+              // node.style['A'];
+              // node.style[attribtue] = to;
+              // queue[0]
+              // process
+              // queue shift
+              // doAnimation()
+
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function doAnimation() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var genAnim = function genAnim() {};
+
+  return {
+    stop: function stop() {},
+    animate: function animate(anim) {
+      queue.push(anim);
+      if (queue.length === 1) doAnimation();
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Animation);
+
+/***/ }),
+
+/***/ "./src/js/effects.js":
+/*!***************************!*\
+  !*** ./src/js/effects.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 
 'use strict';
 
-var KirinButton = function KirinButton(sel) {
-  var obj = _object__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, sel);
-  return _objectSpread({}, obj, {
-    initStyle: function initStyle() {
-      var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      obj.initStyle(style, _constants__WEBPACK_IMPORTED_MODULE_1__["buttonStyle"].init);
-    }
-  });
+var animate = function animate(_ref) {
+  var _ref$speed = _ref.speed,
+      speed = _ref$speed === void 0 ? 1000 : _ref$speed,
+      to = _ref.to,
+      easing = _ref.easing,
+      _ref$callback = _ref.callback,
+      callback = _ref$callback === void 0 ? null : _ref$callback;
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (KirinButton);
-
-/***/ }),
-
-/***/ "./src/js/constants.js":
-/*!*****************************!*\
-  !*** ./src/js/constants.js ***!
-  \*****************************/
-/*! exports provided: buttonStyle, prefixArr */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buttonStyle", function() { return buttonStyle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "prefixArr", function() { return prefixArr; });
-
-
-var buttonStyle = {
-  init: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '110px',
-    height: '50px',
-    border: 'solid 1px black',
-    borderRadius: '4px',
-    transition: '0.5s'
-  }
-};
-var prefixArr = ['webkit', 'moz', 'o', 'ms'];
-
-
-/***/ }),
-
-/***/ "./src/js/functions.js":
-/*!*****************************!*\
-  !*** ./src/js/functions.js ***!
-  \*****************************/
-/*! exports provided: setStyle, returnComputedStyle */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setStyle", function() { return setStyle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "returnComputedStyle", function() { return returnComputedStyle; });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
-
-
-
-
-var setStyle = function setStyle(node, style) {
-  var _style = Object.entries(style);
-
-  for (var _i = 0, _style2 = _style; _i < _style2.length; _i++) {
-    var v = _style2[_i];
-    node.style[v[0]] = v[1];
-    var temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = _constants__WEBPACK_IMPORTED_MODULE_0__["prefixArr"][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var el = _step.value;
-        node.style[el + temp] = v[1];
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-          _iterator["return"]();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-  }
-};
-
-var returnComputedStyle = function returnComputedStyle(node, property) {
-  return window.getComputedStyle(node)[property];
-};
-
-
-
-/***/ }),
-
-/***/ "./src/js/kirin.js":
-/*!*************************!*\
-  !*** ./src/js/kirin.js ***!
-  \*************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
-/* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./slider */ "./src/js/slider.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
-
-
-
-var Kirin;
-window.Kirin = Kirin = Kirin || {};
-Kirin.Button = _button__WEBPACK_IMPORTED_MODULE_0__["default"];
-Kirin.Slider = _slider__WEBPACK_IMPORTED_MODULE_1__["default"];
-Kirin.noConflict = _utils__WEBPACK_IMPORTED_MODULE_2__["noConflict"];
-
-/***/ }),
-
-/***/ "./src/js/object.js":
-/*!**************************!*\
-  !*** ./src/js/object.js ***!
-  \**************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
-
-'use strict'; // Constructor
-
-
-var KirinObject = function KirinObject(sel) {
-  var selector, nodeArr, style, callback;
+var effects = function effects(nodeArr) {
+  var length = nodeArr.length;
+  var animations = [];
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
 
   try {
-    if (sel && typeof sel === 'string') {
-      nodeArr = document.querySelectorAll(sel);
-      if (!nodeArr || nodeArr.length === 0) throw new Error("Didn't find any element-node from this argumnets: \"".concat(sel, "\""));else {// for (let v of nodeArr) {
-        // 	const temp = returnComputedStyle(v, 'display');
-        // 	if (temp !== 'inline-block' && temp !== 'block')
-        // 		throw new Error(`Not supported display value of element : ${temp}`);
-        // }
+    for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var node = _step.value;
+      animations.push(Object(_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(node));
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+        _iterator["return"]();
       }
-    } else throw new Error('Arguments Error');
-  } catch (e) {
-    console.error(e);
-    return;
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
   }
 
   return {
-    getNodeArr: function getNodeArr() {
-      return nodeArr;
-    },
-    initStyle: function initStyle() {
-      var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var defaultStyle = arguments.length > 1 ? arguments[1] : undefined;
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var node = _step.value;
-
-          Object(_functions__WEBPACK_IMPORTED_MODULE_0__["setStyle"])(node, defaultStyle);
-
-          Object(_functions__WEBPACK_IMPORTED_MODULE_0__["setStyle"])(node, style);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-    },
-    setStyle: function setStyle() {
-      var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    click: function click(callback) {
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
       var _iteratorError2 = undefined;
@@ -10452,8 +10396,7 @@ var KirinObject = function KirinObject(sel) {
       try {
         for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var node = _step2.value;
-
-          Object(_functions__WEBPACK_IMPORTED_MODULE_0__["setStyle"])(node, style);
+          node.addEventListener('click', callback);
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -10470,105 +10413,142 @@ var KirinObject = function KirinObject(sel) {
         }
       }
     },
-    getStyle: function getStyle() {
-      return style;
-    },
-    addEvent: function addEvent(evtName, pCallback) {
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var node = _step3.value;
-          node.addEventListener(evtName, pCallback);
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-            _iterator3["return"]();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
+    slideUp: function slideUp(speed, callback) {
+      for (var i = 0; i < length; i++) {
+        animations[i].animate({
+          speed: speed,
+          callback: callback,
+          name: 'slideUp'
+        });
       }
     },
-    removeEvent: function removeEvent(evtName, callback) {
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
-
-      try {
-        for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          var node = _step4.value;
-          node.removeEventListener(evtName, callback);
-        }
-      } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-            _iterator4["return"]();
-          }
-        } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
-          }
-        }
+    slideDown: function slideDown(speed, callback) {
+      for (var i = 0; i < length; i++) {
+        animations[i].animate({
+          speed: speed,
+          callback: callback,
+          name: 'slideDown'
+        });
+      }
+    },
+    slideToggle: function slideToggle(speed, callback) {
+      for (var i = 0; i < length; i++) {
+        animations[i].animate({
+          speed: speed,
+          callback: callback,
+          name: 'slideToggle'
+        });
+      }
+    },
+    stop: function stop() {
+      for (var i = 0; i < length; i++) {
+        animations[i].stop();
       }
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (KirinObject);
+/* harmony default export */ __webpack_exports__["default"] = (effects);
 
 /***/ }),
 
-/***/ "./src/js/slider.js":
-/*!**************************!*\
-  !*** ./src/js/slider.js ***!
-  \**************************/
+/***/ "./src/js/kirin.js":
+/*!*************************!*\
+  !*** ./src/js/kirin.js ***!
+  \*************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selector */ "./src/js/selector.js");
+// import KirinButton from './button';
+// import KirinSlider from './slider';
+// import { noConflict } from './utils';
+
+var Kirin;
+window.Kirin = Kirin = Kirin || {};
+Kirin.select = _selector__WEBPACK_IMPORTED_MODULE_0__["default"]; // Kirin.Button = KirinButton;
+// Kirin.Slider = KirinSlider;
+// Kirin.noConflict = noConflict;
+
+/***/ }),
+
+/***/ "./src/js/proto.js":
+/*!*************************!*\
+  !*** ./src/js/proto.js ***!
+  \*************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _object__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./object */ "./src/js/object.js");
+/* harmony import */ var _effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./effects */ "./src/js/effects.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
-'use strict';
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var KirinSlider = function KirinSlider(sel) {};
 
-/* harmony default export */ __webpack_exports__["default"] = (KirinSlider);
+
+var proto = function proto(nodeArr) {
+  return _objectSpread({}, Object(_effects__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (proto);
 
 /***/ }),
 
-/***/ "./src/js/utils.js":
-/*!*************************!*\
-  !*** ./src/js/utils.js ***!
-  \*************************/
-/*! exports provided: noConflict */
+/***/ "./src/js/selector.js":
+/*!****************************!*\
+  !*** ./src/js/selector.js ***!
+  \****************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noConflict", function() { return noConflict; });
-var _Kirin = window.Kirin;
+/* harmony import */ var _proto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./proto */ "./src/js/proto.js");
 
-var noConflict = function noConflict(deep) {
-  var temp = window.Kirin;
+'use strict'; // Constructor
 
-  if (deep && window.Kirin === Kirin) {
-    window.Kirin = _Kirin;
+
+var Selector = function Selector(sel) {
+  var nodeArr, nodeArrProto;
+
+  try {
+    if (sel && typeof sel === 'string') {
+      nodeArr = document.querySelectorAll(sel);
+      if (!nodeArr || nodeArr.length === 0) throw new Error("Didn't find any element-node from this argumnets: \"".concat(sel, "\""));
+    } else throw new Error('Arguments Error');
+  } catch (e) {
+    console.error(e);
+    return;
   }
 
-  return temp;
+  nodeArrProto = Object(_proto__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr);
+  Object.setPrototypeOf(nodeArrProto, Object.getPrototypeOf(nodeArr));
+  Object.setPrototypeOf(nodeArr, nodeArrProto);
+  return nodeArr;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Selector);
+
+/***/ }),
+
+/***/ "./src/js/utils/functions.js":
+/*!***********************************!*\
+  !*** ./src/js/utils/functions.js ***!
+  \***********************************/
+/*! exports provided: returnComputedStyle */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "returnComputedStyle", function() { return returnComputedStyle; });
+
+
+var returnComputedStyle = function returnComputedStyle(node, property) {
+  return property ? window.getComputedStyle(node)[property] : window.getComputedStyle(node);
 };
 
 

@@ -1,1 +1,17 @@
+.target {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: solid 1px salmon;
+	width: 400px;
+	height: 300px;
+}
 
+.a {
+	height: 200px;
+}
+
+.b {
+	height: 350px;
+}

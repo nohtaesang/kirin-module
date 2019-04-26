@@ -1,12 +1,15 @@
-import KirinButton from './button';
-import KirinSlider from './slider';
-import { noConflict } from './utils';
+// import KirinButton from './button';
+// import KirinSlider from './slider';
+// import { noConflict } from './utils';
+import KirinSelector from './selector';
 
 let Kirin;
 
 window.Kirin = Kirin = Kirin || {};
 
-Kirin.Button = KirinButton;
-Kirin.Slider = KirinSlider;
+Kirin.select = KirinSelector;
 
-Kirin.noConflict = noConflict;
+// Kirin.Button = KirinButton;
+// Kirin.Slider = KirinSlider;
+
+// Kirin.noConflict = noConflict;
