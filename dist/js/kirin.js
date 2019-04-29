@@ -10234,16 +10234,16 @@ try {
 
 /***/ }),
 
-/***/ "./src/js/animation.js":
-/*!*****************************!*\
-  !*** ./src/js/animation.js ***!
-  \*****************************/
+/***/ "./src/js/animations/animation.js":
+/*!****************************************!*\
+  !*** ./src/js/animations/animation.js ***!
+  \****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
+/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/functions */ "./src/js/utils/functions.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -10289,37 +10289,62 @@ var Animation = function Animation(node) {
               anim = queue[0];
               name = anim.name;
               _context.t0 = name;
-              _context.next = _context.t0 === 'hide' ? 8 : _context.t0 === 'show' ? 8 : _context.t0 === 'hideToggle' ? 8 : _context.t0 === 'fadeIn' ? 9 : _context.t0 === 'fadeOut' ? 9 : _context.t0 === 'fadeToggle' ? 9 : _context.t0 === 'fadeTo' ? 9 : _context.t0 === 'slideUp' ? 10 : _context.t0 === 'slideDown' ? 10 : _context.t0 === 'slideToggle' ? 10 : _context.t0 === 'animate' ? 13 : _context.t0 === 'stop' ? 14 : 15;
+              _context.next = _context.t0 === 'delay' ? 8 : _context.t0 === 'hide' ? 11 : _context.t0 === 'show' ? 11 : _context.t0 === 'hideToggle' ? 11 : _context.t0 === 'fadeIn' ? 14 : _context.t0 === 'fadeOut' ? 14 : _context.t0 === 'fadeToggle' ? 14 : _context.t0 === 'fadeTo' ? 14 : _context.t0 === 'slideUp' ? 17 : _context.t0 === 'slideDown' ? 17 : _context.t0 === 'slideToggle' ? 17 : _context.t0 === 'animate' ? 20 : _context.t0 === 'stop' ? 23 : 24;
               break;
 
             case 8:
-              return _context.abrupt("break", 15);
-
-            case 9:
-              return _context.abrupt("break", 15);
+              _context.next = 10;
+              return delayAnimation(anim);
 
             case 10:
-              _context.next = 12;
-              return slideAnimation(anim);
+              return _context.abrupt("break", 24);
 
-            case 12:
-              return _context.abrupt("break", 15);
+            case 11:
+              _context.next = 13;
+              return hideAnimation(anim);
 
             case 13:
-              return _context.abrupt("break", 15);
+              return _context.abrupt("break", 24);
 
             case 14:
-              return _context.abrupt("break", 15);
-
-            case 15:
-              if (isStop) {
-                queue = [];
-              } else {
-                queue.shift();
-                doAnimation();
-              }
+              _context.next = 16;
+              return fadeAnimation(anim);
 
             case 16:
+              return _context.abrupt("break", 24);
+
+            case 17:
+              _context.next = 19;
+              return slideAnimation(anim);
+
+            case 19:
+              return _context.abrupt("break", 24);
+
+            case 20:
+              _context.next = 22;
+              return animateAnimation(anim);
+
+            case 22:
+              return _context.abrupt("break", 24);
+
+            case 23:
+              return _context.abrupt("break", 24);
+
+            case 24:
+              if (!isStop) {
+                _context.next = 29;
+                break;
+              }
+
+              queue = [];
+              return _context.abrupt("return", false);
+
+            case 29:
+              queue.shift();
+              doAnimation();
+              return _context.abrupt("return", true);
+
+            case 32:
             case "end":
               return _context.stop();
           }
@@ -10332,17 +10357,111 @@ var Animation = function Animation(node) {
     };
   }();
 
+  var delayAnimation = function delayAnimation(anim) {
+    return new Promise(function (resolve, reject) {
+      var name = anim.name,
+          delay = anim.delay,
+          callback = anim.callback;
+      setTimeout(function () {
+        Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["doCallback"])(callback);
+        resolve(true);
+      }, delay);
+    });
+  };
+
+  var hideAnimation = function hideAnimation(anim) {
+    return new Promise(function (resolve, reject) {
+      var name = anim.name,
+          display = anim.display,
+          delay = anim.delay,
+          callback = anim.callback;
+      node.style.transition = '0s';
+      var nextDisplay;
+
+      switch (name) {
+        case 'hide':
+          nextDisplay = 'none';
+          break;
+
+        case 'show':
+          nextDisplay = display;
+          break;
+
+        case 'hideToggle':
+          nextDisplay = initAttr.display === display ? 'none' : display;
+          break;
+      }
+
+      setTimeout(function () {
+        node.style.display = nextDisplay;
+        Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["doCallback"])(callback);
+        resolve(true);
+      }, delay);
+    });
+  };
+
+  var fadeAnimation = function fadeAnimation(anim) {
+    return new Promise(function (resolve, reject) {
+      var name = anim.name,
+          display = anim.display,
+          duration = anim.duration,
+          ease = anim.ease,
+          to = anim.to,
+          callback = anim.callback;
+      node.style.transition = "".concat(duration, "s ").concat(ease);
+      var nextOpacity;
+
+      switch (name) {
+        case 'fadeIn':
+          node.style.display = display;
+          nextOpacity = 1;
+          break;
+
+        case 'fadeOut':
+          nextOpacity = 0;
+          break;
+
+        case 'fadeToggle':
+          node.style.display = display;
+          nextOpacity = initAttr.opacity * 1 === 0 ? 1 : 0;
+          break;
+
+        case 'fadeTo':
+          node.style.display = display;
+          nextOpacity = to;
+          break;
+      }
+
+      node.style.opacity = nextOpacity;
+      var id = setInterval(function () {
+        if (initAttr.opacity === node.style.opacity) {
+          if (node.style.opacity === '0') {
+            node.style.display = 'none';
+          }
+
+          Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["doCallback"])(callback);
+          clearInterval(id);
+          resolve(true);
+        }
+
+        if (isStop) {
+          node.style.opacity = initAttr.opacity;
+          clearInterval(id);
+          resolve(true);
+        }
+      }, 10);
+    });
+  };
+
   var slideAnimation = function slideAnimation(anim) {
     return new Promise(function (resolve, reject) {
       var name = anim.name,
+          display = anim.display,
           height = anim.height,
-          _anim$duration = anim.duration,
-          duration = _anim$duration === void 0 ? 1 : _anim$duration,
-          _anim$ease = anim.ease,
-          ease = _anim$ease === void 0 ? 'ease' : _anim$ease,
-          _anim$callback = anim.callback,
-          callback = _anim$callback === void 0 ? null : _anim$callback;
-      node.style.visibility = 'visible';
+          duration = anim.duration,
+          ease = anim.ease,
+          callback = anim.callback;
+      node.style.display = display;
       node.style.overflow = 'hidden';
       node.style.transition = "".concat(duration, "s ").concat(ease);
       var nextHeight;
@@ -10357,22 +10476,54 @@ var Animation = function Animation(node) {
           break;
 
         case 'slideToggle':
-          nextHeight = initAttr['height'] === '0px' ? height : '0px';
+          nextHeight = initAttr.height === '0px' ? height : '0px';
           break;
       }
 
       node.style.height = nextHeight;
       var id = setInterval(function () {
         if (isStop) {
-          node.style.height = initAttr['height'];
+          node.style.height = initAttr.height;
           clearInterval(id);
           resolve(true);
         }
 
-        if (initAttr['height'] === node.style.height) {
-          if (initAttr['height'] === '0px') {
-            node.style.transition = '0s';
-            node.style.visibility = 'hidden';
+        if (initAttr.height === node.style.height) {
+          if (node.style.height === '0px') {
+            node.style.display = 'none';
+          }
+
+          Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["doCallback"])(callback);
+          clearInterval(id);
+          resolve(true);
+        }
+      }, 10);
+    });
+  };
+
+  var animateAnimation = function animateAnimation(anim) {
+    return new Promise(function (resolve, reject) {
+      var params = anim.params,
+          duration = anim.duration,
+          ease = anim.ease,
+          callback = anim.callback;
+      node.style.transition = "".concat(duration, "s ").concat(ease);
+
+      for (var prop in params) {
+        node.style[prop] = params[prop];
+      }
+
+      var key = Object.keys(params)[0];
+      var id = setInterval(function () {
+        if (initAttr[key] === node.style[key]) {
+          Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["doCallback"])(callback);
+          clearInterval(id);
+          resolve(true);
+        }
+
+        if (isStop) {
+          for (var _prop in params) {
+            node.style[_prop] = initAttr[_prop];
           }
 
           clearInterval(id);
@@ -10401,7 +10552,7 @@ var Animation = function Animation(node) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+/* harmony import */ var _animations_animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animations/animation */ "./src/js/animations/animation.js");
 /* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
 
 
@@ -10411,6 +10562,7 @@ var effects = function effects(nodeArr) {
   var length = nodeArr.length;
   var animations = [];
   var initHeight = [];
+  var initDisplay = [];
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
@@ -10418,8 +10570,14 @@ var effects = function effects(nodeArr) {
   try {
     for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var node = _step.value;
-      animations.push(Object(_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(node));
-      initHeight.push(Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["returnComputedStyle"])(node, 'height'));
+      animations.push(Object(_animations_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(node));
+
+      var _returnComputedStyle = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["returnComputedStyle"])(node),
+          height = _returnComputedStyle.height,
+          display = _returnComputedStyle.display;
+
+      initHeight.push(height);
+      initDisplay.push(display);
     }
   } catch (err) {
     _didIteratorError = true;
@@ -10436,16 +10594,128 @@ var effects = function effects(nodeArr) {
     }
   }
 
-  var slideAnimation = function slideAnimation(name, duration, ease, callback) {
+  var delayAnimation = function delayAnimation(name, option) {
+    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var delay = 1000;
+
+    if (typeof option === 'function') {
+      callback = option;
+    } else if (option) {
+      delay = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'delay', 0);
+    }
+
     for (var i = 0; i < length; i++) {
       animations[i].genAnim({
         name: name,
+        delay: delay,
+        callback: callback
+      });
+    }
+
+    return nodeArr;
+  };
+
+  var hideAnimation = function hideAnimation(name, option) {
+    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var delay = 0;
+
+    if (typeof option === 'function') {
+      callback = option;
+    } else if (option) {
+      delay = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'delay', 0);
+    }
+
+    for (var i = 0; i < length; i++) {
+      animations[i].genAnim({
+        name: name,
+        display: initDisplay[i],
+        delay: delay,
+        callback: callback
+      });
+    } // chaining을 위해
+
+
+    return nodeArr;
+  };
+
+  var fadeAnimation = function fadeAnimation(name, option) {
+    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var duration = 1,
+        ease = 'ease',
+        to = 0;
+
+    if (typeof option === 'function') {
+      callback = option;
+    } else if (option) {
+      duration = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'duration', 1);
+      ease = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'ease', 'ease');
+      to = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'to', 0);
+    }
+
+    for (var i = 0; i < length; i++) {
+      animations[i].genAnim({
+        name: name,
+        display: initDisplay[i],
+        duration: duration,
+        ease: ease,
+        to: to,
+        callback: callback
+      });
+    }
+
+    return nodeArr;
+  };
+
+  var slideAnimation = function slideAnimation(name, option) {
+    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var duration = 1,
+        ease = 'ease';
+
+    if (typeof option === 'function') {
+      callback = option;
+    } else if (option) {
+      duration = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'duration', 1);
+      ease = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'ease', 'ease');
+    }
+
+    for (var i = 0; i < length; i++) {
+      animations[i].genAnim({
+        name: name,
+        display: initDisplay[i],
         height: initHeight[i],
         duration: duration,
         ease: ease,
         callback: callback
       });
+    } // chaining을 위해
+
+
+    return nodeArr;
+  };
+
+  var animateAnimation = function animateAnimation(params, option) {
+    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var duration = 1,
+        ease = 'ease';
+
+    if (typeof option === 'function') {
+      callback = option;
+    } else if (option) {
+      duration = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'duration', 0);
+      ease = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'ease', 'ease');
     }
+
+    for (var i = 0; i < length; i++) {
+      animations[i].genAnim({
+        name: 'animate',
+        params: params,
+        duration: duration,
+        ease: ease,
+        callback: callback
+      });
+    }
+
+    return nodeArr;
   };
 
   return {
@@ -10474,14 +10744,41 @@ var effects = function effects(nodeArr) {
         }
       }
     },
-    slideUp: function slideUp(duration, ease, callback) {
-      return slideAnimation('slideUp', duration, ease, callback);
+    delay: function delay(option, callback) {
+      return delayAnimation('delay', option, callback);
     },
-    slideDown: function slideDown(duration, ease, callback) {
-      return slideAnimation('slideDown', duration, ease, callback);
+    hide: function hide(option, callback) {
+      return hideAnimation('hide', option, callback);
     },
-    slideToggle: function slideToggle(duration, ease, callback) {
-      return slideAnimation('slideToggle', duration, ease, callback);
+    show: function show(option, callback) {
+      return hideAnimation('show', option, callback);
+    },
+    hideToggle: function hideToggle(option, callback) {
+      return hideAnimation('hideToggle', option, callback);
+    },
+    fadeIn: function fadeIn(option, callback) {
+      return fadeAnimation('fadeIn', option, callback);
+    },
+    fadeOut: function fadeOut(option, callback) {
+      return fadeAnimation('fadeOut', option, callback);
+    },
+    fadeToggle: function fadeToggle(option, callback) {
+      return fadeAnimation('fadeToggle', option, callback);
+    },
+    fadeTo: function fadeTo(option, callback) {
+      return fadeAnimation('fadeTo', option, callback);
+    },
+    slideUp: function slideUp(option, callback) {
+      return slideAnimation('slideUp', option, callback);
+    },
+    slideDown: function slideDown(option, callback) {
+      return slideAnimation('slideDown', option, callback);
+    },
+    slideToggle: function slideToggle(option, callback) {
+      return slideAnimation('slideToggle', option, callback);
+    },
+    animate: function animate(params, option, callback) {
+      return animateAnimation(params, option, callback);
     },
     stop: function stop() {
       for (var i = 0; i < length; i++) {
@@ -10491,7 +10788,11 @@ var effects = function effects(nodeArr) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (effects);
+/* harmony default export */ __webpack_exports__["default"] = (effects); // 추가하고 싶은 것
+// 오늘 어느정도 하기 animate
+// 추후
+// html
+// traversing
 
 /***/ }),
 
@@ -10582,16 +10883,27 @@ var Selector = function Selector(sel) {
 /*!***********************************!*\
   !*** ./src/js/utils/functions.js ***!
   \***********************************/
-/*! exports provided: returnComputedStyle */
+/*! exports provided: returnComputedStyle, doCallback, getOwnOrInitProperty */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "returnComputedStyle", function() { return returnComputedStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "doCallback", function() { return doCallback; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOwnOrInitProperty", function() { return getOwnOrInitProperty; });
 
 
 var returnComputedStyle = function returnComputedStyle(node, property) {
   return property ? window.getComputedStyle(node)[property] : window.getComputedStyle(node);
+};
+
+var doCallback = function doCallback(callback) {
+  if (typeof callback === 'function') callback();
+};
+
+var getOwnOrInitProperty = function getOwnOrInitProperty(obj, property, init) {
+  if (!obj) return init;
+  return obj.hasOwnProperty(property) ? obj[property] : init;
 };
 
 

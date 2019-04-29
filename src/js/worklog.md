@@ -8,9 +8,26 @@
 * nodeList의 proto가 functions을 가리키니, 원래 가리키던 nodeList가 소실되어 length, symbol.iterator가 소실됨
 * nodeArr -> functions -> nodeList 의 순서로 만들어줌
 
-* slide toggle을 만들고싶음
-* jquery을 보니 높이를 0, 기본 값을 이용하는 것 같음 + dispaly none
-* animation 을 따로 만들어 node 하나가 애니메이션을 처리하도록 분리
-* animate로 speed, callback, name 을 넘김
-* 넘겨받은 값으로 queue에 저장
-* queue 순서대로 실행하도록 
+* slide
+    * slideUp, slideDown, slideToggle
+    * duration, ease, callback
+    * 둘다 없을 경우, option만, callback만, 둘 다 있을 경우 => 분기처리
+    * getOwnOrInitProperty() 함수를 만들어서, option에 property를 검사 후 있으면 그 속성을, 없으면 init을 반환하도록
+    * css를 이용, transition을 설정하고 높이를 설정, visibility를 설정
+    * 애니메이션 종료 후 콜백을 실행하기 위해 doCallback() 함수 만듬
+    * node 하나당 animation 클로저를 하나 가짐
+    * genAnim 함수로 클로저 안의 queue에 애니메이션을 추가함
+    * queue에 들어온 순서대로 애니메이션 처리
+
+* hide
+    * hide, show, hideToggle
+    * delay, callback
+
+* chaining을 위해 return nodeArr를 추가
+* queue에 추가되므로, 알아서 실행됨
+
+* fade
+
+* visibility 대신 display 사용
+
+* delay 추가
