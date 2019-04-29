@@ -1,14 +1,28 @@
 import Animation from './animation';
+import { returnComputedStyle } from './utils/functions';
 ('use strict');
-const animate = ({ speed = 1000, to, easing, callback = null }) => {};
 
 const effects = (nodeArr) => {
 	const length = nodeArr.length;
 	const animations = [];
+	const initHeight = [];
 
 	for (let node of nodeArr) {
 		animations.push(Animation(node));
+		initHeight.push(returnComputedStyle(node, 'height'));
 	}
+
+	const slideAnimation = (name, duration, ease, callback) => {
+		for (let i = 0; i < length; i++) {
+			animations[i].genAnim({
+				name,
+				height: initHeight[i],
+				duration,
+				ease,
+				callback
+			});
+		}
+	};
 
 	return {
 		click: (callback) => {
@@ -16,21 +30,9 @@ const effects = (nodeArr) => {
 				node.addEventListener('click', callback);
 			}
 		},
-		slideUp: (speed, callback) => {
-			for (let i = 0; i < length; i++) {
-				animations[i].animate({ speed, callback, name: 'slideUp' });
-			}
-		},
-		slideDown: (speed, callback) => {
-			for (let i = 0; i < length; i++) {
-				animations[i].animate({ speed, callback, name: 'slideDown' });
-			}
-		},
-		slideToggle: (speed, callback) => {
-			for (let i = 0; i < length; i++) {
-				animations[i].animate({ speed, callback, name: 'slideToggle' });
-			}
-		},
+		slideUp: (duration, ease, callback) => slideAnimation('slideUp', duration, ease, callback),
+		slideDown: (duration, ease, callback) => slideAnimation('slideDown', duration, ease, callback),
+		slideToggle: (duration, ease, callback) => slideAnimation('slideToggle', duration, ease, callback),
 		stop: () => {
 			for (let i = 0; i < length; i++) {
 				animations[i].stop();

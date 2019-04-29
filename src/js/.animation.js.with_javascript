@@ -1,0 +1,98 @@
+import { returnComputedStyle } from './utils/functions';
+// import { slideUp, slideDown, slideToggle } from './animations/slide';
+
+('use strict');
+
+const Animation = (node) => {
+	// * 1. queue and animated by javascript
+	// const initAttr = returnComputedStyle(node);
+	// let queue = [];
+	// let isStop = false;
+
+	// const animate = async (anim) => {
+	// 	queue.push(anim);
+	// 	if (queue.length === 1) doAnimation();
+	// };
+
+	// const doAnimation = async () => {
+	// 	if (queue.length === 0) return;
+	// 	isStop = false;
+	// 	const { to, duration = 1, ease = 'default', callback = null, name } = queue[0];
+	// 	switch (name) {
+	// 		case 'slideUp':
+	// 			await slideUp(to, duration, ease, callback);
+	// 			break;
+	// 		case 'slideDown':
+	// 			await slideDown(to, duration, ease, callback);
+	// 			break;
+	// 		case 'slideToggle':
+	// 			await slideToggle();
+	// 			break;
+	// 		default:
+	// 			return;
+	// 	}
+
+	// 	if (isStop) {
+	// 		queue = [];
+	// 	} else {
+	// 		queue.shift();
+	// 		doAnimation();
+	// 	}
+	// };
+
+	// const stop = () => {
+	// 	isStop = true;
+	// };
+
+	// const slideUp = ({ to, duration, ease, callback }) =>
+	// 	new Promise((resolve, reject) => {
+	// 		node.style.overflow = 'hidden';
+	// 		let from = initAttr['height'].substr(0, initAttr['height'].length - 2) * 1;
+	// 		const anim = setInterval(() => {
+	// 			if (isStop) {
+	// 				clearInterval(anim);
+	// 				resolve(false);
+	// 			}
+	// 			if (from <= to) {
+	// 				clearInterval(anim);
+	// 				node.style.visibility = 'hidden';
+	// 				resolve(true);
+	// 			} else {
+	// 				from--;
+	// 				node.style['height'] = from + 'px';
+	// 			}
+	// 		}, 10);
+	// 	});
+
+	// const slideDown = ({ to, duration, ease, callback }) =>
+	// 	new Promise((resolve, reject) => {
+	// 		node.style.overflow = 'hidden';
+	// 		node.style.visibility = 'visible';
+	// 		let from = initAttr['height'].substr(0, initAttr['height'].length - 2) * 1;
+	// 		let anim = setInterval(() => {
+	// 			if (isStop) {
+	// 				clearInterval(anim);
+	// 				resolve(false);
+	// 			}
+	// 			if (from >= to) {
+	// 				clearInterval(anim);
+	// 				resolve(true);
+	// 			} else {
+	// 				from++;
+	// 				node.style['height'] = from + 'px';
+	// 			}
+	// 		}, 10);
+	// 	});
+
+	// const slideToggle = (node) => {};
+
+	// const genAnim = () => {};
+
+
+	return {
+		animate,
+		stop
+	};
+};
+
+export default Animation;

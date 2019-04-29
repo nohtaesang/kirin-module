@@ -10249,11 +10249,21 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+'use strict';
 
 var Animation = function Animation(node) {
-  var initAttr = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["returnComputedStyle"])(node);
   var queue = [];
-  node.style.overflow = 'hidden';
+  var initAttr = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["returnComputedStyle"])(node);
+  var isStop = false;
+
+  var genAnim = function genAnim(anim) {
+    queue.push(anim);
+    if (queue.length === 1) doAnimation();
+  };
+
+  var stop = function stop() {
+    isStop = true;
+  };
 
   var doAnimation =
   /*#__PURE__*/
@@ -10261,56 +10271,55 @@ var Animation = function Animation(node) {
     var _ref = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee() {
-      var _queue$, _queue$$speed, speed, _queue$$callback, callback, name, attribtue, from, to;
-
+      var anim, name;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              isStop = false;
+
               if (!(queue.length === 0)) {
-                _context.next = 2;
+                _context.next = 3;
                 break;
               }
 
               return _context.abrupt("return");
 
-            case 2:
-              _queue$ = queue[0], _queue$$speed = _queue$.speed, speed = _queue$$speed === void 0 ? 1000 : _queue$$speed, _queue$$callback = _queue$.callback, callback = _queue$$callback === void 0 ? null : _queue$$callback, name = _queue$.name;
-              from = node.style[attribtue];
+            case 3:
+              anim = queue[0];
+              name = anim.name;
               _context.t0 = name;
-              _context.next = _context.t0 === 'slideUp' ? 7 : _context.t0 === 'slideDown' ? 9 : 11;
+              _context.next = _context.t0 === 'hide' ? 8 : _context.t0 === 'show' ? 8 : _context.t0 === 'hideToggle' ? 8 : _context.t0 === 'fadeIn' ? 9 : _context.t0 === 'fadeOut' ? 9 : _context.t0 === 'fadeToggle' ? 9 : _context.t0 === 'fadeTo' ? 9 : _context.t0 === 'slideUp' ? 10 : _context.t0 === 'slideDown' ? 10 : _context.t0 === 'slideToggle' ? 10 : _context.t0 === 'animate' ? 13 : _context.t0 === 'stop' ? 14 : 15;
               break;
 
-            case 7:
-              attribtue = 'height'; // to = '0px';
-
-              return _context.abrupt("break", 12);
+            case 8:
+              return _context.abrupt("break", 15);
 
             case 9:
-              attribtue = 'height'; // to = initAttr['height'];
+              return _context.abrupt("break", 15);
 
-              return _context.abrupt("break", 12);
-
-            case 11:
-              return _context.abrupt("return");
+            case 10:
+              _context.next = 12;
+              return slideAnimation(anim);
 
             case 12:
-              // console.log(speed, callback, name);
-              // console.log(to);
-              console.log(initAttr[attribtue].substr(0, initAttr[attribtue].length - 2)); // let to = initAttr[attribtue].substr(-2) - from.substr(-2);
-              // console.log(from, to);
-              // const interval = setInterval(() => {
-              //     if(node.style[attribtue] )
-              // 	node.style[attribtue] = to;
-              // }, speed);
-              // node.style['A'];
-              // node.style[attribtue] = to;
-              // queue[0]
-              // process
-              // queue shift
-              // doAnimation()
+              return _context.abrupt("break", 15);
 
             case 13:
+              return _context.abrupt("break", 15);
+
+            case 14:
+              return _context.abrupt("break", 15);
+
+            case 15:
+              if (isStop) {
+                queue = [];
+              } else {
+                queue.shift();
+                doAnimation();
+              }
+
+            case 16:
             case "end":
               return _context.stop();
           }
@@ -10323,14 +10332,59 @@ var Animation = function Animation(node) {
     };
   }();
 
-  var genAnim = function genAnim() {};
+  var slideAnimation = function slideAnimation(anim) {
+    return new Promise(function (resolve, reject) {
+      var name = anim.name,
+          height = anim.height,
+          _anim$duration = anim.duration,
+          duration = _anim$duration === void 0 ? 1 : _anim$duration,
+          _anim$ease = anim.ease,
+          ease = _anim$ease === void 0 ? 'ease' : _anim$ease,
+          _anim$callback = anim.callback,
+          callback = _anim$callback === void 0 ? null : _anim$callback;
+      node.style.visibility = 'visible';
+      node.style.overflow = 'hidden';
+      node.style.transition = "".concat(duration, "s ").concat(ease);
+      var nextHeight;
+
+      switch (name) {
+        case 'slideUp':
+          nextHeight = '0px';
+          break;
+
+        case 'slideDown':
+          nextHeight = height;
+          break;
+
+        case 'slideToggle':
+          nextHeight = initAttr['height'] === '0px' ? height : '0px';
+          break;
+      }
+
+      node.style.height = nextHeight;
+      var id = setInterval(function () {
+        if (isStop) {
+          node.style.height = initAttr['height'];
+          clearInterval(id);
+          resolve(true);
+        }
+
+        if (initAttr['height'] === node.style.height) {
+          if (initAttr['height'] === '0px') {
+            node.style.transition = '0s';
+            node.style.visibility = 'hidden';
+          }
+
+          clearInterval(id);
+          resolve(true);
+        }
+      }, 10);
+    });
+  };
 
   return {
-    stop: function stop() {},
-    animate: function animate(anim) {
-      queue.push(anim);
-      if (queue.length === 1) doAnimation();
-    }
+    genAnim: genAnim,
+    stop: stop
   };
 };
 
@@ -10348,21 +10402,15 @@ var Animation = function Animation(node) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
+
 
 'use strict';
-
-var animate = function animate(_ref) {
-  var _ref$speed = _ref.speed,
-      speed = _ref$speed === void 0 ? 1000 : _ref$speed,
-      to = _ref.to,
-      easing = _ref.easing,
-      _ref$callback = _ref.callback,
-      callback = _ref$callback === void 0 ? null : _ref$callback;
-};
 
 var effects = function effects(nodeArr) {
   var length = nodeArr.length;
   var animations = [];
+  var initHeight = [];
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
@@ -10371,6 +10419,7 @@ var effects = function effects(nodeArr) {
     for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var node = _step.value;
       animations.push(Object(_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(node));
+      initHeight.push(Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["returnComputedStyle"])(node, 'height'));
     }
   } catch (err) {
     _didIteratorError = true;
@@ -10386,6 +10435,18 @@ var effects = function effects(nodeArr) {
       }
     }
   }
+
+  var slideAnimation = function slideAnimation(name, duration, ease, callback) {
+    for (var i = 0; i < length; i++) {
+      animations[i].genAnim({
+        name: name,
+        height: initHeight[i],
+        duration: duration,
+        ease: ease,
+        callback: callback
+      });
+    }
+  };
 
   return {
     click: function click(callback) {
@@ -10413,32 +10474,14 @@ var effects = function effects(nodeArr) {
         }
       }
     },
-    slideUp: function slideUp(speed, callback) {
-      for (var i = 0; i < length; i++) {
-        animations[i].animate({
-          speed: speed,
-          callback: callback,
-          name: 'slideUp'
-        });
-      }
+    slideUp: function slideUp(duration, ease, callback) {
+      return slideAnimation('slideUp', duration, ease, callback);
     },
-    slideDown: function slideDown(speed, callback) {
-      for (var i = 0; i < length; i++) {
-        animations[i].animate({
-          speed: speed,
-          callback: callback,
-          name: 'slideDown'
-        });
-      }
+    slideDown: function slideDown(duration, ease, callback) {
+      return slideAnimation('slideDown', duration, ease, callback);
     },
-    slideToggle: function slideToggle(speed, callback) {
-      for (var i = 0; i < length; i++) {
-        animations[i].animate({
-          speed: speed,
-          callback: callback,
-          name: 'slideToggle'
-        });
-      }
+    slideToggle: function slideToggle(duration, ease, callback) {
+      return slideAnimation('slideToggle', duration, ease, callback);
     },
     stop: function stop() {
       for (var i = 0; i < length; i++) {
