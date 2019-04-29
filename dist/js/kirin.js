@@ -10432,7 +10432,9 @@ var Animation = function Animation(node) {
           break;
       }
 
-      node.style.opacity = nextOpacity;
+      setTimeout(function () {
+        node.style.opacity = nextOpacity;
+      }, 10);
       var id = setInterval(function () {
         if (initAttr.opacity === node.style.opacity) {
           if (node.style.opacity === '0') {
@@ -10480,7 +10482,9 @@ var Animation = function Animation(node) {
           break;
       }
 
-      node.style.height = nextHeight;
+      setTimeout(function () {
+        node.style.height = nextHeight;
+      }, 10);
       var id = setInterval(function () {
         if (isStop) {
           node.style.height = initAttr.height;
@@ -10641,14 +10645,14 @@ var effects = function effects(nodeArr) {
   var fadeAnimation = function fadeAnimation(name, option) {
     var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     var duration = 1,
-        ease = 'ease',
+        ease = 'linear',
         to = 0;
 
     if (typeof option === 'function') {
       callback = option;
     } else if (option) {
       duration = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'duration', 1);
-      ease = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'ease', 'ease');
+      ease = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'ease', 'linear');
       to = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'to', 0);
     }
 
@@ -10669,13 +10673,13 @@ var effects = function effects(nodeArr) {
   var slideAnimation = function slideAnimation(name, option) {
     var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     var duration = 1,
-        ease = 'ease';
+        ease = 'linear';
 
     if (typeof option === 'function') {
       callback = option;
     } else if (option) {
       duration = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'duration', 1);
-      ease = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'ease', 'ease');
+      ease = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'ease', 'linear');
     }
 
     for (var i = 0; i < length; i++) {
@@ -10696,13 +10700,13 @@ var effects = function effects(nodeArr) {
   var animateAnimation = function animateAnimation(params, option) {
     var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     var duration = 1,
-        ease = 'ease';
+        ease = 'linear';
 
     if (typeof option === 'function') {
       callback = option;
     } else if (option) {
       duration = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'duration', 0);
-      ease = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'ease', 'ease');
+      ease = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getOwnOrInitProperty"])(option, 'ease', 'linear');
     }
 
     for (var i = 0; i < length; i++) {
@@ -10789,7 +10793,6 @@ var effects = function effects(nodeArr) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (effects); // 추가하고 싶은 것
-// 오늘 어느정도 하기 animate
 // 추후
 // html
 // traversing

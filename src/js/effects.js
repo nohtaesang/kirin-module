@@ -57,14 +57,14 @@ const effects = (nodeArr) => {
 
 	const fadeAnimation = (name, option, callback = null) => {
 		let duration = 1,
-			ease = 'ease',
+			ease = 'linear',
 			to = 0;
 
 		if (typeof option === 'function') {
 			callback = option;
 		} else if (option) {
 			duration = getOwnOrInitProperty(option, 'duration', 1);
-			ease = getOwnOrInitProperty(option, 'ease', 'ease');
+			ease = getOwnOrInitProperty(option, 'ease', 'linear');
 			to = getOwnOrInitProperty(option, 'to', 0);
 		}
 
@@ -84,13 +84,13 @@ const effects = (nodeArr) => {
 
 	const slideAnimation = (name, option, callback = null) => {
 		let duration = 1,
-			ease = 'ease';
+			ease = 'linear';
 
 		if (typeof option === 'function') {
 			callback = option;
 		} else if (option) {
 			duration = getOwnOrInitProperty(option, 'duration', 1);
-			ease = getOwnOrInitProperty(option, 'ease', 'ease');
+			ease = getOwnOrInitProperty(option, 'ease', 'linear');
 		}
 
 		for (let i = 0; i < length; i++) {
@@ -110,13 +110,13 @@ const effects = (nodeArr) => {
 
 	const animateAnimation = (params, option, callback = null) => {
 		let duration = 1,
-			ease = 'ease';
+			ease = 'linear';
 
 		if (typeof option === 'function') {
 			callback = option;
 		} else if (option) {
 			duration = getOwnOrInitProperty(option, 'duration', 0);
-			ease = getOwnOrInitProperty(option, 'ease', 'ease');
+			ease = getOwnOrInitProperty(option, 'ease', 'linear');
 		}
 
 		for (let i = 0; i < length; i++) {
@@ -160,7 +160,6 @@ const effects = (nodeArr) => {
 export default effects;
 
 // 추가하고 싶은 것
-// 오늘 어느정도 하기 animate
 
 // 추후
 // html

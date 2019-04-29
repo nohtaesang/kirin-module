@@ -114,7 +114,9 @@ const Animation = (node) => {
 					break;
 			}
 
-			node.style.opacity = nextOpacity;
+			setTimeout(() => {
+				node.style.opacity = nextOpacity;
+			}, 10);
 
 			const id = setInterval(() => {
 				if (initAttr.opacity === node.style.opacity) {
@@ -155,7 +157,9 @@ const Animation = (node) => {
 					break;
 			}
 
-			node.style.height = nextHeight;
+			setTimeout(() => {
+				node.style.height = nextHeight;
+			}, 10);
 
 			const id = setInterval(() => {
 				if (isStop) {
