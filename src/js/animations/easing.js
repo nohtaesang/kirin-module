@@ -1,5 +1,5 @@
 const easeFunction = (name, from, diff, time, duration) => {
-	if (duration === 0) return from + diff;
+	if (time >= duration) return from + diff;
 
 	let x = time / duration;
 	let y;

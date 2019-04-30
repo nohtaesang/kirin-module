@@ -1,5 +1,5 @@
 import effects from './effects';
-import html from './html';
+import htmlAndCss from './htmlAndCss';
 import { returnComputedStyle } from './utils/functions';
 
 const proto = (nodeArr) => {
@@ -9,8 +9,8 @@ const proto = (nodeArr) => {
 		curAttr[i] = returnComputedStyle(nodeArr[i]);
 	}
 	return {
-		...effects(nodeArr, curAttr)
-		// ...html(nodeArr, curAttr)
+		...effects(nodeArr, curAttr),
+		...htmlAndCss(nodeArr, curAttr)
 	};
 };
 

@@ -10565,7 +10565,7 @@ var Animation = function Animation(node, curAttr) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var easeFunction = function easeFunction(name, from, diff, time, duration) {
-  if (duration === 0) return from + diff;
+  if (time >= duration) return from + diff;
   var x = time / duration;
   var y;
 
@@ -10837,10 +10837,10 @@ var effects = function effects(nodeArr, curAttr) {
 
 /***/ }),
 
-/***/ "./src/js/html.js":
-/*!************************!*\
-  !*** ./src/js/html.js ***!
-  \************************/
+/***/ "./src/js/htmlAndCss.js":
+/*!******************************!*\
+  !*** ./src/js/htmlAndCss.js ***!
+  \******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10848,6 +10848,8 @@ var effects = function effects(nodeArr, curAttr) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animations_animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animations/animation */ "./src/js/animations/animation.js");
 /* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 
 'use strict';
@@ -10935,7 +10937,22 @@ var html = function html(nodeArr, initAttr) {
     }
   };
 
-  var _attr = function attr(prop, value) {// if(typeof )
+  var _attr = function attr(prop) {
+    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+    for (var _i = 0; _i < nodeArr.length; _i++) {
+      if (typeof prop === 'string') {
+        if (typeof value === 'string') {
+          nodeArr[_i].setAttribute(prop, value);
+        } else {
+          return nodeArr[_i].getAttribute(prop);
+        }
+      } else if (_typeof(prop) === 'object') {
+        for (var p in prop) {
+          nodeArr[_i].setAttribute(p, prop[p]);
+        }
+      }
+    }
   };
 
   return {
@@ -10974,7 +10991,8 @@ window.Kirin = Kirin = Kirin || {};
 Kirin.select = _selector__WEBPACK_IMPORTED_MODULE_0__["default"]; // Kirin.Button = KirinButton;
 // Kirin.Slider = KirinSlider;
 // Kirin.noConflict = noConflict;
-// 추후 추가할 기능
+// TODO:
+// effects의 click을 event로 옮기기
 // html
 // traversing
 
@@ -10990,7 +11008,7 @@ Kirin.select = _selector__WEBPACK_IMPORTED_MODULE_0__["default"]; // Kirin.Butto
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./effects */ "./src/js/effects.js");
-/* harmony import */ var _html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./html */ "./src/js/html.js");
+/* harmony import */ var _htmlAndCss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./htmlAndCss */ "./src/js/htmlAndCss.js");
 /* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -11008,7 +11026,7 @@ var proto = function proto(nodeArr) {
     curAttr[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(nodeArr[i]);
   }
 
-  return _objectSpread({}, Object(_effects__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr, curAttr));
+  return _objectSpread({}, Object(_effects__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr, curAttr), Object(_htmlAndCss__WEBPACK_IMPORTED_MODULE_1__["default"])(nodeArr, curAttr));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (proto);

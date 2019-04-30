@@ -14,6 +14,7 @@ Kirin.select = KirinSelector;
 
 // Kirin.noConflict = noConflict;
 
-// 추후 추가할 기능
+// TODO:
+// effects의 click을 event로 옮기기
 // html
 // traversing
