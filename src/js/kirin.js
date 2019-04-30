@@ -13,3 +13,7 @@ Kirin.select = KirinSelector;
 // Kirin.Slider = KirinSlider;
 
 // Kirin.noConflict = noConflict;
+
+// 추후 추가할 기능
+// html
+// traversing

@@ -31,3 +31,10 @@
 * visibility 대신 display 사용
 
 * delay 추가
+
+* git ignore
+
+* transition의 특성상, 시작 css 속성이 설정되어 있어야 한다.
+
+* 애니메이션 방식 css 에서 script로 변경
+

@@ -1,0 +1,274 @@
+import { doCallback, pxToNum } from '../utils/functions';
+import easeFunction from './easing';
+('use strict');
+
+const Animation = (node, curAttr) => {
+	let queue = [];
+	let isStop = false;
+	// node.style.transition = '1s linear';
+	// console.log(node.style.transition);
+
+	const genAnim = (anim) => {
+		queue.push(anim);
+		if (queue.length === 1) doAnimation();
+	};
+
+	const stop = () => {
+		isStop = true;
+	};
+
+	const doAnimation = async () => {
+		isStop = false;
+		if (queue.length === 0) return;
+		const anim = queue[0];
+		const { name } = anim;
+		switch (name) {
+			case 'delay':
+				await delayAnimation(anim);
+				break;
+			case 'hide':
+			case 'show':
+			case 'hideToggle':
+				await hideAnimation(anim);
+				break;
+			case 'fadeIn':
+			case 'fadeOut':
+			case 'fadeToggle':
+			case 'fadeTo':
+				await fadeAnimation(anim);
+				break;
+			case 'slideUp':
+			case 'slideDown':
+			case 'slideToggle':
+				await slideAnimation(anim);
+				break;
+			case 'animate':
+				await animateAnimation(anim);
+				break;
+			case 'stop':
+				break;
+		}
+		if (isStop) {
+			queue = [];
+			return false;
+		} else {
+			queue.shift();
+			doAnimation();
+			return true;
+		}
+	};
+
+	const delayAnimation = (anim) =>
+		new Promise((resolve, reject) => {
+			const { name, delay, callback } = anim;
+			setTimeout(() => {
+				doCallback(callback);
+				resolve(true);
+			}, delay);
+		});
+
+	const hideAnimation = (anim) =>
+		new Promise((resolve, reject) => {
+			const { name, display, delay, callback } = anim;
+			node.style.transition = '0s';
+			let nextDisplay;
+			switch (name) {
+				case 'hide':
+					nextDisplay = 'none';
+					break;
+				case 'show':
+					nextDisplay = display;
+					break;
+				case 'hideToggle':
+					nextDisplay = curAttr.display === display ? 'none' : display;
+					break;
+			}
+
+			setTimeout(() => {
+				node.style.display = nextDisplay;
+				doCallback(callback);
+				resolve(true);
+			}, delay);
+		});
+
+	const fadeAnimation = (anim) =>
+		new Promise((resolve, reject) => {
+			const { name, display, duration, easing, to, callback } = anim;
+			node.style.transition = `${duration}s ${easing}`;
+
+			let nextOpacity;
+			switch (name) {
+				case 'fadeIn':
+					node.style.display = display;
+					nextOpacity = 1;
+					break;
+				case 'fadeOut':
+					nextOpacity = 0;
+					break;
+				case 'fadeToggle':
+					node.style.display = display;
+					nextOpacity = curAttr.opacity * 1 === 0 ? 1 : 0;
+					break;
+				case 'fadeTo':
+					node.style.display = display;
+					nextOpacity = to;
+					break;
+			}
+
+			setTimeout(() => {
+				node.style.opacity = nextOpacity;
+			}, 10);
+
+			const id = setInterval(() => {
+				if (curAttr.opacity === node.style.opacity) {
+					if (node.style.opacity === '0') {
+						node.style.display = 'none';
+					}
+
+					doCallback(callback);
+					clearInterval(id);
+					resolve(true);
+				}
+
+				if (isStop) {
+					node.style.opacity = curAttr.opacity;
+					clearInterval(id);
+					resolve(true);
+				}
+			}, 10);
+		});
+
+	const slideAnimation = (anim) =>
+		new Promise((resolve, reject) => {
+			let from, to, diff, done;
+			const { name, display, height, duration, easing, callback } = anim;
+
+			from = curAttr.height;
+			switch (name) {
+				case 'slideUp':
+					to = '0px';
+					break;
+				case 'slideDown':
+					to = height;
+					break;
+				case 'slideToggle':
+					to = curAttr === '0px' ? height : '0px';
+					break;
+			}
+
+			// diff = pxToNum(to) - pxToNum(from);
+
+			// node.style.height = curAttr.height;
+			diff = pxToNum(to) - pxToNum(from);
+			let time = 0;
+			const id = setInterval(() => {
+				time += 10;
+				node.style.height = easeFunction('easeIn', pxToNum(from), diff, time, duration) + 'px';
+				console.log(easeFunction('easeIn', pxToNum(from), diff, time, duration) + 'px');
+				if (time > duration) {
+					clearInterval(id);
+					resolve(true);
+				}
+				// const from = curAttr.height;
+				// // diff = pxToNum(to) - pxToNum(from);
+				// if (Math.abs(diff) > 1) {
+				// 	if (isStop) {
+				// 		node.style.height = to;
+				// 		clearInterval(id);
+				// 		resolve(true);
+				// 	}
+				// } else {
+				// 	doCallback(callback);
+				// 	node.style.height = to;
+				// 	clearInterval(id);
+				// 	resolve(true);
+				// }
+				// if (curAttr.height === node.style.height) {
+				// 	if (node.style.height === '0px') {
+				// 		node.style.display = 'none';
+				// 	}
+				// 	doCallback(callback);
+				// 	clearInterval(id);
+				// 	resolve(true);
+				// }
+				// if (isStop) {
+				// 	node.style.height = curAttr.height;
+				// 	clearInterval(id);
+				// 	resolve(true);
+				// }
+			}, 10);
+			// css
+			// const { name, display, height, duration, easing, callback } = anim;
+			// node.style.transition = `${duration}s ${easing}`;
+			// node.style.display = display;
+			// node.style.overflow = 'hidden';
+			// let nextHeight;
+			// switch (name) {
+			// 	case 'slideUp':
+			// 		nextHeight = '0px';
+			// 		break;
+			// 	case 'slideDown':
+			// 		nextHeight = height;
+			// 		break;
+			// 	case 'slideToggle':
+			// 		nextHeight = curAttr.height === '0px' ? height : '0px';
+			// 		break;
+			// }
+			// setTimeout(() => {
+			// 	// node.setAttribute('height', nextHeight);
+			// 	node.style.height = nextHeight;
+			// }, 10);
+			// const id = setInterval(() => {
+			// 	if (isStop) {
+			// 		node.style.height = curAttr.height;
+			// 		clearInterval(id);
+			// 		resolve(true);
+			// 	}
+			// 	if (curAttr.height === node.style.height) {
+			// 		if (node.style.height === '0px') {
+			// 			node.style.display = 'none';
+			// 		}
+			// 		console.log('here');
+			// 		// node.style = '';
+			// 		doCallback(callback);
+			// 		clearInterval(id);
+			// 		resolve(true);
+			// 	}
+			// }, 20);
+		});
+
+	const animateAnimation = (anim) =>
+		new Promise((resolve, reject) => {
+			const { params, duration, easing, callback } = anim;
+
+			node.style.transition = `${duration}s ${easing}`;
+
+			for (let prop in params) {
+				node.style[prop] = params[prop];
+			}
+			const key = Object.keys(params)[0];
+
+			const id = setInterval(() => {
+				if (curAttr[key] === node.style[key]) {
+					doCallback(callback);
+					clearInterval(id);
+					resolve(true);
+				}
+
+				if (isStop) {
+					for (let prop in params) {
+						node.style[prop] = curAttr[prop];
+					}
+					clearInterval(id);
+					resolve(true);
+				}
+			}, 10);
+		});
+
+	return {
+		genAnim,
+		stop
+	};
+};
+
+export default Animation;

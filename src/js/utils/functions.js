@@ -12,4 +12,15 @@ const getOwnOrInitProperty = (obj, property, init) => {
 	return obj.hasOwnProperty(property) ? obj[property] : init;
 };
 
-export { returnComputedStyle, doCallback, getOwnOrInitProperty };
+const getStylePreAndPostFix = (prop) => {
+	let pre = prop;
+	let post = '';
+	if (typeof pre === 'string') {
+		pre = parseFloat(prop);
+		const length = (pre + '').length;
+		post = prop.substr(length, prop.length);
+	}
+	return { pre, post };
+};
+
+export { returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix };

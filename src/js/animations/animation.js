@@ -1,10 +1,9 @@
-import { returnComputedStyle, doCallback } from '../utils/functions';
-
+import { doCallback, pxToNum, getStylePreAndPostFix } from '../utils/functions';
+import easeFunction from './easing';
 ('use strict');
 
-const Animation = (node) => {
+const Animation = (node, curAttr) => {
 	let queue = [];
-	const initAttr = returnComputedStyle(node);
 	let isStop = false;
 
 	const genAnim = (anim) => {
@@ -12,13 +11,10 @@ const Animation = (node) => {
 		if (queue.length === 1) doAnimation();
 	};
 
-	const stop = () => {
-		isStop = true;
-	};
-
 	const doAnimation = async () => {
 		isStop = false;
 		if (queue.length === 0) return;
+
 		const anim = queue[0];
 		const { name } = anim;
 		switch (name) {
@@ -44,9 +40,8 @@ const Animation = (node) => {
 			case 'animate':
 				await animateAnimation(anim);
 				break;
-			case 'stop':
-				break;
 		}
+
 		if (isStop) {
 			queue = [];
 			return false;
@@ -57,9 +52,13 @@ const Animation = (node) => {
 		}
 	};
 
+	const stop = () => {
+		isStop = true;
+	};
+
 	const delayAnimation = (anim) =>
 		new Promise((resolve, reject) => {
-			const { name, delay, callback } = anim;
+			const { delay, callback } = anim;
 			setTimeout(() => {
 				doCallback(callback);
 				resolve(true);
@@ -68,23 +67,22 @@ const Animation = (node) => {
 
 	const hideAnimation = (anim) =>
 		new Promise((resolve, reject) => {
+			let toDisplay;
 			const { name, display, delay, callback } = anim;
-			node.style.transition = '0s';
-			let nextDisplay;
 			switch (name) {
 				case 'hide':
-					nextDisplay = 'none';
+					toDisplay = 'none';
 					break;
 				case 'show':
-					nextDisplay = display;
+					toDisplay = display;
 					break;
 				case 'hideToggle':
-					nextDisplay = initAttr.display === display ? 'none' : display;
+					toDisplay = curAttr.display === display ? 'none' : display;
 					break;
 			}
 
 			setTimeout(() => {
-				node.style.display = nextDisplay;
+				node.style.display = toDisplay;
 				doCallback(callback);
 				resolve(true);
 			}, delay);
@@ -92,45 +90,46 @@ const Animation = (node) => {
 
 	const fadeAnimation = (anim) =>
 		new Promise((resolve, reject) => {
-			const { name, display, duration, ease, to, callback } = anim;
-			node.style.transition = `${duration}s ${ease}`;
+			let fromOpacity, toOpacity, diff;
+			const { name, display, duration, easing, to, callback } = anim;
 
-			let nextOpacity;
+			fromOpacity = curAttr.opacity;
 			switch (name) {
 				case 'fadeIn':
 					node.style.display = display;
-					nextOpacity = 1;
+					toOpacity = 1;
 					break;
 				case 'fadeOut':
-					nextOpacity = 0;
+					toOpacity = 0;
 					break;
 				case 'fadeToggle':
 					node.style.display = display;
-					nextOpacity = initAttr.opacity * 1 === 0 ? 1 : 0;
+					toOpacity = parseFloat(fromOpacity) === 0 ? 1 : 0;
 					break;
 				case 'fadeTo':
 					node.style.display = display;
-					nextOpacity = to;
+					toOpacity = to;
 					break;
 			}
 
-			setTimeout(() => {
-				node.style.opacity = nextOpacity;
-			}, 10);
+			diff = parseFloat(toOpacity) - parseFloat(fromOpacity);
 
+			let time = 0;
 			const id = setInterval(() => {
-				if (initAttr.opacity === node.style.opacity) {
-					if (node.style.opacity === '0') {
+				time += 10;
+				node.style.opacity = easeFunction(easing, parseFloat(fromOpacity), diff, time, duration);
+
+				if (time >= duration) {
+					node.style.opacity = toOpacity;
+					if (curAttr.opacity === '0') {
 						node.style.display = 'none';
 					}
-
 					doCallback(callback);
 					clearInterval(id);
 					resolve(true);
 				}
 
 				if (isStop) {
-					node.style.opacity = initAttr.opacity;
 					clearInterval(id);
 					resolve(true);
 				}
@@ -139,41 +138,42 @@ const Animation = (node) => {
 
 	const slideAnimation = (anim) =>
 		new Promise((resolve, reject) => {
-			const { name, display, height, duration, ease, callback } = anim;
+			let fromHeight, toHeight, diff;
+			const { name, display, height, duration, easing, callback } = anim;
 			node.style.display = display;
 			node.style.overflow = 'hidden';
-			node.style.transition = `${duration}s ${ease}`;
 
-			let nextHeight;
+			fromHeight = curAttr.height;
 			switch (name) {
 				case 'slideUp':
-					nextHeight = '0px';
+					toHeight = '0px';
 					break;
 				case 'slideDown':
-					nextHeight = height;
+					toHeight = height;
 					break;
 				case 'slideToggle':
-					nextHeight = initAttr.height === '0px' ? height : '0px';
+					toHeight = fromHeight === '0px' ? height : '0px';
 					break;
 			}
 
-			setTimeout(() => {
-				node.style.height = nextHeight;
-			}, 10);
+			diff = parseFloat(toHeight) - parseFloat(fromHeight);
 
+			let time = 0;
 			const id = setInterval(() => {
-				if (isStop) {
-					node.style.height = initAttr.height;
+				time += 10;
+				node.style.height = easeFunction(easing, parseFloat(fromHeight), diff, time, duration) + 'px';
+
+				if (time >= duration) {
+					node.style.height = toHeight;
+					if (curAttr.height === '0px') {
+						node.style.display = 'none';
+					}
+					doCallback(callback);
 					clearInterval(id);
 					resolve(true);
 				}
 
-				if (initAttr.height === node.style.height) {
-					if (node.style.height === '0px') {
-						node.style.display = 'none';
-					}
-
-					doCallback(callback);
+				if (isStop) {
 					clearInterval(id);
 					resolve(true);
 				}
@@ -182,26 +182,37 @@ const Animation = (node) => {
 
 	const animateAnimation = (anim) =>
 		new Promise((resolve, reject) => {
-			const { params, duration, ease, callback } = anim;
-
-			node.style.transition = `${duration}s ${ease}`;
+			const fromProp = {},
+				postfix = {},
+				diff = {};
+			const { params, duration, easing, callback } = anim;
 
 			for (let prop in params) {
-				node.style[prop] = params[prop];
+				fromProp[prop] = curAttr[prop];
+				const { post } = getStylePreAndPostFix(params[prop]);
+				postfix[prop] = post;
+				diff[prop] = parseFloat(params[prop]) - parseFloat(fromProp[prop]);
 			}
-			const key = Object.keys(params)[0];
 
+			let time = 0;
 			const id = setInterval(() => {
-				if (initAttr[key] === node.style[key]) {
+				time += 10;
+
+				for (let prop in params) {
+					node.style[prop] =
+						easeFunction(easing, parseFloat(fromProp[prop]), diff[prop], time, duration) + postfix[prop];
+				}
+
+				if (time >= duration) {
+					for (let prop in params) {
+						node.style[prop] = params[prop];
+					}
 					doCallback(callback);
 					clearInterval(id);
 					resolve(true);
 				}
 
 				if (isStop) {
-					for (let prop in params) {
-						node.style[prop] = initAttr[prop];
-					}
 					clearInterval(id);
 					resolve(true);
 				}
