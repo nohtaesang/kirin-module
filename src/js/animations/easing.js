@@ -19,17 +19,4 @@ const easeFunction = (name, from, diff, time, duration) => {
 	return from + diff * y;
 };
 
-const linear = (diff, interval, duration) => {};
-
-const easeIn = (diff, interval, duration) => {};
-
-const easeOut = (from, diff, time, duration) => {
-	const t = time / duration;
-	const result = from + diff * t * t;
-	console.log(result);
-	return result;
-};
-
-const easeInOut = (diff, interval, duration) => {};
-
 export default easeFunction;

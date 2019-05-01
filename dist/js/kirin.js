@@ -10588,19 +10588,6 @@ var easeFunction = function easeFunction(name, from, diff, time, duration) {
   return from + diff * y;
 };
 
-var linear = function linear(diff, interval, duration) {};
-
-var easeIn = function easeIn(diff, interval, duration) {};
-
-var easeOut = function easeOut(from, diff, time, duration) {
-  var t = time / duration;
-  var result = from + diff * t * t;
-  console.log(result);
-  return result;
-};
-
-var easeInOut = function easeInOut(diff, interval, duration) {};
-
 /* harmony default export */ __webpack_exports__["default"] = (easeFunction);
 
 /***/ }),
@@ -10634,32 +10621,6 @@ var effects = function effects(nodeArr, curAttr) {
     initHeight.push(height);
     initDisplay.push(display);
   }
-
-  var click = function click(callback) {
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var node = _step.value;
-        node.addEventListener('click', callback);
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-          _iterator["return"]();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-  };
 
   var stop = function stop() {
     for (var _i = 0, _animations = animations; _i < _animations.length; _i++) {
@@ -10792,7 +10753,6 @@ var effects = function effects(nodeArr, curAttr) {
   };
 
   return {
-    click: click,
     stop: stop,
     delay: function delay(option, callback) {
       return delayAnimation('delay', option, callback);
@@ -10837,6 +10797,53 @@ var effects = function effects(nodeArr, curAttr) {
 
 /***/ }),
 
+/***/ "./src/js/events.js":
+/*!**************************!*\
+  !*** ./src/js/events.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+var events = function events(nodeArr) {
+  var click = function click(callback) {
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var node = _step.value;
+        node.addEventListener('click', callback);
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+          _iterator["return"]();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+  };
+
+  return {
+    click: click
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (events);
+
+/***/ }),
+
 /***/ "./src/js/htmlAndCss.js":
 /*!******************************!*\
   !*** ./src/js/htmlAndCss.js ***!
@@ -10855,105 +10862,377 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 'use strict';
 
 var html = function html(nodeArr, initAttr) {
-  var length = nodeArr.length;
-
-  for (var i = 0; i < length; i++) {}
-
+  // get set
   var text = function text() {
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
+    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
-    try {
-      for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var node = _step.value;
-        return node.textContent;
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
+    if (value === null) {
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
       try {
-        if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-          _iterator["return"]();
+        for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var _node = _step.value;
+          return _node.textContent;
         }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
       } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    } else {
+      var type = _typeof(value);
+
+      if (type === 'string') {
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var _node2 = _step2.value;
+            _node2.textContent = value;
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+              _iterator2["return"]();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
+          }
+        }
+      } else if (type === 'function') {
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+          for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var _node3 = _step3.value;
+            value(_node3.textContent);
+          }
+        } catch (err) {
+          _didIteratorError3 = true;
+          _iteratorError3 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+              _iterator3["return"]();
+            }
+          } finally {
+            if (_didIteratorError3) {
+              throw _iteratorError3;
+            }
+          }
         }
       }
     }
   };
 
   var html = function html() {
-    var _iteratorNormalCompletion2 = true;
-    var _didIteratorError2 = false;
-    var _iteratorError2 = undefined;
+    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
-    try {
-      for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-        var node = _step2.value;
-        return node.innerHTML;
-      }
-    } catch (err) {
-      _didIteratorError2 = true;
-      _iteratorError2 = err;
-    } finally {
+    if (value === null) {
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
       try {
-        if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-          _iterator2["return"]();
+        for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var _node4 = _step4.value;
+          return _node4.innerHTML;
         }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
       } finally {
-        if (_didIteratorError2) {
-          throw _iteratorError2;
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+            _iterator4["return"]();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+    } else {
+      var type = _typeof(value);
+
+      if (type === 'string') {
+        var _iteratorNormalCompletion5 = true;
+        var _didIteratorError5 = false;
+        var _iteratorError5 = undefined;
+
+        try {
+          for (var _iterator5 = nodeArr[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            var _node5 = _step5.value;
+            _node5.innerHTML = value;
+          }
+        } catch (err) {
+          _didIteratorError5 = true;
+          _iteratorError5 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
+              _iterator5["return"]();
+            }
+          } finally {
+            if (_didIteratorError5) {
+              throw _iteratorError5;
+            }
+          }
+        }
+      } else if (type === 'function') {
+        var _iteratorNormalCompletion6 = true;
+        var _didIteratorError6 = false;
+        var _iteratorError6 = undefined;
+
+        try {
+          for (var _iterator6 = nodeArr[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+            var _node6 = _step6.value;
+            value(_node6.innerHTML);
+          }
+        } catch (err) {
+          _didIteratorError6 = true;
+          _iteratorError6 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
+              _iterator6["return"]();
+            }
+          } finally {
+            if (_didIteratorError6) {
+              throw _iteratorError6;
+            }
+          }
         }
       }
     }
   };
 
   var val = function val() {
-    var _iteratorNormalCompletion3 = true;
-    var _didIteratorError3 = false;
-    var _iteratorError3 = undefined;
+    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
-    try {
-      for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-        var node = _step3.value;
-        return node.value;
-      }
-    } catch (err) {
-      _didIteratorError3 = true;
-      _iteratorError3 = err;
-    } finally {
+    if (value === null) {
+      var _iteratorNormalCompletion7 = true;
+      var _didIteratorError7 = false;
+      var _iteratorError7 = undefined;
+
       try {
-        if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-          _iterator3["return"]();
+        for (var _iterator7 = nodeArr[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+          var _node7 = _step7.value;
+          return _node7.value;
         }
+      } catch (err) {
+        _didIteratorError7 = true;
+        _iteratorError7 = err;
       } finally {
-        if (_didIteratorError3) {
-          throw _iteratorError3;
+        try {
+          if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
+            _iterator7["return"]();
+          }
+        } finally {
+          if (_didIteratorError7) {
+            throw _iteratorError7;
+          }
         }
+      }
+    } else {
+      var type = _typeof(value);
+
+      if (type === 'string') {
+        var _iteratorNormalCompletion8 = true;
+        var _didIteratorError8 = false;
+        var _iteratorError8 = undefined;
+
+        try {
+          for (var _iterator8 = nodeArr[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+            var _node8 = _step8.value;
+            _node8.value = value;
+          }
+        } catch (err) {
+          _didIteratorError8 = true;
+          _iteratorError8 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
+              _iterator8["return"]();
+            }
+          } finally {
+            if (_didIteratorError8) {
+              throw _iteratorError8;
+            }
+          }
+        }
+      } else if (type === 'function') {
+        value(node.value);
       }
     }
   };
 
   var _attr = function attr(prop) {
     var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var propType, valueType;
+    propType = _typeof(prop);
+    valueType = _typeof(value);
 
-    for (var _i = 0; _i < nodeArr.length; _i++) {
-      if (typeof prop === 'string') {
-        if (typeof value === 'string') {
-          nodeArr[_i].setAttribute(prop, value);
-        } else {
-          return nodeArr[_i].getAttribute(prop);
+    if (propType === 'string') {
+      if (value === null) {
+        var _iteratorNormalCompletion9 = true;
+        var _didIteratorError9 = false;
+        var _iteratorError9 = undefined;
+
+        try {
+          for (var _iterator9 = nodeArr[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+            var _node9 = _step9.value;
+            return _node9.getAttribute(prop);
+          }
+        } catch (err) {
+          _didIteratorError9 = true;
+          _iteratorError9 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion9 && _iterator9["return"] != null) {
+              _iterator9["return"]();
+            }
+          } finally {
+            if (_didIteratorError9) {
+              throw _iteratorError9;
+            }
+          }
         }
-      } else if (_typeof(prop) === 'object') {
-        for (var p in prop) {
-          nodeArr[_i].setAttribute(p, prop[p]);
+      } else if (valueType === 'string') {
+        var _iteratorNormalCompletion10 = true;
+        var _didIteratorError10 = false;
+        var _iteratorError10 = undefined;
+
+        try {
+          for (var _iterator10 = nodeArr[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+            var _node10 = _step10.value;
+
+            _node10.setAttribute(prop, value);
+          }
+        } catch (err) {
+          _didIteratorError10 = true;
+          _iteratorError10 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
+              _iterator10["return"]();
+            }
+          } finally {
+            if (_didIteratorError10) {
+              throw _iteratorError10;
+            }
+          }
+        }
+      } else if (valueType === 'function') {
+        var _iteratorNormalCompletion11 = true;
+        var _didIteratorError11 = false;
+        var _iteratorError11 = undefined;
+
+        try {
+          for (var _iterator11 = nodeArr[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
+            var _node11 = _step11.value;
+            value(_node11.getAttribute(prop));
+          }
+        } catch (err) {
+          _didIteratorError11 = true;
+          _iteratorError11 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion11 && _iterator11["return"] != null) {
+              _iterator11["return"]();
+            }
+          } finally {
+            if (_didIteratorError11) {
+              throw _iteratorError11;
+            }
+          }
+        }
+      }
+    } else if (propType = 'object') {
+      var _iteratorNormalCompletion12 = true;
+      var _didIteratorError12 = false;
+      var _iteratorError12 = undefined;
+
+      try {
+        for (var _iterator12 = nodeArr[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
+          var _node12 = _step12.value;
+
+          for (var p in prop) {
+            _node12.setAttribute(p, prop[p]);
+          }
+        }
+      } catch (err) {
+        _didIteratorError12 = true;
+        _iteratorError12 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion12 && _iterator12["return"] != null) {
+            _iterator12["return"]();
+          }
+        } finally {
+          if (_didIteratorError12) {
+            throw _iteratorError12;
+          }
         }
       }
     }
-  };
+  }; // add
+
+
+  var append = function append(value, func) {};
+
+  var prepend = function prepend(value, func) {};
+
+  var after = function after(value, func) {};
+
+  var before = function before(value, func) {}; // remove
+
+
+  var remove = function remove(selector) {};
+
+  var empty = function empty() {}; // css
+
+
+  var addClass = function addClass(className, func) {};
+
+  var removeClass = function removeClass(className, func) {};
+
+  var toggleClass = function toggleClass(className, func) {};
+
+  var css = function css(prop, value) {}; // dimensions
+
+
+  var width = function width() {};
+
+  var innerWidth = function innerWidth() {};
+
+  var outerWidth = function outerWidth(bool) {};
+
+  var height = function height() {};
+
+  var innerHeight = function innerHeight() {};
+
+  var outerHeight = function outerHeight(bool) {};
 
   return {
     text: text,
@@ -10965,10 +11244,7 @@ var html = function html(nodeArr, initAttr) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (html); // 추가하고 싶은 것
-// 추후
-// html
-// traversing
+/* harmony default export */ __webpack_exports__["default"] = (html);
 
 /***/ }),
 
@@ -10982,19 +11258,10 @@ var html = function html(nodeArr, initAttr) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selector */ "./src/js/selector.js");
-// import KirinButton from './button';
-// import KirinSlider from './slider';
-// import { noConflict } from './utils';
 
 var Kirin;
 window.Kirin = Kirin = Kirin || {};
-Kirin.select = _selector__WEBPACK_IMPORTED_MODULE_0__["default"]; // Kirin.Button = KirinButton;
-// Kirin.Slider = KirinSlider;
-// Kirin.noConflict = noConflict;
-// TODO:
-// effects의 click을 event로 옮기기
-// html
-// traversing
+Kirin.select = _selector__WEBPACK_IMPORTED_MODULE_0__["default"];
 
 /***/ }),
 
@@ -11007,12 +11274,16 @@ Kirin.select = _selector__WEBPACK_IMPORTED_MODULE_0__["default"]; // Kirin.Butto
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./effects */ "./src/js/effects.js");
-/* harmony import */ var _htmlAndCss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./htmlAndCss */ "./src/js/htmlAndCss.js");
-/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./events */ "./src/js/events.js");
+/* harmony import */ var _effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./effects */ "./src/js/effects.js");
+/* harmony import */ var _htmlAndCss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./htmlAndCss */ "./src/js/htmlAndCss.js");
+/* harmony import */ var _traversing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./traversing */ "./src/js/traversing.js");
+/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -11023,10 +11294,10 @@ var proto = function proto(nodeArr) {
   var length = nodeArr.length;
 
   for (var i = 0; i < length; i++) {
-    curAttr[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(nodeArr[i]);
+    curAttr[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_4__["returnComputedStyle"])(nodeArr[i]);
   }
 
-  return _objectSpread({}, Object(_effects__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr, curAttr), Object(_htmlAndCss__WEBPACK_IMPORTED_MODULE_1__["default"])(nodeArr, curAttr));
+  return _objectSpread({}, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(nodeArr, curAttr), Object(_htmlAndCss__WEBPACK_IMPORTED_MODULE_2__["default"])(nodeArr, curAttr), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(nodeArr, curAttr));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (proto);
@@ -11067,6 +11338,25 @@ var Selector = function Selector(sel) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Selector);
+
+/***/ }),
+
+/***/ "./src/js/traversing.js":
+/*!******************************!*\
+  !*** ./src/js/traversing.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+var traversing = function traversing(nodeArr, initAttr) {
+  return {};
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (traversing);
 
 /***/ }),
 

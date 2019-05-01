@@ -3,44 +3,113 @@ import { returnComputedStyle, getOwnOrInitProperty } from './utils/functions';
 ('use strict');
 
 const html = (nodeArr, initAttr) => {
-	const length = nodeArr.length;
-
-	for (let i = 0; i < length; i++) {}
-
-	const text = () => {
-		for (let node of nodeArr) {
-			return node.textContent;
-		}
-	};
-
-	const html = () => {
-		for (let node of nodeArr) {
-			return node.innerHTML;
-		}
-	};
-
-	const val = () => {
-		for (let node of nodeArr) {
-			return node.value;
-		}
-	};
-
-	const attr = (prop, value = null) => {
-		for (let i = 0; i < nodeArr.length; i++) {
-			if (typeof prop === 'string') {
-				if (typeof value === 'string') {
-					nodeArr[i].setAttribute(prop, value);
-				} else {
-					return nodeArr[i].getAttribute(prop);
+	// get set
+	const text = (value = null) => {
+		if (value === null) {
+			for (let node of nodeArr) {
+				return node.textContent;
+			}
+		} else {
+			const type = typeof value;
+			if (type === 'string') {
+				for (let node of nodeArr) {
+					node.textContent = value;
 				}
-			} else if (typeof prop === 'object') {
-				for (let p in prop) {
-					nodeArr[i].setAttribute(p, prop[p]);
+			} else if (type === 'function') {
+				for (let node of nodeArr) {
+					value(node.textContent);
 				}
 			}
 		}
 	};
 
+	const html = (value = null) => {
+		if (value === null) {
+			for (let node of nodeArr) {
+				return node.innerHTML;
+			}
+		} else {
+			const type = typeof value;
+			if (type === 'string') {
+				for (let node of nodeArr) {
+					node.innerHTML = value;
+				}
+			} else if (type === 'function') {
+				for (let node of nodeArr) {
+					value(node.innerHTML);
+				}
+			}
+		}
+	};
+
+	const val = (value = null) => {
+		if (value === null) {
+			for (let node of nodeArr) {
+				return node.value;
+			}
+		} else {
+			const type = typeof value;
+			if (type === 'string') {
+				for (let node of nodeArr) {
+					node.value = value;
+				}
+			} else if (type === 'function') {
+				value(node.value);
+			}
+		}
+	};
+
+	const attr = (prop, value = null) => {
+		let propType, valueType;
+		propType = typeof prop;
+		valueType = typeof value;
+
+		if (propType === 'string') {
+			if (value === null) {
+				for (let node of nodeArr) {
+					return node.getAttribute(prop);
+				}
+			} else if (valueType === 'string') {
+				for (let node of nodeArr) {
+					node.setAttribute(prop, value);
+				}
+			} else if (valueType === 'function') {
+				for (let node of nodeArr) {
+					value(node.getAttribute(prop));
+				}
+			}
+		} else if ((propType = 'object')) {
+			for (let node of nodeArr) {
+				for (let p in prop) {
+					node.setAttribute(p, prop[p]);
+				}
+			}
+		}
+	};
+
+	// add
+	const append = (value, func) => {};
+	const prepend = (value, func) => {};
+	const after = (value, func) => {};
+	const before = (value, func) => {};
+
+	// remove
+	const remove = selector => {};
+	const empty = () => {};
+
+	// css
+	const addClass = (className, func) => {};
+	const removeClass = (className, func) => {};
+	const toggleClass = (className, func) => {};
+	const css = (prop, value) => {};
+
+	// dimensions
+	const width = () => {};
+	const innerWidth = () => {};
+	const outerWidth = bool => {};
+	const height = () => {};
+	const innerHeight = () => {};
+	const outerHeight = bool => {};
 	return {
 		text,
 		html,
@@ -50,9 +119,3 @@ const html = (nodeArr, initAttr) => {
 };
 
 export default html;
-
-// 추가하고 싶은 것
-
-// 추후
-// html
-// traversing

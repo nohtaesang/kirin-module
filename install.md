@@ -5,17 +5,20 @@
         * auto close tag
         * auto rename tag
         * auto complete tag
-        * highligh matching tag
+        * highlight matching tag
         * indent-rainbow
         * intellisense for css class names in html
         * path autocomplete
         * path intellisense
         * prettier now
-        * rainbow barckets
+        * rainbow brackets
         * material icon theme
         * turbo console log
         * npm intellisense
         * todo highlight
+        * guides
+        * bracket pair colorizer
+        * color highlight
     * option (ctrl + ,)
         * formatOnSave
 * nodejs

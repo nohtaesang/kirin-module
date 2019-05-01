@@ -15,12 +15,6 @@ const effects = (nodeArr, curAttr) => {
 		initDisplay.push(display);
 	}
 
-	const click = (callback) => {
-		for (let node of nodeArr) {
-			node.addEventListener('click', callback);
-		}
-	};
-
 	const stop = () => {
 		for (let anim of animations) {
 			anim.stop();
@@ -142,7 +136,6 @@ const effects = (nodeArr, curAttr) => {
 	};
 
 	return {
-		click,
 		stop,
 		delay: (option, callback) => delayAnimation('delay', option, callback),
 		hide: (option, callback) => hideAnimation('hide', option, callback),
