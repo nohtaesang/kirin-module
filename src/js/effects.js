@@ -153,3 +153,20 @@ const effects = (nodeArr, curAttr) => {
 };
 
 export default effects;
+
+/**
+ * TODO:
+ * DONE:
+ * animate()
+ * delay()
+ * fadeIn()
+ * fadeOut()
+ * fadeTo()
+ * fadeToggle()
+ * hide()
+ * slideDown()
+ * slideToggle()
+ * slideUp()
+ * stop()
+ * toggle()
+ */
