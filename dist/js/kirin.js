@@ -10794,6 +10794,22 @@ var effects = function effects(nodeArr, curAttr) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (effects);
+/**
+ * TODO:
+ * DONE:
+ * animate()
+ * delay()
+ * fadeIn()
+ * fadeOut()
+ * fadeTo()
+ * fadeToggle()
+ * hide()
+ * slideDown()
+ * slideToggle()
+ * slideUp()
+ * stop()
+ * toggle()
+ */
 
 /***/ }),
 
@@ -10841,410 +10857,55 @@ var events = function events(nodeArr) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (events);
-
-/***/ }),
-
-/***/ "./src/js/htmlAndCss.js":
-/*!******************************!*\
-  !*** ./src/js/htmlAndCss.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _animations_animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animations/animation */ "./src/js/animations/animation.js");
-/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-
-
-'use strict';
-
-var html = function html(nodeArr, initAttr) {
-  // get set
-  var text = function text() {
-    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-    if (value === null) {
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var _node = _step.value;
-          return _node.textContent;
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-    } else {
-      var type = _typeof(value);
-
-      if (type === 'string') {
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
-
-        try {
-          for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var _node2 = _step2.value;
-            _node2.textContent = value;
-          }
-        } catch (err) {
-          _didIteratorError2 = true;
-          _iteratorError2 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-              _iterator2["return"]();
-            }
-          } finally {
-            if (_didIteratorError2) {
-              throw _iteratorError2;
-            }
-          }
-        }
-      } else if (type === 'function') {
-        var _iteratorNormalCompletion3 = true;
-        var _didIteratorError3 = false;
-        var _iteratorError3 = undefined;
-
-        try {
-          for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            var _node3 = _step3.value;
-            value(_node3.textContent);
-          }
-        } catch (err) {
-          _didIteratorError3 = true;
-          _iteratorError3 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-              _iterator3["return"]();
-            }
-          } finally {
-            if (_didIteratorError3) {
-              throw _iteratorError3;
-            }
-          }
-        }
-      }
-    }
-  };
-
-  var html = function html() {
-    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-    if (value === null) {
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
-
-      try {
-        for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          var _node4 = _step4.value;
-          return _node4.innerHTML;
-        }
-      } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-            _iterator4["return"]();
-          }
-        } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
-          }
-        }
-      }
-    } else {
-      var type = _typeof(value);
-
-      if (type === 'string') {
-        var _iteratorNormalCompletion5 = true;
-        var _didIteratorError5 = false;
-        var _iteratorError5 = undefined;
-
-        try {
-          for (var _iterator5 = nodeArr[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-            var _node5 = _step5.value;
-            _node5.innerHTML = value;
-          }
-        } catch (err) {
-          _didIteratorError5 = true;
-          _iteratorError5 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
-              _iterator5["return"]();
-            }
-          } finally {
-            if (_didIteratorError5) {
-              throw _iteratorError5;
-            }
-          }
-        }
-      } else if (type === 'function') {
-        var _iteratorNormalCompletion6 = true;
-        var _didIteratorError6 = false;
-        var _iteratorError6 = undefined;
-
-        try {
-          for (var _iterator6 = nodeArr[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-            var _node6 = _step6.value;
-            value(_node6.innerHTML);
-          }
-        } catch (err) {
-          _didIteratorError6 = true;
-          _iteratorError6 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
-              _iterator6["return"]();
-            }
-          } finally {
-            if (_didIteratorError6) {
-              throw _iteratorError6;
-            }
-          }
-        }
-      }
-    }
-  };
-
-  var val = function val() {
-    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-    if (value === null) {
-      var _iteratorNormalCompletion7 = true;
-      var _didIteratorError7 = false;
-      var _iteratorError7 = undefined;
-
-      try {
-        for (var _iterator7 = nodeArr[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-          var _node7 = _step7.value;
-          return _node7.value;
-        }
-      } catch (err) {
-        _didIteratorError7 = true;
-        _iteratorError7 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
-            _iterator7["return"]();
-          }
-        } finally {
-          if (_didIteratorError7) {
-            throw _iteratorError7;
-          }
-        }
-      }
-    } else {
-      var type = _typeof(value);
-
-      if (type === 'string') {
-        var _iteratorNormalCompletion8 = true;
-        var _didIteratorError8 = false;
-        var _iteratorError8 = undefined;
-
-        try {
-          for (var _iterator8 = nodeArr[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-            var _node8 = _step8.value;
-            _node8.value = value;
-          }
-        } catch (err) {
-          _didIteratorError8 = true;
-          _iteratorError8 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
-              _iterator8["return"]();
-            }
-          } finally {
-            if (_didIteratorError8) {
-              throw _iteratorError8;
-            }
-          }
-        }
-      } else if (type === 'function') {
-        value(node.value);
-      }
-    }
-  };
-
-  var _attr = function attr(prop) {
-    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    var propType, valueType;
-    propType = _typeof(prop);
-    valueType = _typeof(value);
-
-    if (propType === 'string') {
-      if (value === null) {
-        var _iteratorNormalCompletion9 = true;
-        var _didIteratorError9 = false;
-        var _iteratorError9 = undefined;
-
-        try {
-          for (var _iterator9 = nodeArr[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
-            var _node9 = _step9.value;
-            return _node9.getAttribute(prop);
-          }
-        } catch (err) {
-          _didIteratorError9 = true;
-          _iteratorError9 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion9 && _iterator9["return"] != null) {
-              _iterator9["return"]();
-            }
-          } finally {
-            if (_didIteratorError9) {
-              throw _iteratorError9;
-            }
-          }
-        }
-      } else if (valueType === 'string') {
-        var _iteratorNormalCompletion10 = true;
-        var _didIteratorError10 = false;
-        var _iteratorError10 = undefined;
-
-        try {
-          for (var _iterator10 = nodeArr[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
-            var _node10 = _step10.value;
-
-            _node10.setAttribute(prop, value);
-          }
-        } catch (err) {
-          _didIteratorError10 = true;
-          _iteratorError10 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
-              _iterator10["return"]();
-            }
-          } finally {
-            if (_didIteratorError10) {
-              throw _iteratorError10;
-            }
-          }
-        }
-      } else if (valueType === 'function') {
-        var _iteratorNormalCompletion11 = true;
-        var _didIteratorError11 = false;
-        var _iteratorError11 = undefined;
-
-        try {
-          for (var _iterator11 = nodeArr[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
-            var _node11 = _step11.value;
-            value(_node11.getAttribute(prop));
-          }
-        } catch (err) {
-          _didIteratorError11 = true;
-          _iteratorError11 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion11 && _iterator11["return"] != null) {
-              _iterator11["return"]();
-            }
-          } finally {
-            if (_didIteratorError11) {
-              throw _iteratorError11;
-            }
-          }
-        }
-      }
-    } else if (propType = 'object') {
-      var _iteratorNormalCompletion12 = true;
-      var _didIteratorError12 = false;
-      var _iteratorError12 = undefined;
-
-      try {
-        for (var _iterator12 = nodeArr[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
-          var _node12 = _step12.value;
-
-          for (var p in prop) {
-            _node12.setAttribute(p, prop[p]);
-          }
-        }
-      } catch (err) {
-        _didIteratorError12 = true;
-        _iteratorError12 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion12 && _iterator12["return"] != null) {
-            _iterator12["return"]();
-          }
-        } finally {
-          if (_didIteratorError12) {
-            throw _iteratorError12;
-          }
-        }
-      }
-    }
-  }; // add
-
-
-  var append = function append(value, func) {};
-
-  var prepend = function prepend(value, func) {};
-
-  var after = function after(value, func) {};
-
-  var before = function before(value, func) {}; // remove
-
-
-  var remove = function remove(selector) {};
-
-  var empty = function empty() {}; // css
-
-
-  var addClass = function addClass(className, func) {};
-
-  var removeClass = function removeClass(className, func) {};
-
-  var toggleClass = function toggleClass(className, func) {};
-
-  var css = function css(prop, value) {}; // dimensions
-
-
-  var width = function width() {};
-
-  var innerWidth = function innerWidth() {};
-
-  var outerWidth = function outerWidth(bool) {};
-
-  var height = function height() {};
-
-  var innerHeight = function innerHeight() {};
-
-  var outerHeight = function outerHeight(bool) {};
-
-  return {
-    text: text,
-    html: html,
-    val: val,
-    attr: function attr(prop, value) {
-      return _attr(prop, value);
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (html);
+/**
+ * TODO:
+ * blur()
+ * change()
+ * dblclick()
+ * event.currentTarget
+ * event.data
+ * event.delegateTarget
+ * event.isDefaultPrevented()
+ * event.isImmediatePropagationStopped()	
+ * event.isPropagationStopped()
+ * event.namespace
+ * event.pageX
+ * event.pageY
+ * event.preventDefault()
+ * event.relatedTarget
+ * event.result
+ * event.stopImmediatePropagation()
+ * event.target
+ * event.timeStamp
+ * event.type
+ * event.which
+ * focus()
+ * focusin()
+ * focusout()
+ * hover()
+ * keydown()
+ * keypress()
+ * keyup()
+ * mousedown()
+ * mouseenter()
+ * mouseleave()
+ * mousemove()
+ * mouseout()
+ * mouseover()
+ * mouseup()
+ * off()
+ * on()
+ * one()
+ * ready()
+ * resize()
+ * scroll()
+ * select()
+ * submit()
+ * trigger()
+ * triggerHandler()
+ * DONE:
+ * click()
+ */
 
 /***/ }),
 
@@ -11265,6 +10926,159 @@ Kirin.select = _selector__WEBPACK_IMPORTED_MODULE_0__["default"];
 
 /***/ }),
 
+/***/ "./src/js/manipulation.js":
+/*!********************************!*\
+  !*** ./src/js/manipulation.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+// https://api.jquery.com/category/manipulation/
+
+'use strict';
+
+var manipulation = function manipulation(nodeArr, initAttr) {
+  return {
+    addClass: function addClass(value) {
+      var type = _typeof(value);
+
+      if (type === 'string') {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var node = _step.value;
+            node.classList.add(value);
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+              _iterator["return"]();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      } else if (type === 'function') {
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var _node = _step2.value;
+            value(0, _node.classList.value); // node.classList.add(value(node.classList.value, 0).split(' ')[0]);
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+              _iterator2["return"]();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
+          }
+        }
+      } else if (Array.isArray(value)) {
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+          var _loop = function _loop() {
+            var node = _step3.value;
+            value.forEach(function (v) {
+              return node.classList.add(v);
+            });
+          };
+
+          for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            _loop();
+          }
+        } catch (err) {
+          _didIteratorError3 = true;
+          _iteratorError3 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+              _iterator3["return"]();
+            }
+          } finally {
+            if (_didIteratorError3) {
+              throw _iteratorError3;
+            }
+          }
+        }
+      }
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (manipulation);
+/**
+ * TODO:
+ * addClass()
+ * after()
+ * append()
+ * appendTo()
+ * before()
+ * clone()
+ * css()
+ * detach()
+ * empty()
+ * hasClass()
+ * height()
+ * innerHeight()
+ * innerWidth()
+ * insertAfter()
+ * insertBefore()
+ * offset()
+ * offsetParent()
+ * outerHeight()
+ * outerWidth()
+ * position()
+ * prepend()
+ * prependTo()
+ * prop()
+ * remove()
+ * removeAttr()
+ * removeClass()
+ * removeProp()
+ * replaceAll()
+ * replaceWith()
+ * scrollLeft()
+ * scrollTop()
+ * toggleClass()
+ * unwrap()
+ * width()
+ * wrap()
+ * wrapAll()
+ * wrapInner()
+ * DONE:
+ * attr()
+ * html()
+ * text()
+ * val()
+ */
+
+/***/ }),
+
 /***/ "./src/js/proto.js":
 /*!*************************!*\
   !*** ./src/js/proto.js ***!
@@ -11276,7 +11090,7 @@ Kirin.select = _selector__WEBPACK_IMPORTED_MODULE_0__["default"];
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./events */ "./src/js/events.js");
 /* harmony import */ var _effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./effects */ "./src/js/effects.js");
-/* harmony import */ var _htmlAndCss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./htmlAndCss */ "./src/js/htmlAndCss.js");
+/* harmony import */ var _manipulation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./manipulation */ "./src/js/manipulation.js");
 /* harmony import */ var _traversing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./traversing */ "./src/js/traversing.js");
 /* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -11297,7 +11111,7 @@ var proto = function proto(nodeArr) {
     curAttr[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_4__["returnComputedStyle"])(nodeArr[i]);
   }
 
-  return _objectSpread({}, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(nodeArr, curAttr), Object(_htmlAndCss__WEBPACK_IMPORTED_MODULE_2__["default"])(nodeArr, curAttr), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(nodeArr, curAttr));
+  return _objectSpread({}, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(nodeArr, curAttr), Object(_manipulation__WEBPACK_IMPORTED_MODULE_2__["default"])(nodeArr, curAttr), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(nodeArr, curAttr));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (proto);
@@ -11357,6 +11171,38 @@ var traversing = function traversing(nodeArr, initAttr) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (traversing);
+/**
+ * TODO:
+ * add()
+ * addBack()
+ * children()
+ * closet()
+ * contents()
+ * each()
+ * end()
+ * eq()
+ * filter()
+ * find()
+ * first()
+ * has()
+ * is()
+ * last()
+ * map()
+ * next()
+ * nextAll()
+ * nextUntil()
+ * not()
+ * offsetParent()
+ * parent()
+ * parents()
+ * parentsUntil()
+ * prev()
+ * prevAll()
+ * prevUntil()
+ * siblings()
+ * slice()
+ * DONE:
+ */
 
 /***/ }),
 

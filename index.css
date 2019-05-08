@@ -8,20 +8,15 @@
 	height: 300px;
 }
 
-.a {
-	height: 200px;
-}
-
-.b {
-	height: 350px;
-}
-
 .container {
 	border: solid 1px salmon;
 	width: 500px;
 }
 
-.container2 {
-	border: solid 1px burlywood;
-	width: 500px;
+.a {
+	background: honeydew;
+}
+
+.b {
+	border-color: darkkhaki;
 }
