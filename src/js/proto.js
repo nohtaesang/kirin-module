@@ -11,6 +11,8 @@ const proto = (nodeArr) => {
 		curAttr[i] = returnComputedStyle(nodeArr[i]);
 	}
 	return {
+		// 버전 및 같은 Kirin 객체임을 확인하기 위한 꼼수...?
+		kirin: '1.0.0',
 		...events(nodeArr),
 		...effects(nodeArr, curAttr),
 		...manipulation(nodeArr, curAttr),

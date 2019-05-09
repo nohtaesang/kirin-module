@@ -10945,12 +10945,16 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 var manipulation = function manipulation(nodeArr, initAttr) {
   return {
     /**
-     * @param {String|Function|Array} value 
+     * @addClass
+     * 
+     * @DOM [classList.add()]
+     * 
+     * @param {String|Array|function(Int index, String indexOfClassList)} className 
      * string, array는 class에 그대로 추가된다.
      * function은 현재 class의 이름을 공백을 간격으로 index, value 를 인자로 하여 함수를 실행한다.
      */
-    addClass: function addClass(value) {
-      var type = _typeof(value);
+    addClass: function addClass(className) {
+      var type = _typeof(className);
 
       if (type === 'string') {
         var _iteratorNormalCompletion = true;
@@ -10960,7 +10964,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
         try {
           for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var node = _step.value;
-            node.classList.add(value);
+            node.classList.add(className);
           }
         } catch (err) {
           _didIteratorError = true;
@@ -10976,7 +10980,12 @@ var manipulation = function manipulation(nodeArr, initAttr) {
             }
           }
         }
+      } else if (Array.isArray(className)) {
+        className.forEach(function (v) {
+          return nodeArr.addClass(v);
+        });
       } else if (type === 'function') {
+        var func = className;
         var _iteratorNormalCompletion2 = true;
         var _didIteratorError2 = false;
         var _iteratorError2 = undefined;
@@ -10987,7 +10996,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
             var length = _node.classList.length;
 
             for (var i = 0; i < length; i++) {
-              var result = value(i, _node.classList[i]);
+              var result = func(i, _node.classList[i]);
               if (typeof result === 'string') _node.classList.add(result);
             }
           }
@@ -11005,21 +11014,34 @@ var manipulation = function manipulation(nodeArr, initAttr) {
             }
           }
         }
-      } else if (Array.isArray(value)) {
+      }
+    },
+
+    /**
+     * @after
+     * 
+     * @DOM [.after()]
+     * 
+     * @param {htmlString|Text|Array|Element|NodeList|Kirin|function} content
+     * htmlString, Text는 type이 string이다. 받아온 값을 element로 변환하여 after 해준다.
+     * Array는 요소를 다시 nodeArr의 after 함수의 인자로 넣어 실행한다.
+     * Element는 바로 after 해준다.
+     * NodeList와 Kirin은 둘 다 NodeList이다. 각 리스트의 인자는 element이므로, 분해하여 after 해준다.
+     * function은 node의 index와 node의 textContext를 인자로 하여 함수를 실행한다.
+     */
+    after: function after(content) {
+      var type = _typeof(content);
+
+      if (type === 'string') {
+        var el = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["convertStringToElement"])(content);
         var _iteratorNormalCompletion3 = true;
         var _didIteratorError3 = false;
         var _iteratorError3 = undefined;
 
         try {
-          var _loop = function _loop() {
-            var node = _step3.value;
-            value.forEach(function (v) {
-              return node.classList.add(v);
-            });
-          };
-
           for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            _loop();
+            var node = _step3.value;
+            node.after(el);
           }
         } catch (err) {
           _didIteratorError3 = true;
@@ -11032,6 +11054,112 @@ var manipulation = function manipulation(nodeArr, initAttr) {
           } finally {
             if (_didIteratorError3) {
               throw _iteratorError3;
+            }
+          }
+        }
+      } else if (Array.isArray(content)) {
+        content.forEach(function (v) {
+          return nodeArr.after(v);
+        });
+      } else if (content.nodeType) {
+        var _iteratorNormalCompletion4 = true;
+        var _didIteratorError4 = false;
+        var _iteratorError4 = undefined;
+
+        try {
+          for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+            var _node2 = _step4.value;
+
+            _node2.after(content);
+          }
+        } catch (err) {
+          _didIteratorError4 = true;
+          _iteratorError4 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+              _iterator4["return"]();
+            }
+          } finally {
+            if (_didIteratorError4) {
+              throw _iteratorError4;
+            }
+          }
+        }
+      } else if (NodeList.prototype.isPrototypeOf(content)) {
+        var _iteratorNormalCompletion5 = true;
+        var _didIteratorError5 = false;
+        var _iteratorError5 = undefined;
+
+        try {
+          for (var _iterator5 = nodeArr[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            var _node3 = _step5.value;
+            var _iteratorNormalCompletion6 = true;
+            var _didIteratorError6 = false;
+            var _iteratorError6 = undefined;
+
+            try {
+              for (var _iterator6 = content[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+                var c = _step6.value;
+
+                _node3.after(c);
+              }
+            } catch (err) {
+              _didIteratorError6 = true;
+              _iteratorError6 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
+                  _iterator6["return"]();
+                }
+              } finally {
+                if (_didIteratorError6) {
+                  throw _iteratorError6;
+                }
+              }
+            }
+          }
+        } catch (err) {
+          _didIteratorError5 = true;
+          _iteratorError5 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
+              _iterator5["return"]();
+            }
+          } finally {
+            if (_didIteratorError5) {
+              throw _iteratorError5;
+            }
+          }
+        }
+      } else if (type === 'function') {
+        var func = content;
+        var index = 0;
+        var _iteratorNormalCompletion7 = true;
+        var _didIteratorError7 = false;
+        var _iteratorError7 = undefined;
+
+        try {
+          for (var _iterator7 = nodeArr[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+            var _node4 = _step7.value;
+            var result = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["convertStringToElement"])(func(index, _node4.textContent));
+
+            _node4.after(result);
+
+            index++;
+          }
+        } catch (err) {
+          _didIteratorError7 = true;
+          _iteratorError7 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
+              _iterator7["return"]();
+            }
+          } finally {
+            if (_didIteratorError7) {
+              throw _iteratorError7;
             }
           }
         }
@@ -11121,7 +11249,10 @@ var proto = function proto(nodeArr) {
     curAttr[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_4__["returnComputedStyle"])(nodeArr[i]);
   }
 
-  return _objectSpread({}, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(nodeArr, curAttr), Object(_manipulation__WEBPACK_IMPORTED_MODULE_2__["default"])(nodeArr, curAttr), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(nodeArr, curAttr));
+  return _objectSpread({
+    // 버전 및 같은 Kirin 객체임을 확인하기 위한 꼼수...?
+    kirin: '1.0.0'
+  }, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(nodeArr, curAttr), Object(_manipulation__WEBPACK_IMPORTED_MODULE_2__["default"])(nodeArr, curAttr), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(nodeArr, curAttr));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (proto);
@@ -11220,7 +11351,7 @@ var traversing = function traversing(nodeArr, initAttr) {
 /*!***********************************!*\
   !*** ./src/js/utils/functions.js ***!
   \***********************************/
-/*! exports provided: returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix */
+/*! exports provided: returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11229,6 +11360,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "doCallback", function() { return doCallback; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOwnOrInitProperty", function() { return getOwnOrInitProperty; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStylePreAndPostFix", function() { return getStylePreAndPostFix; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertStringToElement", function() { return convertStringToElement; });
 
 
 var returnComputedStyle = function returnComputedStyle(node, property) {
@@ -11258,6 +11390,12 @@ var getStylePreAndPostFix = function getStylePreAndPostFix(prop) {
     pre: pre,
     post: post
   };
+};
+
+var convertStringToElement = function convertStringToElement(str) {
+  var wrapper = document.createElement('div');
+  wrapper.innerHTML = str;
+  return wrapper.firstChild;
 };
 
 

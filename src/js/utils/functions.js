@@ -23,4 +23,10 @@ const getStylePreAndPostFix = (prop) => {
 	return { pre, post };
 };
 
-export { returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix };
+const convertStringToElement = (str) => {
+	const wrapper = document.createElement('div');
+	wrapper.innerHTML = str;
+	return wrapper.firstChild;
+};
+
+export { returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement };

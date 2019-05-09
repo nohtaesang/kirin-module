@@ -1,24 +1,30 @@
 const btn1 = Kirin.select('.btn1');
-const btn2 = Kirin.select('.btn2');
-const p = Kirin.select('.p');
+const pk = Kirin.select('.p');
 const container = Kirin.select('.container');
+const p = document.querySelectorAll('.p');
+const p1 = document.getElementById('p1');
+const p2 = document.querySelector('.p2');
 btn1.click(() => {
-	container.addClass(function(i, v) {
-		// console.log('^^', i, v);
-		return i + v;
+	// container.after('<p>hello!@</p>');
+	// container.after('bye~~');
+	// container.after(p);
+	// container.after(p1);
+	// container.after(p2);
+	// container.after(pk);
+	// container.after([ '1', p ]);
+	pk.after(function(i, v) {
+		return '<div>' + v + i + '</div>';
+
+		// return
 	});
-});
-btn2.click(() => {
-	// console.log(container.html());
 });
 
 const jbtn1 = $('.btn1');
-const jbtn2 = $('.btn2');
+const jp = $('.p');
 const jcontainer = $('.container');
-
 jbtn1.click(() => {
-	// jcontainer.addClass(function(i, v) {
-	// 	// console.log('--', i + v);
-	// 	// return i + 'a';
-	// });
+	jp.after(function(i, v) {
+		return '<div>' + v + i + '</div>';
+		// return
+	});
 });
