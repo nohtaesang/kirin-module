@@ -44,7 +44,11 @@ const manipulation = (nodeArr, initAttr) => {
 		 * NodeList와 Kirin은 둘 다 NodeList이다. 각 리스트의 인자는 element이므로, 분해하여 after 해준다.
 		 * function은 node의 index와 node의 textContext를 인자로 하여 함수를 실행한다.
 		 */
-		after: (content) => {
+		after: (content, ...args) => {
+			if (args.length) {
+				args.forEach((v) => nodeArr.after(v));
+			}
+
 			const type = typeof content;
 			if (type === 'string') {
 				const el = convertStringToElement(content);
@@ -72,54 +76,46 @@ const manipulation = (nodeArr, initAttr) => {
 					index++;
 				}
 			}
+		},
+		/**
+		 * @append
+		 * 
+		 * @DOM [append()]
+		 * 
+		 * @param {htmlString|Text|Array|Element|NodeList|Kirin|function} content
+		 * 
+		 * 
+		 */
+		append: (content) => {
+			const type = typeof content;
+			if (type === 'string') {
+				const el = convertStringToElement(content);
+				for (let node of nodeArr) {
+					node.append(el);
+				}
+			} else if (Array.isArray(content)) {
+				content.forEach((v) => nodeArr.append(v));
+			} else if (content.nodeType) {
+				for (let node of nodeArr) {
+					node.append(content);
+				}
+			} else if (NodeList.prototype.isPrototypeOf(content)) {
+				for (let node of nodeArr) {
+					for (let c of content) {
+						node.append(c);
+					}
+				}
+			} else if (type === 'function') {
+				const func = content;
+				let index = 0;
+				for (let node of nodeArr) {
+					const result = convertStringToElement(func(index, node.textContent));
+					node.append(result);
+					index++;
+				}
+			}
 		}
 	};
 };
 
 export default manipulation;
-
-/**
- * TODO:
- * addClass()
- * after()
- * append()
- * appendTo()
- * before()
- * clone()
- * css()
- * detach()
- * empty()
- * hasClass()
- * height()
- * innerHeight()
- * innerWidth()
- * insertAfter()
- * insertBefore()
- * offset()
- * offsetParent()
- * outerHeight()
- * outerWidth()
- * position()
- * prepend()
- * prependTo()
- * prop()
- * remove()
- * removeAttr()
- * removeClass()
- * removeProp()
- * replaceAll()
- * replaceWith()
- * scrollLeft()
- * scrollTop()
- * toggleClass()
- * unwrap()
- * width()
- * wrap()
- * wrapAll()
- * wrapInner()
- * DONE:
- * attr()
- * html()
- * text()
- * val()
- */

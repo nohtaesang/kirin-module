@@ -11030,6 +11030,16 @@ var manipulation = function manipulation(nodeArr, initAttr) {
      * function은 node의 index와 node의 textContext를 인자로 하여 함수를 실행한다.
      */
     after: function after(content) {
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      if (args.length) {
+        args.forEach(function (v) {
+          return nodeArr.after(v);
+        });
+      }
+
       var type = _typeof(content);
 
       if (type === 'string') {
@@ -11164,56 +11174,157 @@ var manipulation = function manipulation(nodeArr, initAttr) {
           }
         }
       }
+    },
+
+    /**
+     * @append
+     * 
+     * @DOM [append()]
+     * 
+     * @param {htmlString|Text|Array|Element|NodeList|Kirin|function} content
+     * 
+     * 
+     */
+    append: function append(content) {
+      var type = _typeof(content);
+
+      if (type === 'string') {
+        var el = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["convertStringToElement"])(content);
+        var _iteratorNormalCompletion8 = true;
+        var _didIteratorError8 = false;
+        var _iteratorError8 = undefined;
+
+        try {
+          for (var _iterator8 = nodeArr[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+            var node = _step8.value;
+            node.append(el);
+          }
+        } catch (err) {
+          _didIteratorError8 = true;
+          _iteratorError8 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
+              _iterator8["return"]();
+            }
+          } finally {
+            if (_didIteratorError8) {
+              throw _iteratorError8;
+            }
+          }
+        }
+      } else if (Array.isArray(content)) {
+        content.forEach(function (v) {
+          return nodeArr.append(v);
+        });
+      } else if (content.nodeType) {
+        var _iteratorNormalCompletion9 = true;
+        var _didIteratorError9 = false;
+        var _iteratorError9 = undefined;
+
+        try {
+          for (var _iterator9 = nodeArr[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+            var _node5 = _step9.value;
+
+            _node5.append(content);
+          }
+        } catch (err) {
+          _didIteratorError9 = true;
+          _iteratorError9 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion9 && _iterator9["return"] != null) {
+              _iterator9["return"]();
+            }
+          } finally {
+            if (_didIteratorError9) {
+              throw _iteratorError9;
+            }
+          }
+        }
+      } else if (NodeList.prototype.isPrototypeOf(content)) {
+        var _iteratorNormalCompletion10 = true;
+        var _didIteratorError10 = false;
+        var _iteratorError10 = undefined;
+
+        try {
+          for (var _iterator10 = nodeArr[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+            var _node6 = _step10.value;
+            var _iteratorNormalCompletion11 = true;
+            var _didIteratorError11 = false;
+            var _iteratorError11 = undefined;
+
+            try {
+              for (var _iterator11 = content[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
+                var c = _step11.value;
+
+                _node6.append(c);
+              }
+            } catch (err) {
+              _didIteratorError11 = true;
+              _iteratorError11 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion11 && _iterator11["return"] != null) {
+                  _iterator11["return"]();
+                }
+              } finally {
+                if (_didIteratorError11) {
+                  throw _iteratorError11;
+                }
+              }
+            }
+          }
+        } catch (err) {
+          _didIteratorError10 = true;
+          _iteratorError10 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
+              _iterator10["return"]();
+            }
+          } finally {
+            if (_didIteratorError10) {
+              throw _iteratorError10;
+            }
+          }
+        }
+      } else if (type === 'function') {
+        var func = content;
+        var index = 0;
+        var _iteratorNormalCompletion12 = true;
+        var _didIteratorError12 = false;
+        var _iteratorError12 = undefined;
+
+        try {
+          for (var _iterator12 = nodeArr[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
+            var _node7 = _step12.value;
+            var result = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["convertStringToElement"])(func(index, _node7.textContent));
+
+            _node7.append(result);
+
+            index++;
+          }
+        } catch (err) {
+          _didIteratorError12 = true;
+          _iteratorError12 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion12 && _iterator12["return"] != null) {
+              _iterator12["return"]();
+            }
+          } finally {
+            if (_didIteratorError12) {
+              throw _iteratorError12;
+            }
+          }
+        }
+      }
     }
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (manipulation);
-/**
- * TODO:
- * addClass()
- * after()
- * append()
- * appendTo()
- * before()
- * clone()
- * css()
- * detach()
- * empty()
- * hasClass()
- * height()
- * innerHeight()
- * innerWidth()
- * insertAfter()
- * insertBefore()
- * offset()
- * offsetParent()
- * outerHeight()
- * outerWidth()
- * position()
- * prepend()
- * prependTo()
- * prop()
- * remove()
- * removeAttr()
- * removeClass()
- * removeProp()
- * replaceAll()
- * replaceWith()
- * scrollLeft()
- * scrollTop()
- * toggleClass()
- * unwrap()
- * width()
- * wrap()
- * wrapAll()
- * wrapInner()
- * DONE:
- * attr()
- * html()
- * text()
- * val()
- */
 
 /***/ }),
 
