@@ -10944,6 +10944,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 var manipulation = function manipulation(nodeArr, initAttr) {
   return {
+    /**
+     * @param {String|Function|Array} value 
+     * string, array는 class에 그대로 추가된다.
+     * function은 현재 class의 이름을 공백을 간격으로 index, value 를 인자로 하여 함수를 실행한다.
+     */
     addClass: function addClass(value) {
       var type = _typeof(value);
 
@@ -10979,7 +10984,12 @@ var manipulation = function manipulation(nodeArr, initAttr) {
         try {
           for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
             var _node = _step2.value;
-            value(0, _node.classList.value); // node.classList.add(value(node.classList.value, 0).split(' ')[0]);
+            var length = _node.classList.length;
+
+            for (var i = 0; i < length; i++) {
+              var result = value(i, _node.classList[i]);
+              if (typeof result === 'string') _node.classList.add(result);
+            }
           }
         } catch (err) {
           _didIteratorError2 = true;

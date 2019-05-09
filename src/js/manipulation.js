@@ -4,6 +4,11 @@ import { returnComputedStyle, getOwnOrInitProperty } from './utils/functions';
 
 const manipulation = (nodeArr, initAttr) => {
 	return {
+		/**
+		 * @param {String|Function|Array} value 
+		 * string, array는 class에 그대로 추가된다.
+		 * function은 현재 class의 이름을 공백을 간격으로 index, value 를 인자로 하여 함수를 실행한다.
+		 */
 		addClass: (value) => {
 			const type = typeof value;
 			if (type === 'string') {
@@ -12,8 +17,11 @@ const manipulation = (nodeArr, initAttr) => {
 				}
 			} else if (type === 'function') {
 				for (let node of nodeArr) {
-					value(0, node.classList.value);
-					// node.classList.add(value(node.classList.value, 0).split(' ')[0]);
+					const length = node.classList.length;
+					for (let i = 0; i < length; i++) {
+						const result = value(i, node.classList[i]);
+						if (typeof result === 'string') node.classList.add(result);
+					}
 				}
 			} else if (Array.isArray(value)) {
 				for (let node of nodeArr) {

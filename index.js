@@ -4,8 +4,8 @@ const p = Kirin.select('.p');
 const container = Kirin.select('.container');
 btn1.click(() => {
 	container.addClass(function(i, v) {
-		console.log('^^', i, v);
-		// return v + i;
+		// console.log('^^', i, v);
+		return i + v;
 	});
 });
 btn2.click(() => {
@@ -17,8 +17,8 @@ const jbtn2 = $('.btn2');
 const jcontainer = $('.container');
 
 jbtn1.click(() => {
-	jcontainer.addClass(function(i, v) {
-		console.log('--', i, v);
-		// return v + i;
-	});
+	// jcontainer.addClass(function(i, v) {
+	// 	// console.log('--', i + v);
+	// 	// return i + 'a';
+	// });
 });
