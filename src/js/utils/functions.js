@@ -29,4 +29,13 @@ const convertStringToElement = (str) => {
 	return wrapper.firstChild;
 };
 
+// const copy = (nodeArr, deep) => {
+// 	const wrapper = [];
+
+// 	for (node of nodeArr) {
+// 		wrapper.push(node.cloneNode(deep));
+// 	}
+
+// };
+
 export { returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement };

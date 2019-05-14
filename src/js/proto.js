@@ -13,6 +13,7 @@ const proto = (nodeArr) => {
 	return {
 		// 버전 및 같은 Kirin 객체임을 확인하기 위한 꼼수...?
 		kirin: '1.0.0',
+		// ...nodeArr,
 		...events(nodeArr),
 		...effects(nodeArr, curAttr),
 		...manipulation(nodeArr, curAttr),

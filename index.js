@@ -1,30 +1,26 @@
-const btn1 = Kirin.select('.btn1');
-const pk = Kirin.select('.p');
-const container = Kirin.select('.container');
-const p = document.querySelectorAll('.p');
-const p1 = document.getElementById('p1');
-const p2 = document.querySelector('.p2');
-btn1.click(() => {
-	// container.append('<p>hello!@</p>');
-	// container.append('bye~~', 'hito', [ '1', 2 ]);
-	// container.append(p);
-	// container.append(p1);
-	// container.append(p2);
-	// container.append(pk);
-	// container.append([ '1', p ]);
-	container.append(function(i, v) {
-		return '<div>' + v + i + '</div>';
+const kbtn1 = Kirin.select('.btn1');
+const kp = Kirin.select('.p');
+const kcontainer = Kirin.select('.container');
+const ktarget = Kirin.select('.target');
 
-		// return
-	});
+const target = document.querySelectorAll('.target');
+const container = document.querySelectorAll('.container');
+
+kbtn1.click(() => {
+	kcontainer.slideUp();
+	// const clone = kp.clone(true);
+	// console.log(clone);
+	// clone.appendTo(kcontainer);
+	// console.log(kp.clone(true).appendTo(kcontainer));
 });
 
 const jbtn1 = $('.btn1');
 const jp = $('.p');
 const jcontainer = $('.container');
+const jtarget = $('.target');
 jbtn1.click(() => {
-	// jp.append(function(i, v) {
-	// 	return '<div>' + v + i + '</div>';
-	// 	// return
-	// });
+	// console.log(jtarget.clone(true));
+	// jtarget.clone(true).appendTo(jcontainer);
+	// jcontainer.after(jtarget.clone(false));
+	// jp.clone(true).appendTo(jcontainer);
 });
