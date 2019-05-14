@@ -1,4 +1,19 @@
-'use strict';
+import proto from '../proto';
+('use strict');
+
+const getKirinArrFromNodeList = (nodeList) => {
+	let kirinArr = [];
+	let index = 0;
+	for (let node of nodeList) {
+		kirinArr[index] = node;
+		index++;
+	}
+
+	const kirinArrProto = proto(kirinArr);
+	Object.setPrototypeOf(kirinArrProto, Array.prototype);
+	Object.setPrototypeOf(kirinArr, kirinArrProto);
+	return kirinArr;
+};
 
 const returnComputedStyle = (node, property) =>
 	property ? window.getComputedStyle(node)[property] : window.getComputedStyle(node);
@@ -38,4 +53,11 @@ const convertStringToElement = (str) => {
 
 // };
 
-export { returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement };
+export {
+	getKirinArrFromNodeList,
+	returnComputedStyle,
+	doCallback,
+	getOwnOrInitProperty,
+	getStylePreAndPostFix,
+	convertStringToElement
+};

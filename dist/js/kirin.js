@@ -11738,58 +11738,26 @@ var proto = function proto(nodeArr) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _proto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./proto */ "./src/js/proto.js");
+/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
+
 
 'use strict'; // Constructor
 
 
 var Selector = function Selector(sel) {
-  var nodeArr,
-      nodeArrProto,
-      kirinArr = [];
+  var nodeList;
 
   try {
     if (sel && typeof sel === 'string') {
-      nodeArr = document.querySelectorAll(sel);
-      if (!nodeArr || nodeArr.length === 0) throw new Error("Didn't find any element-node from this argumnets: \"".concat(sel, "\""));
+      nodeList = document.querySelectorAll(sel);
+      if (!nodeList || nodeList.length === 0) throw new Error("Didn't find any element-node from this argumnets: \"".concat(sel, "\""));
     } else throw new Error('Arguments Error');
   } catch (e) {
     console.error(e);
     return;
   }
 
-  var index = 0;
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var node = _step.value;
-      kirinArr[index] = node;
-      index++;
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-        _iterator["return"]();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
-  }
-
-  console.log(kirinArr);
-  nodeArrProto = Object(_proto__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr); // console.dir(nodeArr);
-  // console.log(nodeArrProto);
-
-  Object.setPrototypeOf(nodeArrProto, Object.getPrototypeOf(nodeArr));
-  Object.setPrototypeOf(nodeArr, nodeArrProto);
-  return nodeArr;
+  return Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getKirinArrFromNodeList"])(nodeList);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Selector);
@@ -11851,17 +11819,54 @@ var traversing = function traversing(nodeArr, initAttr) {
 /*!***********************************!*\
   !*** ./src/js/utils/functions.js ***!
   \***********************************/
-/*! exports provided: returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement */
+/*! exports provided: getKirinArrFromNodeList, returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getKirinArrFromNodeList", function() { return getKirinArrFromNodeList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "returnComputedStyle", function() { return returnComputedStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "doCallback", function() { return doCallback; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOwnOrInitProperty", function() { return getOwnOrInitProperty; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStylePreAndPostFix", function() { return getStylePreAndPostFix; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertStringToElement", function() { return convertStringToElement; });
+/* harmony import */ var _proto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../proto */ "./src/js/proto.js");
 
+'use strict';
+
+var getKirinArrFromNodeList = function getKirinArrFromNodeList(nodeList) {
+  var kirinArr = [];
+  var index = 0;
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = nodeList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var node = _step.value;
+      kirinArr[index] = node;
+      index++;
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+        _iterator["return"]();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  var kirinArrProto = Object(_proto__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr);
+  Object.setPrototypeOf(kirinArrProto, Array.prototype);
+  Object.setPrototypeOf(kirinArr, kirinArrProto);
+  return kirinArr;
+};
 
 var returnComputedStyle = function returnComputedStyle(node, property) {
   return property ? window.getComputedStyle(node)[property] : window.getComputedStyle(node);
