@@ -62,3 +62,19 @@ methods를 쓰게 만들기 위해 prototype을 연결해 주었지만, 해당 p
 
 체이닝을 하기 위해선 어떻게 해야 하는 것일까?
 
+[해결 방법]
+결국 clone 객체를 생성하여야 한다.
+그 이유는 clone의 모체가 되는 객체와 분리되어야 하기 때문이다. (스코프를 공유해서는 안된다.)
+
+NodeList 로 객체를 만드는 것은 영 불편하여 
+아예 NodeList로 되어있던 kirin 객체를 을 Array 기반으로 변경해서 해결했다.
+
+```
+const clone = (withDataAndEvents = true) => {
+    const nodeArr = [];
+    kirinArr.forEach((node, i) => {
+        nodeArr[i] = node.cloneNode(withDataAndEvents);
+    });
+    return getKirinArrFromNodeArr(nodeArr);
+};
+```

@@ -7,11 +7,9 @@ const target = document.querySelectorAll('.target');
 const container = document.querySelectorAll('.container');
 
 kbtn1.click(() => {
-	kcontainer.slideUp();
 	// const clone = kp.clone(true);
-	// console.log(clone);
 	// clone.appendTo(kcontainer);
-	// console.log(kp.clone(true).appendTo(kcontainer));
+	console.log(kp.clone(true).appendTo(kcontainer));
 });
 
 const jbtn1 = $('.btn1');

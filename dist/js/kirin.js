@@ -10607,8 +10607,8 @@ __webpack_require__.r(__webpack_exports__);
 
 'use strict';
 
-var effects = function effects(nodeArr, curAttr) {
-  var length = nodeArr.length;
+var effects = function effects(kirinArr, curAttr) {
+  var length = kirinArr.length;
   var animations = [];
   var initHeight = [];
   var initDisplay = [];
@@ -10617,7 +10617,7 @@ var effects = function effects(nodeArr, curAttr) {
     var _curAttr$i = curAttr[i],
         height = _curAttr$i.height,
         display = _curAttr$i.display;
-    animations.push(Object(_animations_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr[i], curAttr[i]));
+    animations.push(Object(_animations_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr[i], curAttr[i]));
     initHeight.push(height);
     initDisplay.push(display);
   }
@@ -10647,7 +10647,7 @@ var effects = function effects(nodeArr, curAttr) {
       });
     }
 
-    return nodeArr;
+    return kirinArr;
   };
 
   var hideAnimation = function hideAnimation(name, option) {
@@ -10670,7 +10670,7 @@ var effects = function effects(nodeArr, curAttr) {
     } // chaining을 위해
 
 
-    return nodeArr;
+    return kirinArr;
   };
 
   var fadeAnimation = function fadeAnimation(name, option) {
@@ -10698,7 +10698,7 @@ var effects = function effects(nodeArr, curAttr) {
       });
     }
 
-    return nodeArr;
+    return kirinArr;
   };
 
   var slideAnimation = function slideAnimation(name, option) {
@@ -10724,7 +10724,7 @@ var effects = function effects(nodeArr, curAttr) {
       });
     }
 
-    return nodeArr;
+    return kirinArr;
   };
 
   var animateAnimation = function animateAnimation(params, option) {
@@ -10749,7 +10749,7 @@ var effects = function effects(nodeArr, curAttr) {
       });
     }
 
-    return nodeArr;
+    return kirinArr;
   };
 
   return {
@@ -10824,14 +10824,14 @@ var effects = function effects(nodeArr, curAttr) {
 __webpack_require__.r(__webpack_exports__);
 
 
-var events = function events(nodeArr) {
+var events = function events(kirinArr) {
   var click = function click(callback) {
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
     var _iteratorError = undefined;
 
     try {
-      for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      for (var _iterator = kirinArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var node = _step.value;
         node.addEventListener('click', callback);
       }
@@ -10942,7 +10942,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 'use strict';
 
-var manipulation = function manipulation(nodeArr, initAttr) {
+var manipulation = function manipulation(kirinArr, initAttr) {
   /**
    * DONE:
    * @addClass
@@ -10962,7 +10962,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = kirinArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var node = _step.value;
           node.classList.add(className);
         }
@@ -10982,7 +10982,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       }
     } else if (Array.isArray(className)) {
       className.forEach(function (v) {
-        return nodeArr.addClass(v);
+        return kirinArr.addClass(v);
       });
     } else if (type === 'function') {
       var func = className;
@@ -10991,7 +10991,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError2 = undefined;
 
       try {
-        for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        for (var _iterator2 = kirinArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var _node = _step2.value;
           var length = _node.classList.length;
 
@@ -11022,11 +11022,11 @@ var manipulation = function manipulation(nodeArr, initAttr) {
 
     if (args.length) {
       args.forEach(function (v) {
-        return nodeArr.addClass(v);
+        return kirinArr.addClass(v);
       });
     }
 
-    return nodeArr;
+    return kirinArr;
   };
   /**
    * DONE:
@@ -11036,7 +11036,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
    * 
    * @param {htmlString|Text|Array|Element|NodeList|Kirin|function} content
    * htmlString, Text는 type이 string이다. 받아온 값을 element로 변환하여 after 해준다.
-   * Array는 요소를 다시 nodeArr의 after 함수의 인자로 넣어 실행한다.
+   * Array는 요소를 다시 kirinArr의 after 함수의 인자로 넣어 실행한다.
    * Element는 바로 after 해준다.
    * NodeList와 Kirin은 둘 다 NodeList이다. 각 리스트의 인자는 element이므로, 분해하여 after 해준다.
    * function은 node의 index와 node의 textContext를 인자로 하여 함수를 실행한다.
@@ -11050,7 +11050,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
 
     if (args.length) {
       args.forEach(function (v) {
-        return nodeArr.after(v);
+        return kirinArr.after(v);
       });
     }
 
@@ -11063,7 +11063,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError3 = undefined;
 
       try {
-        for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        for (var _iterator3 = kirinArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
           var node = _step3.value;
           node.after(el);
         }
@@ -11083,7 +11083,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       }
     } else if (Array.isArray(content)) {
       content.forEach(function (v) {
-        return nodeArr.after(v);
+        return kirinArr.after(v);
       });
     } else if (content.nodeType) {
       var _iteratorNormalCompletion4 = true;
@@ -11091,7 +11091,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError4 = undefined;
 
       try {
-        for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+        for (var _iterator4 = kirinArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var _node2 = _step4.value;
 
           _node2.after(content);
@@ -11116,7 +11116,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError5 = undefined;
 
       try {
-        for (var _iterator5 = nodeArr[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+        for (var _iterator5 = kirinArr[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
           var _node3 = _step5.value;
           var _iteratorNormalCompletion6 = true;
           var _didIteratorError6 = false;
@@ -11165,7 +11165,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError7 = undefined;
 
       try {
-        for (var _iterator7 = nodeArr[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+        for (var _iterator7 = kirinArr[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
           var _node4 = _step7.value;
           var result = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["convertStringToElement"])(func(index, _node4.textContent));
 
@@ -11189,7 +11189,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       }
     }
 
-    return nodeArr;
+    return kirinArr;
   };
   /**
    * DONE:
@@ -11211,7 +11211,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError8 = undefined;
 
       try {
-        for (var _iterator8 = nodeArr[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+        for (var _iterator8 = kirinArr[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
           var node = _step8.value;
           node.append(el);
         }
@@ -11231,7 +11231,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       }
     } else if (Array.isArray(content)) {
       content.forEach(function (v) {
-        return nodeArr.append(v);
+        return kirinArr.append(v);
       });
     } else if (content.nodeType) {
       var _iteratorNormalCompletion9 = true;
@@ -11239,7 +11239,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError9 = undefined;
 
       try {
-        for (var _iterator9 = nodeArr[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+        for (var _iterator9 = kirinArr[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
           var _node5 = _step9.value;
 
           _node5.append(content);
@@ -11264,7 +11264,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError10 = undefined;
 
       try {
-        for (var _iterator10 = nodeArr[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+        for (var _iterator10 = kirinArr[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
           var _node6 = _step10.value;
           var _iteratorNormalCompletion11 = true;
           var _didIteratorError11 = false;
@@ -11313,7 +11313,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError12 = undefined;
 
       try {
-        for (var _iterator12 = nodeArr[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
+        for (var _iterator12 = kirinArr[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
           var _node7 = _step12.value;
           var result = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["convertStringToElement"])(func(index, _node7.textContent));
 
@@ -11343,11 +11343,11 @@ var manipulation = function manipulation(nodeArr, initAttr) {
 
     if (args.length) {
       args.forEach(function (v) {
-        return nodeArr.append(v);
+        return kirinArr.append(v);
       });
     }
 
-    return nodeArr;
+    return kirinArr;
   };
   /**
    * DONE:
@@ -11358,13 +11358,13 @@ var manipulation = function manipulation(nodeArr, initAttr) {
 
 
   var appendTo = function appendTo(target) {
-    console.log(nodeArr);
+    console.log(kirinArr);
     var _iteratorNormalCompletion13 = true;
     var _didIteratorError13 = false;
     var _iteratorError13 = undefined;
 
     try {
-      for (var _iterator13 = nodeArr[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
+      for (var _iterator13 = kirinArr[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
         var node = _step13.value;
         target.append(node);
       }
@@ -11383,7 +11383,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       }
     }
 
-    return nodeArr;
+    return kirinArr;
   };
   /**
    * DONE:
@@ -11404,7 +11404,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError14 = undefined;
 
       try {
-        for (var _iterator14 = nodeArr[Symbol.iterator](), _step14; !(_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done); _iteratorNormalCompletion14 = true) {
+        for (var _iterator14 = kirinArr[Symbol.iterator](), _step14; !(_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done); _iteratorNormalCompletion14 = true) {
           var node = _step14.value;
           return node.getAttribute(attributeName);
         }
@@ -11428,7 +11428,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError15 = undefined;
 
       try {
-        for (var _iterator15 = nodeArr[Symbol.iterator](), _step15; !(_iteratorNormalCompletion15 = (_step15 = _iterator15.next()).done); _iteratorNormalCompletion15 = true) {
+        for (var _iterator15 = kirinArr[Symbol.iterator](), _step15; !(_iteratorNormalCompletion15 = (_step15 = _iterator15.next()).done); _iteratorNormalCompletion15 = true) {
           var _node8 = _step15.value;
 
           _node8.setAttribute(attributeName, value);
@@ -11449,7 +11449,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       }
     }
 
-    return nodeArr;
+    return kirinArr;
   };
   /**
    * DONE:
@@ -11468,7 +11468,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
 
     if (args.length) {
       args.forEach(function (v) {
-        return nodeArr.before(v);
+        return kirinArr.before(v);
       });
     }
 
@@ -11481,7 +11481,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError16 = undefined;
 
       try {
-        for (var _iterator16 = nodeArr[Symbol.iterator](), _step16; !(_iteratorNormalCompletion16 = (_step16 = _iterator16.next()).done); _iteratorNormalCompletion16 = true) {
+        for (var _iterator16 = kirinArr[Symbol.iterator](), _step16; !(_iteratorNormalCompletion16 = (_step16 = _iterator16.next()).done); _iteratorNormalCompletion16 = true) {
           var node = _step16.value;
           node.before(el);
         }
@@ -11501,7 +11501,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       }
     } else if (Array.isArray(content)) {
       content.forEach(function (v) {
-        return nodeArr.before(v);
+        return kirinArr.before(v);
       });
     } else if (content.nodeType) {
       var _iteratorNormalCompletion17 = true;
@@ -11509,7 +11509,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError17 = undefined;
 
       try {
-        for (var _iterator17 = nodeArr[Symbol.iterator](), _step17; !(_iteratorNormalCompletion17 = (_step17 = _iterator17.next()).done); _iteratorNormalCompletion17 = true) {
+        for (var _iterator17 = kirinArr[Symbol.iterator](), _step17; !(_iteratorNormalCompletion17 = (_step17 = _iterator17.next()).done); _iteratorNormalCompletion17 = true) {
           var _node9 = _step17.value;
 
           _node9.before(content);
@@ -11534,7 +11534,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError18 = undefined;
 
       try {
-        for (var _iterator18 = nodeArr[Symbol.iterator](), _step18; !(_iteratorNormalCompletion18 = (_step18 = _iterator18.next()).done); _iteratorNormalCompletion18 = true) {
+        for (var _iterator18 = kirinArr[Symbol.iterator](), _step18; !(_iteratorNormalCompletion18 = (_step18 = _iterator18.next()).done); _iteratorNormalCompletion18 = true) {
           var _node10 = _step18.value;
           var _iteratorNormalCompletion19 = true;
           var _didIteratorError19 = false;
@@ -11583,7 +11583,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       var _iteratorError20 = undefined;
 
       try {
-        for (var _iterator20 = nodeArr[Symbol.iterator](), _step20; !(_iteratorNormalCompletion20 = (_step20 = _iterator20.next()).done); _iteratorNormalCompletion20 = true) {
+        for (var _iterator20 = kirinArr[Symbol.iterator](), _step20; !(_iteratorNormalCompletion20 = (_step20 = _iterator20.next()).done); _iteratorNormalCompletion20 = true) {
           var _node11 = _step20.value;
           var result = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["convertStringToElement"])(func(index, _node11.textContent));
 
@@ -11607,7 +11607,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
       }
     }
 
-    return nodeArr;
+    return kirinArr;
   };
   /**
    * TODO:
@@ -11622,38 +11622,11 @@ var manipulation = function manipulation(nodeArr, initAttr) {
 
   var clone = function clone() {
     var withDataAndEvents = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-    var newNodeArr = [];
-    var index = 0;
-    var _iteratorNormalCompletion21 = true;
-    var _didIteratorError21 = false;
-    var _iteratorError21 = undefined;
-
-    try {
-      for (var _iterator21 = nodeArr[Symbol.iterator](), _step21; !(_iteratorNormalCompletion21 = (_step21 = _iterator21.next()).done); _iteratorNormalCompletion21 = true) {
-        var node = _step21.value;
-        newNodeArr[index] = node.cloneNode(withDataAndEvents);
-        break;
-        index++;
-      }
-    } catch (err) {
-      _didIteratorError21 = true;
-      _iteratorError21 = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion21 && _iterator21["return"] != null) {
-          _iterator21["return"]();
-        }
-      } finally {
-        if (_didIteratorError21) {
-          throw _iteratorError21;
-        }
-      }
-    }
-
-    Object.setPrototypeOf(newNodeArr, Object.getPrototypeOf(nodeArr)); // NodeArr의 링크로 연결해준다.
-
-    console.log(newNodeArr);
-    return newNodeArr;
+    var nodeArr = [];
+    kirinArr.forEach(function (node, i) {
+      nodeArr[i] = node.cloneNode(withDataAndEvents);
+    });
+    return Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["getKirinArrFromNodeArr"])(nodeArr);
   };
   /**
    * TODO:
@@ -11667,7 +11640,7 @@ var manipulation = function manipulation(nodeArr, initAttr) {
 
 
   var print = function print() {
-    console.log(nodeArr);
+    console.log(kirinArr);
   };
 
   return {
@@ -11710,18 +11683,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var proto = function proto(nodeArr) {
+var proto = function proto(kirinArr) {
   var curAttr = [];
-  var length = nodeArr.length;
+  var length = kirinArr.length;
 
   for (var i = 0; i < length; i++) {
-    curAttr[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_4__["returnComputedStyle"])(nodeArr[i]);
+    curAttr[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_4__["returnComputedStyle"])(kirinArr[i]);
   }
 
   return _objectSpread({
     // 버전 및 같은 Kirin 객체임을 확인하기 위한 꼼수...?
     kirin: '1.0.0'
-  }, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(nodeArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(nodeArr, curAttr), Object(_manipulation__WEBPACK_IMPORTED_MODULE_2__["default"])(nodeArr, curAttr), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(nodeArr, curAttr));
+  }, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(kirinArr, curAttr), Object(_manipulation__WEBPACK_IMPORTED_MODULE_2__["default"])(kirinArr, curAttr), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(kirinArr, curAttr));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (proto);
@@ -11737,9 +11710,7 @@ var proto = function proto(nodeArr) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _proto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./proto */ "./src/js/proto.js");
-/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
-
+/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/functions */ "./src/js/utils/functions.js");
 
 'use strict'; // Constructor
 
@@ -11757,7 +11728,7 @@ var Selector = function Selector(sel) {
     return;
   }
 
-  return Object(_utils_functions__WEBPACK_IMPORTED_MODULE_1__["getKirinArrFromNodeList"])(nodeList);
+  return Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["getKirinArrFromNodeList"])(nodeList);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Selector);
@@ -11775,7 +11746,7 @@ var Selector = function Selector(sel) {
 __webpack_require__.r(__webpack_exports__);
 
 
-var traversing = function traversing(nodeArr, initAttr) {
+var traversing = function traversing(kirinArr, initAttr) {
   return {};
 };
 
@@ -11819,12 +11790,13 @@ var traversing = function traversing(nodeArr, initAttr) {
 /*!***********************************!*\
   !*** ./src/js/utils/functions.js ***!
   \***********************************/
-/*! exports provided: getKirinArrFromNodeList, returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement */
+/*! exports provided: getKirinArrFromNodeList, getKirinArrFromNodeArr, returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getKirinArrFromNodeList", function() { return getKirinArrFromNodeList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getKirinArrFromNodeArr", function() { return getKirinArrFromNodeArr; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "returnComputedStyle", function() { return returnComputedStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "doCallback", function() { return doCallback; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOwnOrInitProperty", function() { return getOwnOrInitProperty; });
@@ -11868,6 +11840,14 @@ var getKirinArrFromNodeList = function getKirinArrFromNodeList(nodeList) {
   return kirinArr;
 };
 
+var getKirinArrFromNodeArr = function getKirinArrFromNodeArr(nodeArr) {
+  var kirinArr = nodeArr.slice();
+  var kirinArrProto = Object(_proto__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr);
+  Object.setPrototypeOf(kirinArrProto, Array.prototype);
+  Object.setPrototypeOf(kirinArr, kirinArrProto);
+  return kirinArr;
+};
+
 var returnComputedStyle = function returnComputedStyle(node, property) {
   return property ? window.getComputedStyle(node)[property] : window.getComputedStyle(node);
 };
@@ -11901,9 +11881,9 @@ var convertStringToElement = function convertStringToElement(str) {
   var wrapper = document.createElement('div');
   wrapper.innerHTML = str;
   return wrapper.firstChild;
-}; // const copy = (nodeArr, deep) => {
+}; // const copy = (kirinArr, deep) => {
 // 	const wrapper = [];
-// 	for (node of nodeArr) {
+// 	for (node of kirinArr) {
 // 		wrapper.push(node.cloneNode(deep));
 // 	}
 // };

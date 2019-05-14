@@ -2,15 +2,15 @@ import Animation from './animations/animation';
 import { getOwnOrInitProperty } from './utils/functions';
 ('use strict');
 
-const effects = (nodeArr, curAttr) => {
-	const length = nodeArr.length;
+const effects = (kirinArr, curAttr) => {
+	const length = kirinArr.length;
 	const animations = [];
 	const initHeight = [];
 	const initDisplay = [];
 
 	for (let i = 0; i < length; i++) {
 		const { height, display } = curAttr[i];
-		animations.push(Animation(nodeArr[i], curAttr[i]));
+		animations.push(Animation(kirinArr[i], curAttr[i]));
 		initHeight.push(height);
 		initDisplay.push(display);
 	}
@@ -36,7 +36,7 @@ const effects = (nodeArr, curAttr) => {
 				callback
 			});
 		}
-		return nodeArr;
+		return kirinArr;
 	};
 
 	const hideAnimation = (name, option, callback = null) => {
@@ -58,7 +58,7 @@ const effects = (nodeArr, curAttr) => {
 		}
 
 		// chaining을 위해
-		return nodeArr;
+		return kirinArr;
 	};
 
 	const fadeAnimation = (name, option, callback = null) => {
@@ -84,7 +84,7 @@ const effects = (nodeArr, curAttr) => {
 				callback
 			});
 		}
-		return nodeArr;
+		return kirinArr;
 	};
 
 	const slideAnimation = (name, option, callback = null) => {
@@ -109,7 +109,7 @@ const effects = (nodeArr, curAttr) => {
 			});
 		}
 
-		return nodeArr;
+		return kirinArr;
 	};
 
 	const animateAnimation = (params, option, callback = null) => {
@@ -132,7 +132,7 @@ const effects = (nodeArr, curAttr) => {
 				callback
 			});
 		}
-		return nodeArr;
+		return kirinArr;
 	};
 
 	return {

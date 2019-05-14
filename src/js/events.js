@@ -1,8 +1,8 @@
 ('use strict');
 
-const events = nodeArr => {
-	const click = callback => {
-		for (let node of nodeArr) {
+const events = (kirinArr) => {
+	const click = (callback) => {
+		for (let node of kirinArr) {
 			node.addEventListener('click', callback);
 		}
 	};

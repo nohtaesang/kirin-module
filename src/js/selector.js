@@ -1,4 +1,3 @@
-import proto from './proto';
 import { getKirinArrFromNodeList } from './utils/functions';
 ('use strict');
 

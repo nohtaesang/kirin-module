@@ -15,6 +15,14 @@ const getKirinArrFromNodeList = (nodeList) => {
 	return kirinArr;
 };
 
+const getKirinArrFromNodeArr = (nodeArr) => {
+	let kirinArr = nodeArr.slice();
+	const kirinArrProto = proto(kirinArr);
+	Object.setPrototypeOf(kirinArrProto, Array.prototype);
+	Object.setPrototypeOf(kirinArr, kirinArrProto);
+	return kirinArr;
+};
+
 const returnComputedStyle = (node, property) =>
 	property ? window.getComputedStyle(node)[property] : window.getComputedStyle(node);
 
@@ -44,10 +52,10 @@ const convertStringToElement = (str) => {
 	return wrapper.firstChild;
 };
 
-// const copy = (nodeArr, deep) => {
+// const copy = (kirinArr, deep) => {
 // 	const wrapper = [];
 
-// 	for (node of nodeArr) {
+// 	for (node of kirinArr) {
 // 		wrapper.push(node.cloneNode(deep));
 // 	}
 
@@ -55,6 +63,7 @@ const convertStringToElement = (str) => {
 
 export {
 	getKirinArrFromNodeList,
+	getKirinArrFromNodeArr,
 	returnComputedStyle,
 	doCallback,
 	getOwnOrInitProperty,

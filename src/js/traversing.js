@@ -1,6 +1,6 @@
 ('use strict');
 
-const traversing = (nodeArr, initAttr) => {
+const traversing = (kirinArr, initAttr) => {
 	return {};
 };
 

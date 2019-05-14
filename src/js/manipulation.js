@@ -1,8 +1,13 @@
 // https://api.jquery.com/category/manipulation/
-import { returnComputedStyle, getOwnOrInitProperty, convertStringToElement } from './utils/functions';
+import {
+	getKirinArrFromNodeArr,
+	returnComputedStyle,
+	getOwnOrInitProperty,
+	convertStringToElement
+} from './utils/functions';
 ('use strict');
 
-const manipulation = (nodeArr, initAttr) => {
+const manipulation = (kirinArr, initAttr) => {
 	/**
 	 * DONE:
 	 * @addClass
@@ -16,14 +21,14 @@ const manipulation = (nodeArr, initAttr) => {
 	const addClass = (className, ...args) => {
 		const type = typeof className;
 		if (type === 'string') {
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				node.classList.add(className);
 			}
 		} else if (Array.isArray(className)) {
-			className.forEach((v) => nodeArr.addClass(v));
+			className.forEach((v) => kirinArr.addClass(v));
 		} else if (type === 'function') {
 			const func = className;
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				const length = node.classList.length;
 				for (let i = 0; i < length; i++) {
 					const result = func(i, node.classList[i]);
@@ -33,9 +38,9 @@ const manipulation = (nodeArr, initAttr) => {
 		}
 
 		if (args.length) {
-			args.forEach((v) => nodeArr.addClass(v));
+			args.forEach((v) => kirinArr.addClass(v));
 		}
-		return nodeArr;
+		return kirinArr;
 	};
 	/**
 	 * DONE:
@@ -45,30 +50,30 @@ const manipulation = (nodeArr, initAttr) => {
 	 * 
 	 * @param {htmlString|Text|Array|Element|NodeList|Kirin|function} content
 	 * htmlString, Text는 type이 string이다. 받아온 값을 element로 변환하여 after 해준다.
-	 * Array는 요소를 다시 nodeArr의 after 함수의 인자로 넣어 실행한다.
+	 * Array는 요소를 다시 kirinArr의 after 함수의 인자로 넣어 실행한다.
 	 * Element는 바로 after 해준다.
 	 * NodeList와 Kirin은 둘 다 NodeList이다. 각 리스트의 인자는 element이므로, 분해하여 after 해준다.
 	 * function은 node의 index와 node의 textContext를 인자로 하여 함수를 실행한다.
 	 */
 	const after = (content, ...args) => {
 		if (args.length) {
-			args.forEach((v) => nodeArr.after(v));
+			args.forEach((v) => kirinArr.after(v));
 		}
 
 		const type = typeof content;
 		if (type === 'string') {
 			const el = convertStringToElement(content);
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				node.after(el);
 			}
 		} else if (Array.isArray(content)) {
-			content.forEach((v) => nodeArr.after(v));
+			content.forEach((v) => kirinArr.after(v));
 		} else if (content.nodeType) {
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				node.after(content);
 			}
 		} else if (NodeList.prototype.isPrototypeOf(content)) {
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				for (let c of content) {
 					node.after(c);
 				}
@@ -76,13 +81,13 @@ const manipulation = (nodeArr, initAttr) => {
 		} else if (type === 'function') {
 			const func = content;
 			let index = 0;
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				const result = convertStringToElement(func(index, node.textContent));
 				node.after(result);
 				index++;
 			}
 		}
-		return nodeArr;
+		return kirinArr;
 	};
 	/**
 	 * DONE:
@@ -96,17 +101,17 @@ const manipulation = (nodeArr, initAttr) => {
 		const type = typeof content;
 		if (type === 'string') {
 			const el = convertStringToElement(content);
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				node.append(el);
 			}
 		} else if (Array.isArray(content)) {
-			content.forEach((v) => nodeArr.append(v));
+			content.forEach((v) => kirinArr.append(v));
 		} else if (content.nodeType) {
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				node.append(content);
 			}
 		} else if (NodeList.prototype.isPrototypeOf(content)) {
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				for (let c of content) {
 					node.append(c);
 				}
@@ -114,7 +119,7 @@ const manipulation = (nodeArr, initAttr) => {
 		} else if (type === 'function') {
 			const func = content;
 			let index = 0;
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				const result = convertStringToElement(func(index, node.textContent));
 				node.append(result);
 				index++;
@@ -122,9 +127,9 @@ const manipulation = (nodeArr, initAttr) => {
 		}
 
 		if (args.length) {
-			args.forEach((v) => nodeArr.append(v));
+			args.forEach((v) => kirinArr.append(v));
 		}
-		return nodeArr;
+		return kirinArr;
 	};
 
 	/**
@@ -134,11 +139,11 @@ const manipulation = (nodeArr, initAttr) => {
 	 * @param {Element|Kirin} target
 	 */
 	const appendTo = (target) => {
-		console.log(nodeArr);
-		for (let node of nodeArr) {
+		console.log(kirinArr);
+		for (let node of kirinArr) {
 			target.append(node);
 		}
-		return nodeArr;
+		return kirinArr;
 	};
 	/**
 	 * DONE:
@@ -150,15 +155,15 @@ const manipulation = (nodeArr, initAttr) => {
 	 */
 	const attr = (attributeName, value = null) => {
 		if (value === null) {
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				return node.getAttribute(attributeName);
 			}
 		} else {
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				node.setAttribute(attributeName, value);
 			}
 		}
-		return nodeArr;
+		return kirinArr;
 	};
 
 	/**
@@ -171,23 +176,23 @@ const manipulation = (nodeArr, initAttr) => {
 	 */
 	const before = (content, ...args) => {
 		if (args.length) {
-			args.forEach((v) => nodeArr.before(v));
+			args.forEach((v) => kirinArr.before(v));
 		}
 
 		const type = typeof content;
 		if (type === 'string') {
 			const el = convertStringToElement(content);
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				node.before(el);
 			}
 		} else if (Array.isArray(content)) {
-			content.forEach((v) => nodeArr.before(v));
+			content.forEach((v) => kirinArr.before(v));
 		} else if (content.nodeType) {
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				node.before(content);
 			}
 		} else if (NodeList.prototype.isPrototypeOf(content)) {
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				for (let c of content) {
 					node.before(c);
 				}
@@ -195,13 +200,13 @@ const manipulation = (nodeArr, initAttr) => {
 		} else if (type === 'function') {
 			const func = content;
 			let index = 0;
-			for (let node of nodeArr) {
+			for (let node of kirinArr) {
 				const result = convertStringToElement(func(index, node.textContent));
 				node.before(result);
 				index++;
 			}
 		}
-		return nodeArr;
+		return kirinArr;
 	};
 
 	/**
@@ -215,20 +220,11 @@ const manipulation = (nodeArr, initAttr) => {
 	 */
 
 	const clone = (withDataAndEvents = true) => {
-		const newNodeArr = [];
-
-		let index = 0;
-		for (let node of nodeArr) {
-			newNodeArr[index] = node.cloneNode(withDataAndEvents);
-			break;
-			index++;
-		}
-
-		Object.setPrototypeOf(newNodeArr, Object.getPrototypeOf(nodeArr)); // NodeArr의 링크로 연결해준다.
-
-		console.log(newNodeArr);
-
-		return newNodeArr;
+		const nodeArr = [];
+		kirinArr.forEach((node, i) => {
+			nodeArr[i] = node.cloneNode(withDataAndEvents);
+		});
+		return getKirinArrFromNodeArr(nodeArr);
 	};
 
 	/**
@@ -241,7 +237,7 @@ const manipulation = (nodeArr, initAttr) => {
 	 * 
 	 */
 	const print = () => {
-		console.log(nodeArr);
+		console.log(kirinArr);
 	};
 
 	return {
