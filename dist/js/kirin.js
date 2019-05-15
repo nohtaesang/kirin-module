@@ -10988,6 +10988,7 @@ var manipulation = function manipulation(kirinArr, curStyleProps) {
       });
     } else if (type === 'function') {
       var func = className;
+      var index = 0;
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
       var _iteratorError2 = undefined;
@@ -10995,12 +10996,9 @@ var manipulation = function manipulation(kirinArr, curStyleProps) {
       try {
         for (var _iterator2 = kirinArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var _node = _step2.value;
-          var length = _node.classList.length;
-
-          for (var i = 0; i < length; i++) {
-            var result = func(i, _node.classList[i]);
-            if (typeof result === 'string') _node.classList.add(result);
-          }
+          var result = func(index, _node.classList[0]);
+          if (typeof result === 'string') _node.classList.add(result);
+          index++;
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -11994,17 +11992,17 @@ var manipulation = function manipulation(kirinArr, curStyleProps) {
   };
   /**
    * TODO:
-   * @a
+   * @html
    * 
    * @DOM [.()]
    * 
-   * @param {|}
+   * @param {HtmlString|function}
    * 
-   * @return {|}
+   * @return {String|Kirin}
    */
 
 
-  var a = function a() {
+  var html = function html(htmlString) {
     var _iteratorNormalCompletion30 = true;
     var _didIteratorError30 = false;
     var _iteratorError30 = undefined;
@@ -12012,6 +12010,8 @@ var manipulation = function manipulation(kirinArr, curStyleProps) {
     try {
       for (var _iterator30 = kirinArr[Symbol.iterator](), _step30; !(_iteratorNormalCompletion30 = (_step30 = _iterator30.next()).done); _iteratorNormalCompletion30 = true) {
         var node = _step30.value;
+        console.dir(node);
+        return node;
       }
     } catch (err) {
       _didIteratorError30 = true;
@@ -12024,6 +12024,42 @@ var manipulation = function manipulation(kirinArr, curStyleProps) {
       } finally {
         if (_didIteratorError30) {
           throw _iteratorError30;
+        }
+      }
+    }
+  };
+  /**
+   * TODO:
+   * @a
+   * 
+   * @DOM [.()]
+   * 
+   * @param {|}
+   * 
+   * @return {|}
+   */
+
+
+  var a = function a() {
+    var _iteratorNormalCompletion31 = true;
+    var _didIteratorError31 = false;
+    var _iteratorError31 = undefined;
+
+    try {
+      for (var _iterator31 = kirinArr[Symbol.iterator](), _step31; !(_iteratorNormalCompletion31 = (_step31 = _iterator31.next()).done); _iteratorNormalCompletion31 = true) {
+        var node = _step31.value;
+      }
+    } catch (err) {
+      _didIteratorError31 = true;
+      _iteratorError31 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion31 && _iterator31["return"] != null) {
+          _iterator31["return"]();
+        }
+      } finally {
+        if (_didIteratorError31) {
+          throw _iteratorError31;
         }
       }
     }
@@ -12041,7 +12077,8 @@ var manipulation = function manipulation(kirinArr, curStyleProps) {
     detach: detach,
     empty: empty,
     hasClass: hasClass,
-    height: height
+    height: height,
+    html: html
   };
 };
 

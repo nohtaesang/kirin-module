@@ -25,12 +25,11 @@ const manipulation = (kirinArr, curStyleProps) => {
 			className.forEach((v) => kirinArr.addClass(v));
 		} else if (type === 'function') {
 			const func = className;
+			let index = 0;
 			for (let node of kirinArr) {
-				const length = node.classList.length;
-				for (let i = 0; i < length; i++) {
-					const result = func(i, node.classList[i]);
-					if (typeof result === 'string') node.classList.add(result);
-				}
+				const result = func(index, node.classList[0]);
+				if (typeof result === 'string') node.classList.add(result);
+				index++;
 			}
 		}
 
@@ -382,6 +381,23 @@ const manipulation = (kirinArr, curStyleProps) => {
 
 	/**
 	 * TODO:
+	 * @html
+	 * 
+	 * @DOM [.()]
+	 * 
+	 * @param {HtmlString|function}
+	 * 
+	 * @return {String|Kirin}
+	 */
+	const html = (htmlString) => {
+		for (let node of kirinArr) {
+			console.dir(node);
+			return node;
+		}
+	};
+
+	/**
+	 * TODO:
 	 * @a
 	 * 
 	 * @DOM [.()]
@@ -407,7 +423,8 @@ const manipulation = (kirinArr, curStyleProps) => {
 		detach,
 		empty,
 		hasClass,
-		height
+		height,
+		html
 	};
 };
 

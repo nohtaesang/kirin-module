@@ -5,23 +5,16 @@ const ktitle = Kirin.select('.title');
 const kp = Kirin.select('.p');
 const ktarget = Kirin.select('.target');
 const ktemp = Kirin.select('.temp');
+const krich = Kirin.select('.rich');
 kbtn1.click(() => {
-	// ktarget.css('height', (i, v) => {
-	// 	console.log((i + 1) * 300);
-	// 	return (i + 1) * 300 + 'px';
-	// });
-	// const result = ktarget.height((i, v) => {
-	// 	return (i + 1) * 300;
-	// });
-	// ktarget.height('300%');
+	// const result = kcontainer.html();
 	// console.log('TCL: result', result);
-
-	ktarget.height('500');
+	// krich.addClass((i, v) => {
+	// 	console.log(i, v);
+	// 	return i + v;
+	// });
 });
-kbtn2.click(() => {
-	kp.appendTo(ktarget);
-	ktarget.height('inherit');
-});
+kbtn2.click(() => {});
 
 const dbtn1 = document.querySelectorAll('.btn1');
 const dbtn2 = document.querySelectorAll('.btn2');
@@ -38,11 +31,13 @@ const jtitle = $('.title');
 const jp = $('.p');
 const jtarget = $('.target');
 const jtemp = $('.temp');
+const jrich = $('.rich');
 
 jbtn1.click(() => {
-	// jtarget.height('500');
+	jrich.addClass((i, v) => {
+		console.log(i, v);
+		return i + v;
+	});
 });
 
-jbtn2.click(() => {
-	// jtarget.height('inherit');
-});
+jbtn2.click(() => {});
