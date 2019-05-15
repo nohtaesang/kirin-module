@@ -1,13 +1,13 @@
 // https://api.jquery.com/category/manipulation/
 import {
-	getKirinArrFromNodeArr,
+	setPrototypeOfKirin,
 	returnComputedStyle,
 	getOwnOrInitProperty,
 	convertStringToElement
 } from './utils/functions';
 ('use strict');
 
-const manipulation = (kirinArr, initAttr) => {
+const manipulation = (kirinArr, curStyleProp) => {
 	/**
 	 * DONE:
 	 * @addClass
@@ -139,7 +139,6 @@ const manipulation = (kirinArr, initAttr) => {
 	 * @param {Element|Kirin} target
 	 */
 	const appendTo = (target) => {
-		console.log(kirinArr);
 		for (let node of kirinArr) {
 			target.append(node);
 		}
@@ -210,26 +209,52 @@ const manipulation = (kirinArr, initAttr) => {
 	};
 
 	/**
-	 * TODO:
+	 * DONE:
 	 * @clone
 	 * 
-	 * @DOM [.()]
+	 * @DOM [.cloneNode()]
 	 * 
 	 * @param {Boolean} withDataAndEvents
 	 * 깊은 복사를 할 것인지를 정할 수 있다.
 	 */
-
 	const clone = (withDataAndEvents = true) => {
 		const nodeArr = [];
 		kirinArr.forEach((node, i) => {
 			nodeArr[i] = node.cloneNode(withDataAndEvents);
 		});
-		return getKirinArrFromNodeArr(nodeArr);
+		setPrototypeOfKirin(nodeArr);
+		return nodeArr;
 	};
 
 	/**
 	 * TODO:
-	 * @
+	 * @DOM [.()]
+	 * 
+	 * @param {String|Array} propertyName
+	 * 
+	 * @param {String|Number|Function(index, value)|Object} value
+	 */
+	const css = (propertyName, value = null) => {
+		for (let node of kirinArr) {
+			console.log(node.style[propertyName]);
+		}
+
+		if (value === null) {
+			for (let nodeStyleProp of curStyleProp) {
+				return nodeStyleProp[propertyName];
+			}
+		} else {
+			const type = typeof value;
+			if (type === 'string' || type === 'number') {
+			} else if (type === 'function') {
+			} else if (type === 'object') {
+			}
+		}
+	};
+
+	/**
+	 * TODO:
+	 * @css
 	 * 
 	 * @DOM [.()]
 	 * 
@@ -248,7 +273,8 @@ const manipulation = (kirinArr, initAttr) => {
 		attr,
 		before,
 		clone,
-		print
+		print,
+		css
 	};
 };
 

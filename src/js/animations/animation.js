@@ -2,7 +2,7 @@ import { doCallback, pxToNum, getStylePreAndPostFix } from '../utils/functions';
 import easeFunction from './easing';
 ('use strict');
 
-const Animation = (node, curAttr) => {
+const Animation = (node, curStyleProp) => {
 	let queue = [];
 	let isStop = false;
 
@@ -77,7 +77,7 @@ const Animation = (node, curAttr) => {
 					toDisplay = display;
 					break;
 				case 'hideToggle':
-					toDisplay = curAttr.display === display ? 'none' : display;
+					toDisplay = curStyleProp.display === display ? 'none' : display;
 					break;
 			}
 
@@ -93,7 +93,7 @@ const Animation = (node, curAttr) => {
 			let fromOpacity, toOpacity, diff;
 			const { name, display, duration, easing, to, callback } = anim;
 
-			fromOpacity = curAttr.opacity;
+			fromOpacity = curStyleProp.opacity;
 			switch (name) {
 				case 'fadeIn':
 					node.style.display = display;
@@ -121,7 +121,7 @@ const Animation = (node, curAttr) => {
 
 				if (time >= duration) {
 					node.style.opacity = toOpacity;
-					if (curAttr.opacity === '0') {
+					if (curStyleProp.opacity === '0') {
 						node.style.display = 'none';
 					}
 					doCallback(callback);
@@ -143,7 +143,7 @@ const Animation = (node, curAttr) => {
 			node.style.display = display;
 			node.style.overflow = 'hidden';
 
-			fromHeight = curAttr.height;
+			fromHeight = curStyleProp.height;
 			switch (name) {
 				case 'slideUp':
 					toHeight = '0px';
@@ -165,7 +165,7 @@ const Animation = (node, curAttr) => {
 
 				if (time >= duration) {
 					node.style.height = toHeight;
-					if (curAttr.height === '0px') {
+					if (curStyleProp.height === '0px') {
 						node.style.display = 'none';
 					}
 					doCallback(callback);
@@ -188,7 +188,7 @@ const Animation = (node, curAttr) => {
 			const { params, duration, easing, callback } = anim;
 
 			for (let prop in params) {
-				fromProp[prop] = curAttr[prop];
+				fromProp[prop] = curStyleProp[prop];
 				const { post } = getStylePreAndPostFix(params[prop]);
 				postfix[prop] = post;
 				diff[prop] = parseFloat(params[prop]) - parseFloat(fromProp[prop]);

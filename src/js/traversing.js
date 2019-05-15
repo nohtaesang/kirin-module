@@ -1,6 +1,6 @@
 ('use strict');
 
-const traversing = (kirinArr, initAttr) => {
+const traversing = (kirinArr, curStyleProp) => {
 	return {};
 };
 

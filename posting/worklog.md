@@ -38,3 +38,6 @@
 
 * 애니메이션 방식 css 에서 script로 변경
 
+* 20190515
+nodeList 에서 nodeArr로 변경
+manipulation 작업중

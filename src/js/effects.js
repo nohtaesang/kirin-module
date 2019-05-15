@@ -2,15 +2,15 @@ import Animation from './animations/animation';
 import { getOwnOrInitProperty } from './utils/functions';
 ('use strict');
 
-const effects = (kirinArr, curAttr) => {
+const effects = (kirinArr, curStyleProp) => {
 	const length = kirinArr.length;
 	const animations = [];
 	const initHeight = [];
 	const initDisplay = [];
 
 	for (let i = 0; i < length; i++) {
-		const { height, display } = curAttr[i];
-		animations.push(Animation(kirinArr[i], curAttr[i]));
+		const { height, display } = curStyleProp[i];
+		animations.push(Animation(kirinArr[i], curStyleProp[i]));
 		initHeight.push(height);
 		initDisplay.push(display);
 	}

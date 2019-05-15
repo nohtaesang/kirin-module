@@ -10245,7 +10245,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 'use strict';
 
-var Animation = function Animation(node, curAttr) {
+var Animation = function Animation(node, curStyleProp) {
   var queue = [];
   var isStop = false;
 
@@ -10376,7 +10376,7 @@ var Animation = function Animation(node, curAttr) {
           break;
 
         case 'hideToggle':
-          toDisplay = curAttr.display === display ? 'none' : display;
+          toDisplay = curStyleProp.display === display ? 'none' : display;
           break;
       }
 
@@ -10397,7 +10397,7 @@ var Animation = function Animation(node, curAttr) {
           easing = anim.easing,
           to = anim.to,
           callback = anim.callback;
-      fromOpacity = curAttr.opacity;
+      fromOpacity = curStyleProp.opacity;
 
       switch (name) {
         case 'fadeIn':
@@ -10429,7 +10429,7 @@ var Animation = function Animation(node, curAttr) {
         if (time >= duration) {
           node.style.opacity = toOpacity;
 
-          if (curAttr.opacity === '0') {
+          if (curStyleProp.opacity === '0') {
             node.style.display = 'none';
           }
 
@@ -10457,7 +10457,7 @@ var Animation = function Animation(node, curAttr) {
           callback = anim.callback;
       node.style.display = display;
       node.style.overflow = 'hidden';
-      fromHeight = curAttr.height;
+      fromHeight = curStyleProp.height;
 
       switch (name) {
         case 'slideUp':
@@ -10482,7 +10482,7 @@ var Animation = function Animation(node, curAttr) {
         if (time >= duration) {
           node.style.height = toHeight;
 
-          if (curAttr.height === '0px') {
+          if (curStyleProp.height === '0px') {
             node.style.display = 'none';
           }
 
@@ -10510,7 +10510,7 @@ var Animation = function Animation(node, curAttr) {
           callback = anim.callback;
 
       for (var prop in params) {
-        fromProp[prop] = curAttr[prop];
+        fromProp[prop] = curStyleProp[prop];
 
         var _getStylePreAndPostFi = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["getStylePreAndPostFix"])(params[prop]),
             post = _getStylePreAndPostFi.post;
@@ -10607,17 +10607,17 @@ __webpack_require__.r(__webpack_exports__);
 
 'use strict';
 
-var effects = function effects(kirinArr, curAttr) {
+var effects = function effects(kirinArr, curStyleProp) {
   var length = kirinArr.length;
   var animations = [];
   var initHeight = [];
   var initDisplay = [];
 
   for (var i = 0; i < length; i++) {
-    var _curAttr$i = curAttr[i],
-        height = _curAttr$i.height,
-        display = _curAttr$i.display;
-    animations.push(Object(_animations_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr[i], curAttr[i]));
+    var _curStyleProp$i = curStyleProp[i],
+        height = _curStyleProp$i.height,
+        display = _curStyleProp$i.display;
+    animations.push(Object(_animations_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr[i], curStyleProp[i]));
     initHeight.push(height);
     initDisplay.push(display);
   }
@@ -10942,7 +10942,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 'use strict';
 
-var manipulation = function manipulation(kirinArr, initAttr) {
+var manipulation = function manipulation(kirinArr, curStyleProp) {
   /**
    * DONE:
    * @addClass
@@ -11358,7 +11358,6 @@ var manipulation = function manipulation(kirinArr, initAttr) {
 
 
   var appendTo = function appendTo(target) {
-    console.log(kirinArr);
     var _iteratorNormalCompletion13 = true;
     var _didIteratorError13 = false;
     var _iteratorError13 = undefined;
@@ -11610,10 +11609,10 @@ var manipulation = function manipulation(kirinArr, initAttr) {
     return kirinArr;
   };
   /**
-   * TODO:
+   * DONE:
    * @clone
    * 
-   * @DOM [.()]
+   * @DOM [.cloneNode()]
    * 
    * @param {Boolean} withDataAndEvents
    * 깊은 복사를 할 것인지를 정할 수 있다.
@@ -11626,11 +11625,78 @@ var manipulation = function manipulation(kirinArr, initAttr) {
     kirinArr.forEach(function (node, i) {
       nodeArr[i] = node.cloneNode(withDataAndEvents);
     });
-    return Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["getKirinArrFromNodeArr"])(nodeArr);
+    Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["setPrototypeOfKirin"])(nodeArr);
+    return nodeArr;
   };
   /**
    * TODO:
-   * @
+   * @DOM [.()]
+   * 
+   * @param {String|Array} propertyName
+   * 
+   * @param {String|Number|Function(index, value)|Object} value
+   */
+
+
+  var css = function css(propertyName) {
+    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var _iteratorNormalCompletion21 = true;
+    var _didIteratorError21 = false;
+    var _iteratorError21 = undefined;
+
+    try {
+      for (var _iterator21 = kirinArr[Symbol.iterator](), _step21; !(_iteratorNormalCompletion21 = (_step21 = _iterator21.next()).done); _iteratorNormalCompletion21 = true) {
+        var node = _step21.value;
+        console.log(node.style[propertyName]);
+      }
+    } catch (err) {
+      _didIteratorError21 = true;
+      _iteratorError21 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion21 && _iterator21["return"] != null) {
+          _iterator21["return"]();
+        }
+      } finally {
+        if (_didIteratorError21) {
+          throw _iteratorError21;
+        }
+      }
+    }
+
+    if (value === null) {
+      var _iteratorNormalCompletion22 = true;
+      var _didIteratorError22 = false;
+      var _iteratorError22 = undefined;
+
+      try {
+        for (var _iterator22 = curStyleProp[Symbol.iterator](), _step22; !(_iteratorNormalCompletion22 = (_step22 = _iterator22.next()).done); _iteratorNormalCompletion22 = true) {
+          var nodeStyleProp = _step22.value;
+          return nodeStyleProp[propertyName];
+        }
+      } catch (err) {
+        _didIteratorError22 = true;
+        _iteratorError22 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion22 && _iterator22["return"] != null) {
+            _iterator22["return"]();
+          }
+        } finally {
+          if (_didIteratorError22) {
+            throw _iteratorError22;
+          }
+        }
+      }
+    } else {
+      var type = _typeof(value);
+
+      if (type === 'string' || type === 'number') {} else if (type === 'function') {} else if (type === 'object') {}
+    }
+  };
+  /**
+   * TODO:
+   * @css
    * 
    * @DOM [.()]
    * 
@@ -11651,7 +11717,8 @@ var manipulation = function manipulation(kirinArr, initAttr) {
     attr: attr,
     before: before,
     clone: clone,
-    print: print
+    print: print,
+    css: css
   };
 };
 
@@ -11684,17 +11751,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var proto = function proto(kirinArr) {
-  var curAttr = [];
+  var curStyleProp = [];
   var length = kirinArr.length;
 
   for (var i = 0; i < length; i++) {
-    curAttr[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_4__["returnComputedStyle"])(kirinArr[i]);
+    curStyleProp[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_4__["returnComputedStyle"])(kirinArr[i]);
   }
 
   return _objectSpread({
     // 버전 및 같은 Kirin 객체임을 확인하기 위한 꼼수...?
     kirin: '1.0.0'
-  }, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(kirinArr, curAttr), Object(_manipulation__WEBPACK_IMPORTED_MODULE_2__["default"])(kirinArr, curAttr), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(kirinArr, curAttr));
+  }, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(kirinArr, curStyleProp), Object(_manipulation__WEBPACK_IMPORTED_MODULE_2__["default"])(kirinArr, curStyleProp), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(kirinArr, curStyleProp));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (proto);
@@ -11746,7 +11813,7 @@ var Selector = function Selector(sel) {
 __webpack_require__.r(__webpack_exports__);
 
 
-var traversing = function traversing(kirinArr, initAttr) {
+var traversing = function traversing(kirinArr, curStyleProp) {
   return {};
 };
 
@@ -11790,13 +11857,13 @@ var traversing = function traversing(kirinArr, initAttr) {
 /*!***********************************!*\
   !*** ./src/js/utils/functions.js ***!
   \***********************************/
-/*! exports provided: getKirinArrFromNodeList, getKirinArrFromNodeArr, returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement */
+/*! exports provided: getKirinArrFromNodeList, setPrototypeOfKirin, returnComputedStyle, doCallback, getOwnOrInitProperty, getStylePreAndPostFix, convertStringToElement */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getKirinArrFromNodeList", function() { return getKirinArrFromNodeList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getKirinArrFromNodeArr", function() { return getKirinArrFromNodeArr; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setPrototypeOfKirin", function() { return setPrototypeOfKirin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "returnComputedStyle", function() { return returnComputedStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "doCallback", function() { return doCallback; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOwnOrInitProperty", function() { return getOwnOrInitProperty; });
@@ -11834,18 +11901,14 @@ var getKirinArrFromNodeList = function getKirinArrFromNodeList(nodeList) {
     }
   }
 
-  var kirinArrProto = Object(_proto__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr);
-  Object.setPrototypeOf(kirinArrProto, Array.prototype);
-  Object.setPrototypeOf(kirinArr, kirinArrProto);
+  setPrototypeOfKirin(kirinArr);
   return kirinArr;
 };
 
-var getKirinArrFromNodeArr = function getKirinArrFromNodeArr(nodeArr) {
-  var kirinArr = nodeArr.slice();
+var setPrototypeOfKirin = function setPrototypeOfKirin(kirinArr) {
   var kirinArrProto = Object(_proto__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr);
   Object.setPrototypeOf(kirinArrProto, Array.prototype);
   Object.setPrototypeOf(kirinArr, kirinArrProto);
-  return kirinArr;
 };
 
 var returnComputedStyle = function returnComputedStyle(node, property) {
