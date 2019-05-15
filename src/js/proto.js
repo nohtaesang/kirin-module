@@ -16,7 +16,7 @@ const proto = (kirinArr) => {
 		// ...kirinArr,
 		...events(kirinArr),
 		...effects(kirinArr, curStyleProps),
-		...manipulation(kirinArr, curStyleProps),
+		...manipulation(kirinArr, curStyleProps, length),
 		...traversing(kirinArr, curStyleProps)
 	};
 };

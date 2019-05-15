@@ -7,14 +7,17 @@ const ktarget = Kirin.select('.target');
 const ktemp = Kirin.select('.temp');
 const krich = Kirin.select('.rich');
 kbtn1.click(() => {
+	ktarget.height((i, v) => {
+		return (i + 1) * 300;
+	});
+
 	// const result = kcontainer.html();
 	// console.log('TCL: result', result);
-	// krich.addClass((i, v) => {
-	// 	console.log(i, v);
-	// 	return i + v;
-	// });
+	// kp.height('400');
 });
-kbtn2.click(() => {});
+kbtn2.click(() => {
+	ktarget.height('inherit');
+});
 
 const dbtn1 = document.querySelectorAll('.btn1');
 const dbtn2 = document.querySelectorAll('.btn2');
@@ -34,10 +37,10 @@ const jtemp = $('.temp');
 const jrich = $('.rich');
 
 jbtn1.click(() => {
-	jrich.addClass((i, v) => {
-		console.log(i, v);
-		return i + v;
-	});
+	// jrich.addClass((i, v) => {
+	// 	console.log(i, v);
+	// 	return i + v;
+	// });
 });
 
 jbtn2.click(() => {});

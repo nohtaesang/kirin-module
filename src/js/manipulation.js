@@ -2,7 +2,7 @@
 import { setPrototypeOfKirin, convertStringToElement, getStylePreAndPostFix } from './utils/functions';
 ('use strict');
 
-const manipulation = (kirinArr, curStyleProps) => {
+const manipulation = (kirinArr, curStyleProps, length) => {
 	/**
 	 * DONE:
 	 * @addClass
@@ -270,13 +270,10 @@ const manipulation = (kirinArr, curStyleProps) => {
 				}
 			} else if (type === 'function') {
 				const func = value;
-
-				let index = 0;
-				for (let node of kirinArr) {
-					const prop = window.getComputedStyle(node)[propertyName];
+				for (let i = 0; i < length; i++) {
+					const prop = curStyleProps[i][propertyName];
 					const { post } = getStylePreAndPostFix(prop);
-					node.style[propertyName] = parseFloat(func(index, prop)) + post;
-					index++;
+					kirinArr[i].style[propertyName] = parseFloat(func(i, prop)) + post; // parseFloat을 한 이유는 '100'과 '100px'을 같이 처리하기위해(?)
 				}
 			}
 		}
@@ -353,26 +350,22 @@ const manipulation = (kirinArr, curStyleProps) => {
 			return curStyleProps[0]['height'];
 		} else {
 			const type = typeof value;
-			if (type === 'number') {
-				for (let node of kirinArr) {
-					node.style.height = parseFloat(value) + 'px';
-				}
-			} else if (type === 'string') {
-				for (let node of kirinArr) {
-					const { pre, post } = getStylePreAndPostFix(value);
-					if (!post) {
+			if (type === 'number' || type === 'string') {
+				const { pre, post } = getStylePreAndPostFix(value);
+				if (!post) {
+					for (let node of kirinArr) {
 						node.style.height = pre + 'px';
-					} else {
+					}
+				} else {
+					for (let node of kirinArr) {
 						node.style.height = value;
 					}
 				}
 			} else if (type === 'function') {
 				const func = value;
-				let index = 0;
-				for (let node of kirinArr) {
-					const height = window.getComputedStyle(node)['height'];
-					node.style.height = parseFloat(func(index, height)) + 'px';
-					index++;
+				for (let i = 0; i < length; i++) {
+					const height = curStyleProps[i]['height'];
+					kirinArr[i].style.height = parseFloat(func(i, height)) + 'px';
 				}
 			}
 		}
