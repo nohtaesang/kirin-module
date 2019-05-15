@@ -1,13 +1,8 @@
 // https://api.jquery.com/category/manipulation/
-import {
-	setPrototypeOfKirin,
-	returnComputedStyle,
-	getOwnOrInitProperty,
-	convertStringToElement
-} from './utils/functions';
+import { setPrototypeOfKirin, convertStringToElement, getStylePreAndPostFix } from './utils/functions';
 ('use strict');
 
-const manipulation = (kirinArr, curStyleProp) => {
+const manipulation = (kirinArr, curStyleProps) => {
 	/**
 	 * DONE:
 	 * @addClass
@@ -17,6 +12,8 @@ const manipulation = (kirinArr, curStyleProp) => {
 	 * @param {String|Array|function(Int index, String indexOfClassList)} className 
 	 * string, array는 class에 그대로 추가된다.
 	 * function은 현재 class의 이름을 공백을 간격으로 index, value 를 인자로 하여 함수를 실행한다.
+	 * 
+	 * @return {Kirin}
 	 */
 	const addClass = (className, ...args) => {
 		const type = typeof className;
@@ -54,6 +51,8 @@ const manipulation = (kirinArr, curStyleProp) => {
 	 * Element는 바로 after 해준다.
 	 * NodeList와 Kirin은 둘 다 NodeList이다. 각 리스트의 인자는 element이므로, 분해하여 after 해준다.
 	 * function은 node의 index와 node의 textContext를 인자로 하여 함수를 실행한다.
+	 * 
+	 * @return {Kirin}
 	 */
 	const after = (content, ...args) => {
 		if (args.length) {
@@ -96,6 +95,8 @@ const manipulation = (kirinArr, curStyleProp) => {
 	 * @DOM [append()]
 	 * 
 	 * @param {htmlString|Text|Array|Element|NodeList|Kirin|function} content
+	 * 
+	 * @return {Kirin}
 	 */
 	const append = (content, ...args) => {
 		const type = typeof content;
@@ -137,6 +138,8 @@ const manipulation = (kirinArr, curStyleProp) => {
 	 * @appendTo
 	 * 
 	 * @param {Element|Kirin} target
+	 * 
+	 * @return {Kirin}
 	 */
 	const appendTo = (target) => {
 		for (let node of kirinArr) {
@@ -151,6 +154,8 @@ const manipulation = (kirinArr, curStyleProp) => {
 	 * @param {String} attributeName
 	 * 
 	 * @param {String} value
+	 * 
+	 * @return {String|Kirin}
 	 */
 	const attr = (attributeName, value = null) => {
 		if (value === null) {
@@ -172,6 +177,8 @@ const manipulation = (kirinArr, curStyleProp) => {
 	 * @DOM [.before()]
 	 * 
 	 * @param {htmlString|Text|Array|Element|NodeList|Kirin|function} content
+	 * 
+	 * @return {Kirin}
 	 */
 	const before = (content, ...args) => {
 		if (args.length) {
@@ -216,6 +223,8 @@ const manipulation = (kirinArr, curStyleProp) => {
 	 * 
 	 * @param {Boolean} withDataAndEvents
 	 * 깊은 복사를 할 것인지를 정할 수 있다.
+	 * 
+	 * @return {Kirin}
 	 */
 	const clone = (withDataAndEvents = true) => {
 		const nodeArr = [];
@@ -227,42 +236,163 @@ const manipulation = (kirinArr, curStyleProp) => {
 	};
 
 	/**
-	 * TODO:
-	 * @DOM [.()]
+	 * DONE:
+	 * @css
+	 * 
+	 * @DOM [.getComputedStyle()]
+	 * @DOM [.setAttribute()]
 	 * 
 	 * @param {String|Array} propertyName
 	 * 
 	 * @param {String|Number|Function(index, value)|Object} value
+	 * 
+	 * @return {String|Kirin}
 	 */
 	const css = (propertyName, value = null) => {
-		for (let node of kirinArr) {
-			console.log(node.style[propertyName]);
-		}
-
 		if (value === null) {
-			for (let nodeStyleProp of curStyleProp) {
-				return nodeStyleProp[propertyName];
+			const type = typeof propertyName;
+			if (type === 'string') {
+				return curStyleProps[0][propertyName];
+			} else if (Array.isArray(propertyName)) {
+				return propertyName.reduce((arr, v) => arr.concat(curStyleProps[0][v]), []);
+			} else if (type === 'object') {
+				const obj = propertyName;
+				for (let node of kirinArr) {
+					for (let key in obj) {
+						node.style[key] = obj[key];
+					}
+				}
 			}
 		} else {
 			const type = typeof value;
 			if (type === 'string' || type === 'number') {
+				for (let node of kirinArr) {
+					node.style[propertyName] = value;
+				}
 			} else if (type === 'function') {
-			} else if (type === 'object') {
+				const func = value;
+
+				let index = 0;
+				for (let node of kirinArr) {
+					const prop = window.getComputedStyle(node)[propertyName];
+					const { post } = getStylePreAndPostFix(prop);
+					node.style[propertyName] = parseFloat(func(index, prop)) + post;
+					index++;
+				}
 			}
+		}
+		return kirinArr;
+	};
+
+	/**
+	 * DONE:
+	 * @detach
+	 * 
+	 * @DOM [.parentNode]
+	 * @DOM [.removeChild()]
+	 * 
+	 * @param {Selector} selector
+	 * 
+	 * @return {Kirin}
+	 */
+	const detach = (selector) => {
+		for (let node of kirinArr) {
+			const parent = node.parentNode;
+			parent.removeChild(node);
+		}
+
+		return kirinArr;
+	};
+
+	/**
+	 * DONE:
+	 * @empty
+	 * 
+	 * @DOM [.removeChild()]
+	 * 
+	 * @param {}
+	 * 
+	 * @return {Kirin}
+	 */
+	const empty = () => {
+		for (let node of kirinArr) {
+			while (node.firstChild) {
+				node.removeChild(node.firstChild);
+			}
+		}
+		return kirinArr;
+	};
+
+	/**
+	 * DONE:
+	 * @hasClass
+	 * 
+	 * @DOM [.classList.contain()]
+	 * 
+	 * @param {String}
+	 * 
+	 * @return {Boolean}
+	 */
+	const hasClass = (className) => {
+		for (let node of kirinArr) {
+			return node.classList.contains(className);
 		}
 	};
 
 	/**
 	 * TODO:
-	 * @css
+	 * @height
+	 * 
+	 * @DOM [.()]
+	 * 
+	 * @param {String|Number|Function}
+	 * 
+	 * @return {Number|Kirin}
+	 */
+	const height = (value = null) => {
+		if (value === null) {
+			return curStyleProps[0]['height'];
+		} else {
+			const type = typeof value;
+			if (type === 'number') {
+				for (let node of kirinArr) {
+					node.style.height = parseFloat(value) + 'px';
+				}
+			} else if (type === 'string') {
+				for (let node of kirinArr) {
+					const { pre, post } = getStylePreAndPostFix(value);
+					if (!post) {
+						node.style.height = pre + 'px';
+					} else {
+						node.style.height = value;
+					}
+				}
+			} else if (type === 'function') {
+				const func = value;
+				let index = 0;
+				for (let node of kirinArr) {
+					const height = window.getComputedStyle(node)['height'];
+					node.style.height = parseFloat(func(index, height)) + 'px';
+					index++;
+				}
+			}
+		}
+		return kirinArr;
+	};
+
+	/**
+	 * TODO:
+	 * @a
 	 * 
 	 * @DOM [.()]
 	 * 
 	 * @param {|}
 	 * 
+	 * @return {|}
 	 */
-	const print = () => {
-		console.log(kirinArr);
+	const a = () => {
+		for (let node of kirinArr) {
+		}
 	};
 
 	return {
@@ -273,8 +403,11 @@ const manipulation = (kirinArr, curStyleProp) => {
 		attr,
 		before,
 		clone,
-		print,
-		css
+		css,
+		detach,
+		empty,
+		hasClass,
+		height
 	};
 };
 

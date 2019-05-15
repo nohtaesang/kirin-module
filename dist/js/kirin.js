@@ -10607,17 +10607,17 @@ __webpack_require__.r(__webpack_exports__);
 
 'use strict';
 
-var effects = function effects(kirinArr, curStyleProp) {
+var effects = function effects(kirinArr, curStyleProps) {
   var length = kirinArr.length;
   var animations = [];
   var initHeight = [];
   var initDisplay = [];
 
   for (var i = 0; i < length; i++) {
-    var _curStyleProp$i = curStyleProp[i],
-        height = _curStyleProp$i.height,
-        display = _curStyleProp$i.display;
-    animations.push(Object(_animations_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr[i], curStyleProp[i]));
+    var _curStyleProps$i = curStyleProps[i],
+        height = _curStyleProps$i.height,
+        display = _curStyleProps$i.display;
+    animations.push(Object(_animations_animation__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr[i], curStyleProps[i]));
     initHeight.push(height);
     initDisplay.push(display);
   }
@@ -10942,7 +10942,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 'use strict';
 
-var manipulation = function manipulation(kirinArr, curStyleProp) {
+var manipulation = function manipulation(kirinArr, curStyleProps) {
   /**
    * DONE:
    * @addClass
@@ -10952,6 +10952,8 @@ var manipulation = function manipulation(kirinArr, curStyleProp) {
    * @param {String|Array|function(Int index, String indexOfClassList)} className 
    * string, array는 class에 그대로 추가된다.
    * function은 현재 class의 이름을 공백을 간격으로 index, value 를 인자로 하여 함수를 실행한다.
+   * 
+   * @return {Kirin}
    */
   var addClass = function addClass(className) {
     var type = _typeof(className);
@@ -11040,6 +11042,8 @@ var manipulation = function manipulation(kirinArr, curStyleProp) {
    * Element는 바로 after 해준다.
    * NodeList와 Kirin은 둘 다 NodeList이다. 각 리스트의 인자는 element이므로, 분해하여 after 해준다.
    * function은 node의 index와 node의 textContext를 인자로 하여 함수를 실행한다.
+   * 
+   * @return {Kirin}
    */
 
 
@@ -11198,6 +11202,8 @@ var manipulation = function manipulation(kirinArr, curStyleProp) {
    * @DOM [append()]
    * 
    * @param {htmlString|Text|Array|Element|NodeList|Kirin|function} content
+   * 
+   * @return {Kirin}
    */
 
 
@@ -11354,6 +11360,8 @@ var manipulation = function manipulation(kirinArr, curStyleProp) {
    * @appendTo
    * 
    * @param {Element|Kirin} target
+   * 
+   * @return {Kirin}
    */
 
 
@@ -11391,6 +11399,8 @@ var manipulation = function manipulation(kirinArr, curStyleProp) {
    * @param {String} attributeName
    * 
    * @param {String} value
+   * 
+   * @return {String|Kirin}
    */
 
 
@@ -11457,6 +11467,8 @@ var manipulation = function manipulation(kirinArr, curStyleProp) {
    * @DOM [.before()]
    * 
    * @param {htmlString|Text|Array|Element|NodeList|Kirin|function} content
+   * 
+   * @return {Kirin}
    */
 
 
@@ -11616,6 +11628,8 @@ var manipulation = function manipulation(kirinArr, curStyleProp) {
    * 
    * @param {Boolean} withDataAndEvents
    * 깊은 복사를 할 것인지를 정할 수 있다.
+   * 
+   * @return {Kirin}
    */
 
 
@@ -11629,84 +11643,390 @@ var manipulation = function manipulation(kirinArr, curStyleProp) {
     return nodeArr;
   };
   /**
-   * TODO:
-   * @DOM [.()]
+   * DONE:
+   * @css
+   * 
+   * @DOM [.getComputedStyle()]
+   * @DOM [.setAttribute()]
    * 
    * @param {String|Array} propertyName
    * 
    * @param {String|Number|Function(index, value)|Object} value
+   * 
+   * @return {String|Kirin}
    */
 
 
   var css = function css(propertyName) {
     var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    var _iteratorNormalCompletion21 = true;
-    var _didIteratorError21 = false;
-    var _iteratorError21 = undefined;
-
-    try {
-      for (var _iterator21 = kirinArr[Symbol.iterator](), _step21; !(_iteratorNormalCompletion21 = (_step21 = _iterator21.next()).done); _iteratorNormalCompletion21 = true) {
-        var node = _step21.value;
-        console.log(node.style[propertyName]);
-      }
-    } catch (err) {
-      _didIteratorError21 = true;
-      _iteratorError21 = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion21 && _iterator21["return"] != null) {
-          _iterator21["return"]();
-        }
-      } finally {
-        if (_didIteratorError21) {
-          throw _iteratorError21;
-        }
-      }
-    }
 
     if (value === null) {
-      var _iteratorNormalCompletion22 = true;
-      var _didIteratorError22 = false;
-      var _iteratorError22 = undefined;
+      var type = _typeof(propertyName);
 
-      try {
-        for (var _iterator22 = curStyleProp[Symbol.iterator](), _step22; !(_iteratorNormalCompletion22 = (_step22 = _iterator22.next()).done); _iteratorNormalCompletion22 = true) {
-          var nodeStyleProp = _step22.value;
-          return nodeStyleProp[propertyName];
-        }
-      } catch (err) {
-        _didIteratorError22 = true;
-        _iteratorError22 = err;
-      } finally {
+      if (type === 'string') {
+        return curStyleProps[0][propertyName];
+      } else if (Array.isArray(propertyName)) {
+        return propertyName.reduce(function (arr, v) {
+          return arr.concat(curStyleProps[0][v]);
+        }, []);
+      } else if (type === 'object') {
+        var obj = propertyName;
+        var _iteratorNormalCompletion21 = true;
+        var _didIteratorError21 = false;
+        var _iteratorError21 = undefined;
+
         try {
-          if (!_iteratorNormalCompletion22 && _iterator22["return"] != null) {
-            _iterator22["return"]();
+          for (var _iterator21 = kirinArr[Symbol.iterator](), _step21; !(_iteratorNormalCompletion21 = (_step21 = _iterator21.next()).done); _iteratorNormalCompletion21 = true) {
+            var node = _step21.value;
+
+            for (var key in obj) {
+              node.style[key] = obj[key];
+            }
           }
+        } catch (err) {
+          _didIteratorError21 = true;
+          _iteratorError21 = err;
         } finally {
-          if (_didIteratorError22) {
-            throw _iteratorError22;
+          try {
+            if (!_iteratorNormalCompletion21 && _iterator21["return"] != null) {
+              _iterator21["return"]();
+            }
+          } finally {
+            if (_didIteratorError21) {
+              throw _iteratorError21;
+            }
           }
         }
       }
     } else {
-      var type = _typeof(value);
+      var _type = _typeof(value);
 
-      if (type === 'string' || type === 'number') {} else if (type === 'function') {} else if (type === 'object') {}
+      if (_type === 'string' || _type === 'number') {
+        var _iteratorNormalCompletion22 = true;
+        var _didIteratorError22 = false;
+        var _iteratorError22 = undefined;
+
+        try {
+          for (var _iterator22 = kirinArr[Symbol.iterator](), _step22; !(_iteratorNormalCompletion22 = (_step22 = _iterator22.next()).done); _iteratorNormalCompletion22 = true) {
+            var _node12 = _step22.value;
+            _node12.style[propertyName] = value;
+          }
+        } catch (err) {
+          _didIteratorError22 = true;
+          _iteratorError22 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion22 && _iterator22["return"] != null) {
+              _iterator22["return"]();
+            }
+          } finally {
+            if (_didIteratorError22) {
+              throw _iteratorError22;
+            }
+          }
+        }
+      } else if (_type === 'function') {
+        var func = value;
+        var index = 0;
+        var _iteratorNormalCompletion23 = true;
+        var _didIteratorError23 = false;
+        var _iteratorError23 = undefined;
+
+        try {
+          for (var _iterator23 = kirinArr[Symbol.iterator](), _step23; !(_iteratorNormalCompletion23 = (_step23 = _iterator23.next()).done); _iteratorNormalCompletion23 = true) {
+            var _node13 = _step23.value;
+            var prop = window.getComputedStyle(_node13)[propertyName];
+
+            var _getStylePreAndPostFi = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["getStylePreAndPostFix"])(prop),
+                post = _getStylePreAndPostFi.post;
+
+            _node13.style[propertyName] = parseFloat(func(index, prop)) + post;
+            index++;
+          }
+        } catch (err) {
+          _didIteratorError23 = true;
+          _iteratorError23 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion23 && _iterator23["return"] != null) {
+              _iterator23["return"]();
+            }
+          } finally {
+            if (_didIteratorError23) {
+              throw _iteratorError23;
+            }
+          }
+        }
+      }
+    }
+
+    return kirinArr;
+  };
+  /**
+   * DONE:
+   * @detach
+   * 
+   * @DOM [.parentNode]
+   * @DOM [.removeChild()]
+   * 
+   * @param {Selector} selector
+   * 
+   * @return {Kirin}
+   */
+
+
+  var detach = function detach(selector) {
+    var _iteratorNormalCompletion24 = true;
+    var _didIteratorError24 = false;
+    var _iteratorError24 = undefined;
+
+    try {
+      for (var _iterator24 = kirinArr[Symbol.iterator](), _step24; !(_iteratorNormalCompletion24 = (_step24 = _iterator24.next()).done); _iteratorNormalCompletion24 = true) {
+        var node = _step24.value;
+        var parent = node.parentNode;
+        parent.removeChild(node);
+      }
+    } catch (err) {
+      _didIteratorError24 = true;
+      _iteratorError24 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion24 && _iterator24["return"] != null) {
+          _iterator24["return"]();
+        }
+      } finally {
+        if (_didIteratorError24) {
+          throw _iteratorError24;
+        }
+      }
+    }
+
+    return kirinArr;
+  };
+  /**
+   * DONE:
+   * @empty
+   * 
+   * @DOM [.removeChild()]
+   * 
+   * @param {}
+   * 
+   * @return {Kirin}
+   */
+
+
+  var empty = function empty() {
+    var _iteratorNormalCompletion25 = true;
+    var _didIteratorError25 = false;
+    var _iteratorError25 = undefined;
+
+    try {
+      for (var _iterator25 = kirinArr[Symbol.iterator](), _step25; !(_iteratorNormalCompletion25 = (_step25 = _iterator25.next()).done); _iteratorNormalCompletion25 = true) {
+        var node = _step25.value;
+
+        while (node.firstChild) {
+          node.removeChild(node.firstChild);
+        }
+      }
+    } catch (err) {
+      _didIteratorError25 = true;
+      _iteratorError25 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion25 && _iterator25["return"] != null) {
+          _iterator25["return"]();
+        }
+      } finally {
+        if (_didIteratorError25) {
+          throw _iteratorError25;
+        }
+      }
+    }
+
+    return kirinArr;
+  };
+  /**
+   * DONE:
+   * @hasClass
+   * 
+   * @DOM [.classList.contain()]
+   * 
+   * @param {String}
+   * 
+   * @return {Boolean}
+   */
+
+
+  var hasClass = function hasClass(className) {
+    var _iteratorNormalCompletion26 = true;
+    var _didIteratorError26 = false;
+    var _iteratorError26 = undefined;
+
+    try {
+      for (var _iterator26 = kirinArr[Symbol.iterator](), _step26; !(_iteratorNormalCompletion26 = (_step26 = _iterator26.next()).done); _iteratorNormalCompletion26 = true) {
+        var node = _step26.value;
+        return node.classList.contains(className);
+      }
+    } catch (err) {
+      _didIteratorError26 = true;
+      _iteratorError26 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion26 && _iterator26["return"] != null) {
+          _iterator26["return"]();
+        }
+      } finally {
+        if (_didIteratorError26) {
+          throw _iteratorError26;
+        }
+      }
     }
   };
   /**
    * TODO:
-   * @css
+   * @height
+   * 
+   * @DOM [.()]
+   * 
+   * @param {String|Number|Function}
+   * 
+   * @return {Number|Kirin}
+   */
+
+
+  var height = function height() {
+    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+    if (value === null) {
+      return curStyleProps[0]['height'];
+    } else {
+      var type = _typeof(value);
+
+      if (type === 'number') {
+        var _iteratorNormalCompletion27 = true;
+        var _didIteratorError27 = false;
+        var _iteratorError27 = undefined;
+
+        try {
+          for (var _iterator27 = kirinArr[Symbol.iterator](), _step27; !(_iteratorNormalCompletion27 = (_step27 = _iterator27.next()).done); _iteratorNormalCompletion27 = true) {
+            var node = _step27.value;
+            node.style.height = parseFloat(value) + 'px';
+          }
+        } catch (err) {
+          _didIteratorError27 = true;
+          _iteratorError27 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion27 && _iterator27["return"] != null) {
+              _iterator27["return"]();
+            }
+          } finally {
+            if (_didIteratorError27) {
+              throw _iteratorError27;
+            }
+          }
+        }
+      } else if (type === 'string') {
+        var _iteratorNormalCompletion28 = true;
+        var _didIteratorError28 = false;
+        var _iteratorError28 = undefined;
+
+        try {
+          for (var _iterator28 = kirinArr[Symbol.iterator](), _step28; !(_iteratorNormalCompletion28 = (_step28 = _iterator28.next()).done); _iteratorNormalCompletion28 = true) {
+            var _node14 = _step28.value;
+
+            var _getStylePreAndPostFi2 = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_0__["getStylePreAndPostFix"])(value),
+                pre = _getStylePreAndPostFi2.pre,
+                post = _getStylePreAndPostFi2.post;
+
+            if (!post) {
+              _node14.style.height = pre + 'px';
+            } else {
+              _node14.style.height = value;
+            }
+          }
+        } catch (err) {
+          _didIteratorError28 = true;
+          _iteratorError28 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion28 && _iterator28["return"] != null) {
+              _iterator28["return"]();
+            }
+          } finally {
+            if (_didIteratorError28) {
+              throw _iteratorError28;
+            }
+          }
+        }
+      } else if (type === 'function') {
+        var func = value;
+        var index = 0;
+        var _iteratorNormalCompletion29 = true;
+        var _didIteratorError29 = false;
+        var _iteratorError29 = undefined;
+
+        try {
+          for (var _iterator29 = kirinArr[Symbol.iterator](), _step29; !(_iteratorNormalCompletion29 = (_step29 = _iterator29.next()).done); _iteratorNormalCompletion29 = true) {
+            var _node15 = _step29.value;
+            var _height = window.getComputedStyle(_node15)['height'];
+            _node15.style.height = parseFloat(func(index, _height)) + 'px';
+            index++;
+          }
+        } catch (err) {
+          _didIteratorError29 = true;
+          _iteratorError29 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion29 && _iterator29["return"] != null) {
+              _iterator29["return"]();
+            }
+          } finally {
+            if (_didIteratorError29) {
+              throw _iteratorError29;
+            }
+          }
+        }
+      }
+    }
+
+    return kirinArr;
+  };
+  /**
+   * TODO:
+   * @a
    * 
    * @DOM [.()]
    * 
    * @param {|}
    * 
+   * @return {|}
    */
 
 
-  var print = function print() {
-    console.log(kirinArr);
+  var a = function a() {
+    var _iteratorNormalCompletion30 = true;
+    var _didIteratorError30 = false;
+    var _iteratorError30 = undefined;
+
+    try {
+      for (var _iterator30 = kirinArr[Symbol.iterator](), _step30; !(_iteratorNormalCompletion30 = (_step30 = _iterator30.next()).done); _iteratorNormalCompletion30 = true) {
+        var node = _step30.value;
+      }
+    } catch (err) {
+      _didIteratorError30 = true;
+      _iteratorError30 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion30 && _iterator30["return"] != null) {
+          _iterator30["return"]();
+        }
+      } finally {
+        if (_didIteratorError30) {
+          throw _iteratorError30;
+        }
+      }
+    }
   };
 
   return {
@@ -11717,8 +12037,11 @@ var manipulation = function manipulation(kirinArr, curStyleProp) {
     attr: attr,
     before: before,
     clone: clone,
-    print: print,
-    css: css
+    css: css,
+    detach: detach,
+    empty: empty,
+    hasClass: hasClass,
+    height: height
   };
 };
 
@@ -11751,17 +12074,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var proto = function proto(kirinArr) {
-  var curStyleProp = [];
+  var curStyleProps = [];
   var length = kirinArr.length;
 
   for (var i = 0; i < length; i++) {
-    curStyleProp[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_4__["returnComputedStyle"])(kirinArr[i]);
+    curStyleProps[i] = Object(_utils_functions__WEBPACK_IMPORTED_MODULE_4__["returnComputedStyle"])(kirinArr[i]);
   }
 
   return _objectSpread({
     // 버전 및 같은 Kirin 객체임을 확인하기 위한 꼼수...?
     kirin: '1.0.0'
-  }, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(kirinArr, curStyleProp), Object(_manipulation__WEBPACK_IMPORTED_MODULE_2__["default"])(kirinArr, curStyleProp), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(kirinArr, curStyleProp));
+  }, Object(_events__WEBPACK_IMPORTED_MODULE_0__["default"])(kirinArr), Object(_effects__WEBPACK_IMPORTED_MODULE_1__["default"])(kirinArr, curStyleProps), Object(_manipulation__WEBPACK_IMPORTED_MODULE_2__["default"])(kirinArr, curStyleProps), Object(_traversing__WEBPACK_IMPORTED_MODULE_3__["default"])(kirinArr, curStyleProps));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (proto);
@@ -11813,7 +12136,7 @@ var Selector = function Selector(sel) {
 __webpack_require__.r(__webpack_exports__);
 
 
-var traversing = function traversing(kirinArr, curStyleProp) {
+var traversing = function traversing(kirinArr, curStyleProps) {
   return {};
 };
 

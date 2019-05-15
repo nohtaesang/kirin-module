@@ -19,6 +19,9 @@
 	border: solid 1px seagreen;
 	margin: 20px;
 }
+.title {
+	color: tomato;
+}
 
 .temp {
 	font-size: 20px;

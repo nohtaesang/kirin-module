@@ -6,8 +6,21 @@ const kp = Kirin.select('.p');
 const ktarget = Kirin.select('.target');
 const ktemp = Kirin.select('.temp');
 kbtn1.click(() => {
-	const result = ktarget.css('border-color');
-	console.log(result);
+	// ktarget.css('height', (i, v) => {
+	// 	console.log((i + 1) * 300);
+	// 	return (i + 1) * 300 + 'px';
+	// });
+	// const result = ktarget.height((i, v) => {
+	// 	return (i + 1) * 300;
+	// });
+	// ktarget.height('300%');
+	// console.log('TCL: result', result);
+
+	ktarget.height('500');
+});
+kbtn2.click(() => {
+	kp.appendTo(ktarget);
+	ktarget.height('inherit');
 });
 
 const dbtn1 = document.querySelectorAll('.btn1');
@@ -27,8 +40,9 @@ const jtarget = $('.target');
 const jtemp = $('.temp');
 
 jbtn1.click(() => {
-	const result = jp.css('border-color');
-	console.log('TCL: result', result);
-	const result2 = jp.attr('border-color');
-	console.log('TCL: result2', result2);
+	// jtarget.height('500');
+});
+
+jbtn2.click(() => {
+	// jtarget.height('inherit');
 });
