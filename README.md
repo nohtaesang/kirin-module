@@ -1,6 +1,6 @@
 # Kirin
 ## Kirin module?
-jQuery 를 분석하여 만든 유사 jQuery이다.
+javascript를 공부한것을 복습하기 위해 jQuery 를 분석하여 만든 유사 jQuery이다. prototype, closure, 위임등 학습한 것들을 활용했다. 
  
 ## How to use
 ```javascript
@@ -21,14 +21,15 @@ btn.click(()=>{
 })
 ```
 ## How to make
-1. 모듈 만들기
-1. selector 만들기
-1. event 구현
-1. animation 구현
+#### 1. 모듈 만들기
+#### 2. selector 만들기
+#### 3. event 구현
+#### 4. animation 구현
 
 ### 1. 모듈 만들기
 ```javascript
 // src/js/kirin.js
+
 import KirinSelector from './selector';
 let Kirin;
 
@@ -39,7 +40,9 @@ Kirin.select = KirinSelector; // 2. Kirin의 select 프로퍼티를 KirinSelecto
 
 ### 2. selector 만들기
 ```javascript
+
 // src/js/selector.js
+
 import { getKirinArrFromNodeList } from './utils/functions';
 ('use strict');
 
@@ -67,6 +70,7 @@ export default Selector;
 
 ```javascript
 // src/js/utils/function.js
+
 const getKirinArrFromNodeList = (nodeList) => {
 	let kirinArr = [];
 	let index = 0;
@@ -90,6 +94,7 @@ const setPrototypeOfKirin = (kirinArr) => {
 
 ```javascript
 // src/js/proto.js
+
 const proto = (kirinArr) => {
 	const curStyleProps = [];
 	const length = kirinArr.length;
@@ -117,6 +122,7 @@ KirinArr의 prototype은 KirinArrProto (event, effects... 등과 연결된) 이�
 ### 3. event 구현
 ```javascript
 // src/js/events.js
+
 ('use strict');
 
 const events = (kirinArr) => { // 1. 앞에서 전달받은 KirinArr 객체
@@ -136,7 +142,7 @@ export default events;
 
 ### 4. animation 구현
 ```javascript
-// src/js/effects
+// src/js/effects.js
 
 const effects = (kirinArr, curStyleProps) => { // 1. kirinArr 객체와 위에서 구해둔 computedStyle
 	const length = kirinArr.length; 
@@ -193,6 +199,8 @@ const effects = (kirinArr, curStyleProps) => { // 1. kirinArr 객체와 위에�
 
 
 ```javascript
+// src/js/animations/animation.js
+
 const Animation = (node, curStyleProp) => { // 1. node와 computedStyle
 	let queue = []; // 2. 애니메이션을 호출 순서로 실행시키기 위한 queue이다.
 	let isStop = false; 
